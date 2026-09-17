@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../../../../lib/supabase";
-import { boardForMode, effectiveGer, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";\nimport PlayerFace from "../../../../components/PlayerFace";
+import { boardForMode, effectiveGer, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";
+import PlayerFace from "../../../../components/PlayerFace";
 
 type Room = { id: string; code: string; mode: GameMode; status: string };
 type Member = { id: string; user_id: string; display_name: string; squad_finalized: boolean };
@@ -240,6 +241,7 @@ export default function SquadEditorPage() {
                   }}
                 >
                   <div style={{ fontSize: 10, fontWeight: 900, opacity: .8 }}>{slot.label}</div>
+                  {player && <div style={{ display: "flex", justifyContent: "center", margin: "3px 0" }}><PlayerFace name={player.name} imageUrl={player.image_url} size={38} /></div>}
                   <div style={{ fontSize: 11, fontWeight: 900, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{player?.name || "Vazio"}</div>
                   {player && (
                     <div className="red" style={{ fontSize: 13, fontWeight: 900 }}>
@@ -280,6 +282,7 @@ export default function SquadEditorPage() {
                   className="card"
                   style={{ textAlign: "left", cursor: me?.squad_finalized ? "default" : "pointer", border: selected ? "2px solid #e50914" : undefined }}
                 >
+                  <div style={{ marginBottom: 8 }}><PlayerFace name={player.name} imageUrl={player.image_url} size={50} /></div>
                   <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
                     <div>
                       <strong>{player.name}</strong>
