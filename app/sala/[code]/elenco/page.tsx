@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../../../../lib/supabase";
-import { boardForMode, effectiveGer, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";
+import { boardForMode, effectiveGer, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";\nimport PlayerFace from "../../../../components/PlayerFace";
 
 type Room = { id: string; code: string; mode: GameMode; status: string };
 type Member = { id: string; user_id: string; display_name: string; squad_finalized: boolean };
@@ -73,7 +73,7 @@ export default function SquadEditorPage() {
 
     const { data: playerData, error: playerError } = await supabase
       .from("fa_players")
-      .select("id,name,primary_position,overall,league")
+      .select("id,name,primary_position,overall,league,image_url")
       .in("id", ids);
     if (playerError) throw playerError;
     setPlayers((playerData || []) as Player[]);
