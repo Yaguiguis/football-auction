@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../../../../lib/supabase";
-import { boardForMode, effectiveGer, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";
+import { boardForMode, effectiveGer, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";\nimport PlayerFace from "../../../../components/PlayerFace";
 
 type Room = { id: string; code: string; mode: GameMode; status: string };
 type Member = {
@@ -71,7 +71,7 @@ export default function TeamsPage() {
 
     const { data: playerData, error: playerError } = await supabase
       .from("fa_players")
-      .select("id,name,primary_position,overall")
+      .select("id,name,primary_position,overall,image_url")
       .in("id", playerIds);
     if (playerError) throw playerError;
     setPlayers((playerData || []) as Player[]);
