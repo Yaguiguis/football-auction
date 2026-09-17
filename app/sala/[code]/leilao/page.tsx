@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "next/navigation";
-import { ensureAnonymousSession, getSupabase } from "@/lib/supabase";
+import { ensureAnonymousSession, getSupabase } from "../../../../lib/supabase";
 
 type Room = { id: string; code: string; host_user_id: string; budget: number };
 type Member = { id: string; user_id: string; display_name: string; balance: number; is_host: boolean };
