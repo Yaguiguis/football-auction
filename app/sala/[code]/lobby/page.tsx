@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { ensureAnonymousSession, getSupabase } from "@/lib/supabase";
+import { ensureAnonymousSession, getSupabase } from "../../../../lib/supabase";
 
 type Room = {
   id: string;
