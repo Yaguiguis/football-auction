@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../../../../lib/supabase";
+import { boardForMode, effectiveGer, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";
 
-type Room = { id: string; code: string; mode: "football" | "futsal"; status: string };
+type Room = { id: string; code: string; mode: GameMode; status: string };
 type Member = {
   id: string;
   display_name: string;
@@ -13,31 +14,7 @@ type Member = {
   squad_finalized: boolean;
 };
 type SquadRow = { member_id: string; player_id: string; slot_key: string };
-type Player = { id: string; name: string; primary_position: string; overall: number | null };
-
-type BoardSlot = { key: string; label: string; x: number; y: number };
-
-const footballBoard: BoardSlot[] = [
-  { key: "GOL", label: "GOL", x: 50, y: 91 },
-  { key: "LE", label: "LE", x: 14, y: 72 },
-  { key: "ZAG1", label: "ZAG E", x: 37, y: 76 },
-  { key: "ZAG2", label: "ZAG D", x: 63, y: 76 },
-  { key: "LD", label: "LD", x: 86, y: 72 },
-  { key: "VOL", label: "VOL", x: 50, y: 58 },
-  { key: "MC", label: "MC", x: 30, y: 44 },
-  { key: "MEI", label: "MEI", x: 70, y: 44 },
-  { key: "PE", label: "PE", x: 18, y: 22 },
-  { key: "ATA", label: "ATA", x: 50, y: 15 },
-  { key: "PD", label: "PD", x: 82, y: 22 },
-];
-
-const futsalBoard: BoardSlot[] = [
-  { key: "GOL", label: "GOL", x: 50, y: 88 },
-  { key: "LINHA1", label: "LINHA", x: 28, y: 60 },
-  { key: "LINHA2", label: "LINHA", x: 72, y: 60 },
-  { key: "LINHA3", label: "LINHA", x: 28, y: 30 },
-  { key: "LINHA4", label: "LINHA", x: 72, y: 30 },
-];
+type Player = RatedPlayer;
 
 export default function TeamsPage() {
   const params = useParams<{ code: string }>();
@@ -72,7 +49,7 @@ export default function TeamsPage() {
     setMembers(typedMembers);
 
     const memberIds = typedMembers.map((m) => m.id);
-    if (memberIds.length === 0) {
+    if (!memberIds.length) {
       setSquads([]);
       setPlayers([]);
       return;
@@ -87,7 +64,7 @@ export default function TeamsPage() {
     setSquads(typedSquads);
 
     const playerIds = Array.from(new Set(typedSquads.map((s) => s.player_id)));
-    if (playerIds.length === 0) {
+    if (!playerIds.length) {
       setPlayers([]);
       return;
     }
@@ -111,14 +88,14 @@ export default function TeamsPage() {
     const supabase = getSupabase();
     const channel = supabase
       .channel(`football-auction:teams:${room.id}`)
-      .on("postgres_changes", { event: "*", schema: "public", table: "fa_squad_players" }, () => load())
-      .on("postgres_changes", { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` }, () => load())
+      .on("postgres_changes", { event: "*", schema: "public", table: "fa_squad_players" }, () => void load())
+      .on("postgres_changes", { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` }, () => void load())
       .subscribe();
-    return () => { supabase.removeChannel(channel); };
+    return () => { void supabase.removeChannel(channel); };
   }, [room?.id, load]);
 
   const playerById = useMemo(() => new Map(players.map((p) => [p.id, p])), [players]);
-  const boardSlots = room?.mode === "futsal" ? futsalBoard : footballBoard;
+  const boardSlots = boardForMode(room?.mode || "football");
 
   if (loading) return <main className="container"><p>Montando as pranchetas...</p></main>;
 
@@ -137,12 +114,7 @@ export default function TeamsPage() {
       <div className="grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))" }}>
         {members.map((member) => {
           const memberSquad = squads.filter((s) => s.member_id === member.id);
-          const memberPlayers = memberSquad
-            .map((s) => playerById.get(s.player_id))
-            .filter((p): p is Player => !!p);
-          const ger = memberPlayers.length
-            ? Math.round(memberPlayers.reduce((sum, p) => sum + (p.overall ?? 70), 0) / memberPlayers.length)
-            : 0;
+          const ger = room ? squadGer(memberSquad, playerById, room.mode) : 0;
           const bySlot = new Map(memberSquad.map((s) => [s.slot_key, playerById.get(s.player_id)]));
 
           return (
@@ -152,9 +124,9 @@ export default function TeamsPage() {
                   <h2 style={{ margin: 0 }}>{member.is_host ? "👑 " : ""}{member.display_name}</h2>
                   <p className="muted" style={{ margin: "5px 0 0" }}>{member.squad_finalized ? "Time finalizado" : "Montando time"}</p>
                 </div>
-                <div style={{ textAlign: "center", minWidth: 74 }}>
+                <div style={{ textAlign: "center", minWidth: 82 }}>
                   <div className="red" style={{ fontSize: 34, fontWeight: 900, lineHeight: 1 }}>{ger}</div>
-                  <small className="muted">GER</small>
+                  <small className="muted">GER ESCALAÇÃO</small>
                 </div>
               </div>
 
@@ -171,18 +143,18 @@ export default function TeamsPage() {
               }}>
                 <div style={{ position: "absolute", left: 0, right: 0, top: "50%", borderTop: "1px solid rgba(255,255,255,.45)" }} />
                 <div style={{ position: "absolute", left: "35%", top: "43%", width: "30%", aspectRatio: "1", border: "1px solid rgba(255,255,255,.35)", borderRadius: "50%" }} />
-                <div style={{ position: "absolute", left: "23%", right: "23%", bottom: 0, height: "14%", border: "1px solid rgba(255,255,255,.4)", borderBottom: 0 }} />
-                <div style={{ position: "absolute", left: "23%", right: "23%", top: 0, height: "14%", border: "1px solid rgba(255,255,255,.4)", borderTop: 0 }} />
 
                 {boardSlots.map((slot) => {
                   const p = bySlot.get(slot.key);
+                  const effective = p && room ? effectiveGer(p, slot.key, room.mode) : 0;
+                  const penalty = p ? p.overall - effective : 0;
                   return (
                     <div key={slot.key} style={{
                       position: "absolute",
                       left: `${slot.x}%`,
                       top: `${slot.y}%`,
                       transform: "translate(-50%, -50%)",
-                      width: 88,
+                      width: room?.mode === "futsal" ? 112 : 92,
                       textAlign: "center",
                     }}>
                       <div style={{
@@ -194,7 +166,8 @@ export default function TeamsPage() {
                       }}>
                         <div style={{ color: p ? "#fff" : "#aaa", fontSize: 10, fontWeight: 900 }}>{slot.label}</div>
                         <div style={{ fontSize: 11, fontWeight: 800, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p?.name || "Vazio"}</div>
-                        {p?.overall && <div className="red" style={{ fontSize: 13, fontWeight: 900 }}>{p.overall}</div>}
+                        {p && <div className="red" style={{ fontSize: 13, fontWeight: 900 }}>{effective} GER{penalty > 0 ? ` (-${penalty})` : ""}</div>}
+                        {p && <div style={{ fontSize: 9, opacity: .7 }}>orig. {p.primary_position}</div>}
                       </div>
                     </div>
                   );
@@ -202,7 +175,7 @@ export default function TeamsPage() {
               </div>
 
               <div style={{ display: "flex", justifyContent: "space-between", gap: 12, marginTop: 14 }}>
-                <span className="muted">{memberPlayers.length}/{boardSlots.length} jogadores</span>
+                <span className="muted">{memberSquad.length}/{boardSlots.length} jogadores</span>
                 <strong>{member.balance} créditos restantes</strong>
               </div>
             </section>
