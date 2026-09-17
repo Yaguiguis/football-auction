@@ -43,10 +43,16 @@ type Auction = {
   status: "interest" | "bidding" | "sold" | "skipped";
   current_bid: number;
   current_bidder_member_id: string | null;
+  turn_member_id: string | null;
   winner_member_id: string | null;
   final_price: number | null;
-  ends_at: string | null;
   created_at: string;
+};
+
+type Interest = {
+  wants: boolean;
+  bidding_active: boolean;
+  turn_order: number | null;
 };
 
 const footballSlots = ["GOL", "LD", "ZAG1", "ZAG2", "LE", "VOL", "MC", "MEI", "PD", "PE", "ATA"];
@@ -86,14 +92,12 @@ export default function AuctionGame() {
   const [mySquad, setMySquad] = useState<SquadSlot[]>([]);
   const [auction, setAuction] = useState<Auction | null>(null);
   const [player, setPlayer] = useState<Player | null>(null);
+  const [myInterest, setMyInterest] = useState<Interest | null>(null);
   const [answered, setAnswered] = useState(false);
   const [bid, setBid] = useState(1);
   const [actionError, setActionError] = useState("");
   const [syncError, setSyncError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [now, setNow] = useState(Date.now());
-
-  const finalizing = useRef(false);
   const lastAuctionId = useRef<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -122,7 +126,6 @@ export default function AuctionGame() {
     setMembers(typedMembers);
     const myMember = typedMembers.find((m) => m.user_id === session.user.id) || null;
     setMe(myMember);
-
     if (!myMember) throw new Error("Sua sessão não está vinculada a esta sala. Entre novamente pelo código da sala.");
 
     const { data: squadData, error: squadError } = await supabase
@@ -134,7 +137,7 @@ export default function AuctionGame() {
 
     const { data: auctionData, error: auctionError } = await supabase
       .from("fa_auctions")
-      .select("id,room_id,player_id,status,current_bid,current_bidder_member_id,winner_member_id,final_price,ends_at,created_at")
+      .select("id,room_id,player_id,status,current_bid,current_bidder_member_id,turn_member_id,winner_member_id,final_price,created_at")
       .eq("room_id", typedRoom.id)
       .order("created_at", { ascending: false })
       .limit(1)
@@ -144,6 +147,7 @@ export default function AuctionGame() {
     if (!auctionData) {
       setAuction(null);
       setPlayer(null);
+      setMyInterest(null);
       setAnswered(false);
       lastAuctionId.current = null;
       setSyncError("");
@@ -151,12 +155,15 @@ export default function AuctionGame() {
     }
 
     const typedAuction = auctionData as Auction;
-    if (lastAuctionId.current !== typedAuction.id) {
+    const isNewAuction = lastAuctionId.current !== typedAuction.id;
+    if (isNewAuction) {
       setAnswered(false);
       lastAuctionId.current = typedAuction.id;
+      setBid(Math.max(1, typedAuction.current_bid + 1));
+    } else {
+      setBid((value) => Math.max(value, typedAuction.current_bid + 1));
     }
     setAuction(typedAuction);
-    setBid(Math.max(1, typedAuction.current_bid + 1));
 
     const { data: playerData, error: playerError } = await supabase
       .from("fa_players")
@@ -167,15 +174,19 @@ export default function AuctionGame() {
     if (!playerData) throw new Error("O jogador atual ainda não foi sincronizado. Tentando novamente...");
     setPlayer(playerData as Player);
 
-    if (typedAuction.status === "interest") {
+    if (typedAuction.status === "interest" || typedAuction.status === "bidding") {
       const { data: interest, error: interestError } = await supabase
         .from("fa_player_interest")
-        .select("wants")
+        .select("wants,bidding_active,turn_order")
         .eq("auction_id", typedAuction.id)
         .eq("member_id", myMember.id)
         .maybeSingle();
       if (interestError) throw interestError;
-      setAnswered(!!interest);
+      const typedInterest = (interest || null) as Interest | null;
+      setMyInterest(typedInterest);
+      if (typedAuction.status === "interest") setAnswered(!!typedInterest);
+    } else {
+      setMyInterest(null);
     }
 
     setSyncError("");
@@ -193,7 +204,7 @@ export default function AuctionGame() {
 
   useEffect(() => {
     void safeRefresh();
-    const retry = window.setInterval(() => void safeRefresh(), 5000);
+    const retry = window.setInterval(() => void safeRefresh(), 4000);
     return () => window.clearInterval(retry);
   }, [safeRefresh]);
 
@@ -213,32 +224,8 @@ export default function AuctionGame() {
       .on("postgres_changes", { event: "*", schema: "public", table: "fa_squad_players" }, () => void safeRefresh())
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "fa_rooms", filter: `id=eq.${room.id}` }, () => void safeRefresh())
       .subscribe();
-
     return () => { void supabase.removeChannel(channel); };
   }, [room?.id, safeRefresh]);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setNow(Date.now()), 250);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    if (!auction || auction.status !== "bidding" || !auction.ends_at) return;
-    if (new Date(auction.ends_at).getTime() > now || finalizing.current) return;
-
-    finalizing.current = true;
-    void (async () => {
-      try {
-        const { error } = await getSupabase().rpc("fa_finalize_auction", { p_auction_id: auction.id });
-        if (error) setActionError(error.message);
-      } catch (error) {
-        setActionError(errorMessage(error));
-      } finally {
-        finalizing.current = false;
-        await safeRefresh();
-      }
-    })();
-  }, [auction, now, safeRefresh]);
 
   const winnerName = useMemo(
     () => members.find((m) => m.id === auction?.winner_member_id)?.display_name || "",
@@ -248,15 +235,21 @@ export default function AuctionGame() {
     () => members.find((m) => m.id === auction?.current_bidder_member_id)?.display_name || "",
     [members, auction?.current_bidder_member_id],
   );
-  const secondsLeft = auction?.ends_at
-    ? Math.max(0, Math.ceil((new Date(auction.ends_at).getTime() - now) / 1000))
-    : 0;
+  const turnName = useMemo(
+    () => members.find((m) => m.id === auction?.turn_member_id)?.display_name || "",
+    [members, auction?.turn_member_id],
+  );
+
   const isHost = !!room && !!me && room.host_user_id === me.user_id;
+  const isMyTurn = !!auction && !!me && auction.turn_member_id === me.id;
+  const isHighestBidder = !!auction && !!me && auction.current_bidder_member_id === me.id;
+  const isActiveBidder = !!myInterest?.bidding_active;
   const requiredSlots = room?.mode === "futsal" ? futsalSlots : footballSlots;
   const filledSlots = new Set(mySquad.map((s) => s.slot_key));
   const squadComplete = requiredSlots.every((slot) => filledSlots.has(slot));
   const currentPositionFull = !!player && !!room
     && possibleSlots(player.primary_position, room.mode).every((slot) => filledSlots.has(slot));
+  const minimumBid = (auction?.current_bid || 0) + 1;
 
   async function chooseInterest(wants: boolean) {
     if (!auction) return;
@@ -271,11 +264,22 @@ export default function AuctionGame() {
   }
 
   async function placeBid() {
-    if (!auction) return;
+    if (!auction || !isMyTurn) return;
     setActionError("");
+    const amount = Math.max(minimumBid, bid);
     const { error } = await getSupabase().rpc("fa_place_bid", {
       p_auction_id: auction.id,
-      p_amount: bid,
+      p_amount: amount,
+    });
+    if (error) return setActionError(error.message);
+    await safeRefresh();
+  }
+
+  async function withdrawBid() {
+    if (!auction || !isMyTurn) return;
+    setActionError("");
+    const { error } = await getSupabase().rpc("fa_withdraw_bid", {
+      p_auction_id: auction.id,
     });
     if (error) return setActionError(error.message);
     await safeRefresh();
@@ -337,12 +341,12 @@ export default function AuctionGame() {
       {actionError && <div className="card" style={{ marginBottom: 16 }}><p className="red">{actionError}</p></div>}
 
       {!auction || !player ? (
-        <section className="card" style={{ maxWidth: 560, margin: "0 auto", textAlign: "center" }}>
+        <section className="card" style={{ maxWidth: 620, margin: "0 auto", textAlign: "center" }}>
           <h2>Aguardando jogador</h2>
           <p className="muted">O administrador precisa iniciar o próximo leilão.</p>
         </section>
       ) : (
-        <section className="card" style={{ maxWidth: 620, margin: "0 auto", textAlign: "center" }}>
+        <section className="card" style={{ maxWidth: 660, margin: "0 auto", textAlign: "center" }}>
           <div className="red" style={{ fontSize: 18, fontWeight: 900, letterSpacing: 2 }}>GER</div>
           <div className="red" style={{ fontSize: 58, fontWeight: 900, lineHeight: 1 }}>{player.overall}</div>
           <h1 style={{ fontSize: 42, margin: "12px 0 8px" }}>{player.name}</h1>
@@ -353,11 +357,11 @@ export default function AuctionGame() {
 
           {auction.status === "interest" && (
             <div style={{ marginTop: 26 }}>
-              <h2>Você quer esse jogador?</h2>
+              <h2>Você quer disputar este jogador?</h2>
               {me?.squad_finalized ? (
                 <p className="muted">Seu time já está finalizado.</p>
               ) : currentPositionFull ? (
-                <p className="muted">Você já preencheu essa posição. Você passou automaticamente.</p>
+                <p className="muted">Você já preencheu essa posição. PASSAR automático.</p>
               ) : answered ? (
                 <p className="muted">Resposta enviada. Aguardando os outros jogadores...</p>
               ) : (
@@ -370,21 +374,44 @@ export default function AuctionGame() {
           )}
 
           {auction.status === "bidding" && (
-            <div style={{ marginTop: 26 }}>
-              <div className="red" style={{ fontSize: 38, fontWeight: 900 }}>{secondsLeft}s</div>
-              <p>Lance atual: <strong>{auction.current_bid}</strong>{bidderName ? ` — ${bidderName}` : ""}</p>
-              <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
-                <button className="btn btn-secondary" onClick={() => setBid((v) => Math.max(auction.current_bid + 1, v - 1))}>−</button>
-                <span className="badge">Seu lance: {bid}</span>
-                <button className="btn btn-secondary" onClick={() => setBid((v) => Math.min(me?.balance ?? v, v + 1))}>+</button>
-                <button
-                  className="btn btn-primary"
-                  onClick={placeBid}
-                  disabled={!me || me.squad_finalized || currentPositionFull || bid > me.balance || secondsLeft <= 0}
-                >
-                  DAR LANCE
-                </button>
+            <div style={{ marginTop: 28 }}>
+              <div className="card" style={{ background: "var(--surface-2)", marginBottom: 16 }}>
+                {auction.current_bidder_member_id ? (
+                  <p style={{ margin: 0, fontSize: 18 }}>
+                    Maior lance: <strong className="red">{auction.current_bid} créditos</strong> — {bidderName}
+                  </p>
+                ) : (
+                  <p style={{ margin: 0, fontSize: 18 }}>Ainda não houve lance.</p>
+                )}
               </div>
+
+              {!isActiveBidder ? (
+                <p className="muted">Você desistiu deste leilão. Aguardando os demais jogadores.</p>
+              ) : isHighestBidder ? (
+                <div>
+                  <h2 className="red">VOCÊ ESTÁ NA FRENTE</h2>
+                  <p className="muted">Seu lance é o maior. Agora os outros participantes decidem se aumentam ou desistem.</p>
+                </div>
+              ) : isMyTurn ? (
+                <div>
+                  <h2 className="red" style={{ fontSize: 30 }}>SUA VEZ</h2>
+                  <p className="muted">Aumente o maior lance ou desista deste jogador.</p>
+                  <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", alignItems: "center" }}>
+                    <button className="btn btn-secondary" onClick={() => setBid((value) => Math.max(minimumBid, value - 1))}>−</button>
+                    <span className="badge" style={{ minWidth: 132 }}>Seu lance: {Math.max(minimumBid, bid)}</span>
+                    <button className="btn btn-secondary" onClick={() => setBid((value) => Math.min(me?.balance ?? value, Math.max(minimumBid, value + 1)))}>+</button>
+                    <button className="btn btn-primary" onClick={placeBid} disabled={!me || Math.max(minimumBid, bid) > me.balance}>
+                      AUMENTAR LANCE
+                    </button>
+                    <button className="btn btn-secondary" onClick={withdrawBid}>DESISTIR</button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <h2>Vez de {turnName || "outro jogador"}</h2>
+                  <p className="muted">Aguarde. Assim que ele der um lance ou desistir, a vez passa automaticamente.</p>
+                </div>
+              )}
             </div>
           )}
 
@@ -392,7 +419,7 @@ export default function AuctionGame() {
             <div style={{ marginTop: 28 }}>
               <div style={{ fontSize: 64 }}>🔨</div>
               <h2 className="red">LEILOADO PARA {winnerName.toUpperCase()}</h2>
-              <p>{auction.final_price === 0 ? "Pegou de graça — foi o único que quis." : `${auction.final_price} créditos`}</p>
+              <p>{auction.final_price === 0 ? "Levou de graça." : `${auction.final_price} créditos`}</p>
               {isHost && <button className="btn btn-primary" onClick={nextPlayer}>Próximo jogador</button>}
               {!isHost && <p className="muted">Aguardando o administrador chamar o próximo jogador.</p>}
             </div>
@@ -400,7 +427,7 @@ export default function AuctionGame() {
 
           {auction.status === "skipped" && (
             <div style={{ marginTop: 28 }}>
-              <h2>Ninguém quis esse jogador</h2>
+              <h2>Ninguém ficou com este jogador</h2>
               <p className="muted">Jogador pulado.</p>
               {isHost && <button className="btn btn-primary" onClick={nextPlayer}>Próximo jogador</button>}
               {!isHost && <p className="muted">Aguardando o administrador.</p>}
