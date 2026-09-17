@@ -22,26 +22,17 @@ type Member = {
   is_host: boolean;
 };
 
-type RoomPlayer = {
-  id: string;
-  name: string;
-  primary_position: string;
-  overall: number | null;
-};
-
 export default function Lobby() {
   const params = useParams<{ code: string }>();
   const router = useRouter();
   const code = String(params.code).toUpperCase();
   const [room, setRoom] = useState<Room | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
-  const [players, setPlayers] = useState<RoomPlayer[]>([]);
   const [userId, setUserId] = useState("");
-  const [playerName, setPlayerName] = useState("");
-  const [position, setPosition] = useState("ATA");
-  const [overall, setOverall] = useState("");
+  const [catalogCount, setCatalogCount] = useState(0);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [starting, setStarting] = useState(false);
 
   const refresh = useCallback(async () => {
     const supabase = getSupabase();
@@ -58,15 +49,23 @@ export default function Lobby() {
     const typedRoom = roomData as Room;
     setRoom(typedRoom);
 
-    const [{ data: memberData, error: memberError }, { data: playerData, error: playerError }] = await Promise.all([
-      supabase.from("fa_room_members").select("id,user_id,display_name,balance,is_host").eq("room_id", typedRoom.id).order("joined_at"),
-      supabase.from("fa_players").select("id,name,primary_position,overall").eq("room_id", typedRoom.id).order("created_at"),
+    const [membersResult, catalogResult] = await Promise.all([
+      supabase
+        .from("fa_room_members")
+        .select("id,user_id,display_name,balance,is_host")
+        .eq("room_id", typedRoom.id)
+        .order("joined_at"),
+      supabase
+        .from("fa_catalog_players")
+        .select("id", { count: "exact", head: true })
+        .eq("enabled", true),
     ]);
 
-    if (memberError) throw memberError;
-    if (playerError) throw playerError;
-    setMembers((memberData || []) as Member[]);
-    setPlayers((playerData || []) as RoomPlayer[]);
+    if (membersResult.error) throw membersResult.error;
+    if (catalogResult.error) throw catalogResult.error;
+
+    setMembers((membersResult.data || []) as Member[]);
+    setCatalogCount(catalogResult.count || 0);
   }, [code]);
 
   useEffect(() => {
@@ -83,7 +82,6 @@ export default function Lobby() {
     const channel = supabase
       .channel(`football-auction:lobby:${room.id}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` }, () => refresh())
-      .on("postgres_changes", { event: "*", schema: "public", table: "fa_players", filter: `room_id=eq.${room.id}` }, () => refresh())
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "fa_rooms", filter: `id=eq.${room.id}` }, () => refresh())
       .subscribe();
 
@@ -98,38 +96,18 @@ export default function Lobby() {
 
   const isHost = !!room && room.host_user_id === userId;
 
-  async function addPlayer() {
-    if (!room || !playerName.trim()) return;
-    setError("");
-    const supabase = getSupabase();
-    const parsedOverall = overall.trim() ? Number(overall) : null;
-    const { error: rpcError } = await supabase.rpc("fa_add_room_player", {
-      p_room_id: room.id,
-      p_name: playerName.trim(),
-      p_position: position,
-      p_overall: parsedOverall,
-    });
-    if (rpcError) return setError(rpcError.message);
-    setPlayerName("");
-    setOverall("");
-    await refresh();
-  }
-
-  async function removePlayer(playerId: string) {
-    if (!room) return;
-    const supabase = getSupabase();
-    const { error: rpcError } = await supabase.rpc("fa_remove_room_player", { p_room_id: room.id, p_player_id: playerId });
-    if (rpcError) return setError(rpcError.message);
-    await refresh();
-  }
-
   async function startAuction() {
-    if (!room) return;
+    if (!room || starting) return;
     setError("");
-    const supabase = getSupabase();
-    const { error: rpcError } = await supabase.rpc("fa_start_next_auction", { p_room_id: room.id });
-    if (rpcError) return setError(rpcError.message);
-    router.push(`/sala/${room.code}/leilao`);
+    setStarting(true);
+    try {
+      const { error: rpcError } = await getSupabase().rpc("fa_start_next_auction", { p_room_id: room.id });
+      if (rpcError) throw rpcError;
+      router.push(`/sala/${room.code}/leilao`);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Não foi possível iniciar o leilão.");
+      setStarting(false);
+    }
   }
 
   if (loading) return <main className="container"><p>Carregando sala...</p></main>;
@@ -168,41 +146,38 @@ export default function Lobby() {
       <section className="card" style={{ marginTop: 16 }}>
         <div className="topbar">
           <div>
-            <h2 style={{ marginBottom: 4 }}>Jogadores do leilão</h2>
-            <p className="muted" style={{ margin: 0 }}>{isHost ? "Somente você, como administrador, pode editar esta lista." : "O administrador está montando a lista."}</p>
+            <h2 style={{ marginBottom: 4 }}>Catálogo automático</h2>
+            <p className="muted" style={{ margin: 0 }}>
+              O jogo sorteia os jogadores automaticamente e não repete um nome na mesma sala.
+            </p>
           </div>
-          <span className="badge">{players.length} cadastrados</span>
+          <span className="badge">{catalogCount} jogadores</span>
         </div>
 
-        {isHost && room?.status === "lobby" && (
-          <div className="grid" style={{ gridTemplateColumns: "2fr 1fr 1fr auto", alignItems: "end", marginBottom: 18 }}>
-            <label>Nome<input className="input" value={playerName} onChange={(e) => setPlayerName(e.target.value)} placeholder="Ex.: Vinícius Jr." maxLength={60} /></label>
-            <label>Posição<select className="input" value={position} onChange={(e) => setPosition(e.target.value)}>{["GOL","ZAG","LE","LD","VOL","MC","MEI","PE","PD","ATA"].map((p) => <option key={p}>{p}</option>)}</select></label>
-            <label>Overall<input className="input" type="number" min="1" max="99" value={overall} onChange={(e) => setOverall(e.target.value)} placeholder="Opcional" /></label>
-            <button className="btn btn-primary" onClick={addPlayer}>Adicionar</button>
+        <div className="grid grid-2">
+          <div className="card">
+            <strong>5 grandes ligas</strong>
+            <p className="muted">Premier League • La Liga • Serie A • Bundesliga • Ligue 1</p>
           </div>
-        )}
-
-        <div className="grid">
-          {players.length === 0 && <p className="muted">Nenhum jogador cadastrado ainda.</p>}
-          {players.map((player) => (
-            <div key={player.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, borderBottom: "1px solid var(--border)", paddingBottom: 10 }}>
-              <div>
-                <strong>{player.name}</strong>
-                <div className="muted">{player.primary_position}{player.overall ? ` • OVR ${player.overall}` : ""}</div>
-              </div>
-              {isHost && room?.status === "lobby" && <button className="btn btn-secondary" onClick={() => removePlayer(player.id)}>Remover</button>}
-            </div>
-          ))}
+          <div className="card">
+            <strong>Lendas</strong>
+            <p className="muted">Europa • América do Sul • América do Norte</p>
+          </div>
         </div>
       </section>
 
-      {isHost && (
-        <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={startAuction} disabled={members.length < 2 || players.length === 0}>
-          Iniciar leilão
+      {isHost ? (
+        <button
+          className="btn btn-primary"
+          style={{ marginTop: 16 }}
+          onClick={startAuction}
+          disabled={members.length < 2 || catalogCount === 0 || starting}
+        >
+          {starting ? "Iniciando..." : members.length < 2 ? "Aguardando mais 1 jogador" : "Iniciar leilão"}
         </button>
+      ) : (
+        <p className="muted" style={{ marginTop: 16 }}>Aguardando o administrador iniciar o leilão.</p>
       )}
-      {!isHost && <p className="muted" style={{ marginTop: 16 }}>Aguardando o administrador iniciar o leilão.</p>}
     </main>
   );
 }
