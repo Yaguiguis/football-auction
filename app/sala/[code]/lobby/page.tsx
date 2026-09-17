@@ -71,7 +71,9 @@ export default function Lobby() {
 
   useEffect(() => {
     let mounted = true;
-    refresh().catch((e) => mounted && setError(e instanceof Error ? e.message : "Erro ao carregar a sala.")).finally(() => mounted && setLoading(false));
+    refresh()
+      .catch((e) => mounted && setError(e instanceof Error ? e.message : "Erro ao carregar a sala."))
+      .finally(() => mounted && setLoading(false));
     return () => { mounted = false; };
   }, [refresh]);
 
@@ -82,10 +84,17 @@ export default function Lobby() {
       .channel(`football-auction:lobby:${room.id}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` }, () => refresh())
       .on("postgres_changes", { event: "*", schema: "public", table: "fa_players", filter: `room_id=eq.${room.id}` }, () => refresh())
+      .on("postgres_changes", { event: "UPDATE", schema: "public", table: "fa_rooms", filter: `id=eq.${room.id}` }, () => refresh())
       .subscribe();
 
     return () => { supabase.removeChannel(channel); };
   }, [room?.id, refresh]);
+
+  useEffect(() => {
+    if (room?.status === "auction") {
+      router.replace(`/sala/${room.code}/leilao`);
+    }
+  }, [room?.status, room?.code, router]);
 
   const isHost = !!room && room.host_user_id === userId;
 
