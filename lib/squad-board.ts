@@ -12,6 +12,7 @@ export type RatedPlayer = {
   name: string;
   primary_position: string;
   overall: number;
+  image_url?: string | null;
 };
 
 export const footballBoard: BoardSlot[] = [
