@@ -126,13 +126,23 @@ export default function AuctionPage() {
   useEffect(() => {
     if (!auction || auction.status !== "bidding" || !auction.ends_at) return;
     if (new Date(auction.ends_at).getTime() > now || finalizing.current) return;
+
     finalizing.current = true;
-    getSupabase().rpc("fa_finalize_auction", { p_auction_id: auction.id })
-      .then(({ error: rpcError }) => { if (rpcError) setError(rpcError.message); })
-      .finally(() => {
+    void (async () => {
+      try {
+        const { error: rpcError } = await getSupabase().rpc("fa_finalize_auction", { p_auction_id: auction.id });
+        if (rpcError) setError(rpcError.message);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Erro ao finalizar o leilão.");
+      } finally {
         finalizing.current = false;
-        refresh().catch(() => undefined);
-      });
+        try {
+          await refresh();
+        } catch {
+          // O próximo evento do Realtime também atualizará a tela.
+        }
+      }
+    })();
   }, [auction, now, refresh]);
 
   const winnerName = useMemo(() => members.find((m) => m.id === auction?.winner_member_id)?.display_name || "", [members, auction?.winner_member_id]);
