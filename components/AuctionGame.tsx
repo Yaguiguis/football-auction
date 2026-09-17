@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../lib/supabase";
-import { positionGroup } from "../lib/squad-board";\nimport PlayerFace from "./PlayerFace";
+import { positionGroup } from "../lib/squad-board";
+import PlayerFace from "./PlayerFace";
 
 type Room = {
   id: string;
@@ -29,6 +30,7 @@ type Player = {
   primary_position: string;
   overall: number;
   league: string | null;
+  image_url: string | null;
 };
 
 type SquadSlot = {
@@ -377,6 +379,9 @@ export default function AuctionGame() {
         <section className="card" style={{ maxWidth: 660, margin: "0 auto", textAlign: "center" }}>
           <div className="red" style={{ fontSize: 18, fontWeight: 900, letterSpacing: 2 }}>GER</div>
           <div className="red" style={{ fontSize: 58, fontWeight: 900, lineHeight: 1 }}>{player.overall}</div>
+          <div style={{ display: "flex", justifyContent: "center", margin: "14px 0 4px" }}>
+            <PlayerFace name={player.name} imageUrl={player.image_url} size={124} />
+          </div>
           <h1 style={{ fontSize: 42, margin: "12px 0 8px" }}>{player.name}</h1>
           <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
             <span className="badge"><strong>Posição:</strong> {player.primary_position}</span>
