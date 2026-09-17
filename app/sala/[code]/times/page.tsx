@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../../../../lib/supabase";
-import { boardForMode, effectiveGer, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";\nimport PlayerFace from "../../../../components/PlayerFace";
+import { boardForMode, effectiveGer, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";
+import PlayerFace from "../../../../components/PlayerFace";
 
 type Room = { id: string; code: string; mode: GameMode; status: string };
 type Member = {
@@ -165,6 +166,7 @@ export default function TeamsPage() {
                         boxShadow: p ? "0 6px 18px rgba(0,0,0,.35)" : "none",
                       }}>
                         <div style={{ color: p ? "#fff" : "#aaa", fontSize: 10, fontWeight: 900 }}>{slot.label}</div>
+                        {p && <div style={{ display: "flex", justifyContent: "center", margin: "3px 0" }}><PlayerFace name={p.name} imageUrl={p.image_url} size={34} /></div>}
                         <div style={{ fontSize: 11, fontWeight: 800, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p?.name || "Vazio"}</div>
                         {p && <div className="red" style={{ fontSize: 13, fontWeight: 900 }}>{effective} GER{penalty > 0 ? ` (-${penalty})` : ""}</div>}
                         {p && <div style={{ fontSize: 9, opacity: .7 }}>orig. {p.primary_position}</div>}
