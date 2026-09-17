@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ensureAnonymousSession, getSupabase } from "@/lib/supabase";
+import { ensureAnonymousSession, getSupabase } from "../../lib/supabase";
 
 export default function CreateRoom() {
   const router = useRouter();
