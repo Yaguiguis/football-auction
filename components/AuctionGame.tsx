@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../lib/supabase";
-import { positionGroup } from "../lib/squad-board";
+import { positionGroup } from "../lib/squad-board";\nimport PlayerFace from "./PlayerFace";
 
 type Room = {
   id: string;
@@ -176,7 +176,7 @@ export default function AuctionGame() {
 
     const { data: playerData, error: playerError } = await supabase
       .from("fa_players")
-      .select("id,name,primary_position,overall,league")
+      .select("id,name,primary_position,overall,league,image_url")
       .eq("id", typedAuction.player_id)
       .maybeSingle();
     if (playerError) throw playerError;
