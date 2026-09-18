@@ -119,7 +119,7 @@ export default function Lobby() {
           <p className="muted" style={{ margin: 0 }}>CÓDIGO DA SALA</p>
           <h1 style={{ margin: 0 }}>{code}</h1>
         </div>
-        <span className="badge">{members.length}/5 pessoas</span>
+        <span className="badge">{members.length} pessoas</span>
       </div>
 
       {error && <div className="card" style={{ marginBottom: 16 }}><p className="red">{error}</p></div>}
@@ -132,7 +132,7 @@ export default function Lobby() {
               {member.is_host ? "👑" : "●"} {member.display_name} <span className="muted">— {member.balance} créditos</span>
             </p>
           ))}
-          <p className="muted">Compartilhe o código <strong>{code}</strong> com até 4 amigos.</p>
+          <p className="muted">Compartilhe o código <strong>{code}</strong> com quem vai participar.</p>
         </section>
 
         <section className="card">
