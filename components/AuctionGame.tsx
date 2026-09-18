@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../lib/supabase";
 import { positionGroup } from "../lib/squad-board";
 import PlayerFace from "./PlayerFace";
+import GavelWinAnimation from "./GavelWinAnimation";
 
 type Room = {
   id: string;
@@ -450,7 +451,7 @@ export default function AuctionGame() {
 
           {auction.status === "sold" && (
             <div style={{ marginTop: 28 }}>
-              <div style={{ fontSize: 64 }}>🔨</div>
+              <GavelWinAnimation auctionId={auction.id} />
               <h2 className="red">LEILOADO PARA {winnerName.toUpperCase()}</h2>
               <p>{auction.final_price === 0 ? "Levou de graça." : `${auction.final_price} créditos`}</p>
               {isHost && <button className="btn btn-primary" onClick={nextPlayer}>Próximo jogador</button>}
