@@ -36,7 +36,7 @@ export default function JoinRoom() {
       <div className="card grid" style={{ maxWidth: 620 }}>
         <input className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Seu nome" maxLength={24} />
         <input className="input" value={room} onChange={(e) => setRoom(e.target.value.toUpperCase())} placeholder="Código da sala" maxLength={6} />
-        <p className="muted">A sala aceita no máximo 5 pessoas.</p>
+        <p className="muted">Entre com o código da sala. Não há limite fixo de participantes.</p>
         {error && <p className="red">{error}</p>}
         <button className="btn btn-primary" onClick={joinRoom} disabled={loading || room.trim().length !== 6}>
           {loading ? "Entrando..." : "Entrar"}
