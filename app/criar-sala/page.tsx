@@ -22,7 +22,7 @@ export default function CreateRoom() {
         p_display_name: name.trim() || "Administrador",
         p_mode: mode,
         p_budget: Number(budget),
-        p_max_players: 5,
+        p_max_players: 2147483647,
       });
       if (rpcError) throw rpcError;
 
@@ -40,7 +40,7 @@ export default function CreateRoom() {
     <main className="container">
       <div className="topbar">
         <h1>Criar sala</h1>
-        <span className="badge">até 5 pessoas</span>
+        <span className="badge">sem limite de pessoas</span>
       </div>
       <div className="card grid" style={{ maxWidth: 620 }}>
         <label>
@@ -62,7 +62,7 @@ export default function CreateRoom() {
             ))}
           </select>
         </label>
-        <p className="muted">A sala terá 1 administrador + até 4 amigos.</p>
+        <p className="muted">A sala não tem limite fixo de participantes.</p>
         {error && <p className="red">{error}</p>}
         <button className="btn btn-primary" onClick={createRoom} disabled={loading}>
           {loading ? "Criando..." : "Criar sala"}
