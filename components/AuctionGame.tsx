@@ -33,6 +33,7 @@ type Player = {
   club: string | null;
   league: string | null;
   image_url: string | null;
+  player_type: "ACTIVE" | "ICON";
 };
 
 type SquadSlot = {
@@ -180,7 +181,7 @@ export default function AuctionGame() {
 
     const { data: playerData, error: playerError } = await supabase
       .from("fa_players")
-      .select("id,name,club,primary_position,overall,league,image_url")
+      .select("id,name,club,primary_position,overall,league,image_url,player_type")
       .eq("id", typedAuction.player_id)
       .maybeSingle();
     if (playerError) throw playerError;
@@ -381,6 +382,11 @@ export default function AuctionGame() {
         <section className="card" style={{ maxWidth: 660, margin: "0 auto", textAlign: "center" }}>
           <div className="red" style={{ fontSize: 18, fontWeight: 900, letterSpacing: 2 }}>GER</div>
           <div className="red" style={{ fontSize: 58, fontWeight: 900, lineHeight: 1 }}>{player.overall}</div>
+          {player.player_type === "ICON" && (
+            <div style={{ marginTop: 8 }}>
+              <span className="badge" style={{ fontWeight: 900, letterSpacing: 2 }}>ICON</span>
+            </div>
+          )}
           <div style={{ display: "flex", justifyContent: "center", margin: "14px 0 4px" }}>
             <PlayerFace name={player.name} imageUrl={player.image_url} size={124} />
           </div>
