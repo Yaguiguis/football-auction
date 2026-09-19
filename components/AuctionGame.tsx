@@ -30,6 +30,7 @@ type Player = {
   name: string;
   primary_position: string;
   overall: number;
+  club: string | null;
   league: string | null;
   image_url: string | null;
 };
@@ -179,7 +180,7 @@ export default function AuctionGame() {
 
     const { data: playerData, error: playerError } = await supabase
       .from("fa_players")
-      .select("id,name,primary_position,overall,league,image_url")
+      .select("id,name,club,primary_position,overall,league,image_url")
       .eq("id", typedAuction.player_id)
       .maybeSingle();
     if (playerError) throw playerError;
@@ -384,7 +385,11 @@ export default function AuctionGame() {
             <PlayerFace name={player.name} imageUrl={player.image_url} size={124} />
           </div>
           <h1 style={{ fontSize: 42, margin: "12px 0 8px" }}>{player.name}</h1>
+          <p style={{ margin: "0 0 12px", fontWeight: 900 }}>
+            {player.name} — {player.club || (player.league === "LEGENDS" ? "Lendas" : "Clube em revisão")} — {player.primary_position} — GER {player.overall}
+          </p>
           <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
+            <span className="badge"><strong>Clube:</strong> {player.club || "Em revisão"}</span>
             <span className="badge"><strong>Posição:</strong> {player.primary_position}</span>
             <span className="badge"><strong>Liga:</strong> {player.league === "LEGENDS" ? "Lendas" : (player.league || "—")}</span>
           </div>

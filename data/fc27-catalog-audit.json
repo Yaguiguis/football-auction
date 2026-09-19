@@ -1,0 +1,2304 @@
+{
+  "source": {
+    "title": "EA SPORTS FC 27 Player Ratings",
+    "url": "https://www.ea.com/games/ea-sports-fc/ratings",
+    "extracted_at": "2026-09-19",
+    "scope": "Official EA top 100 from page __NEXT_DATA__; remaining catalog entries marked for review unless directly matched."
+  },
+  "confirmed_updates": [
+    {
+      "name": "Kylian Mbappé",
+      "club": "Real Madrid",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "France",
+      "primary_position": "ATA",
+      "secondary_positions": [
+        "PE"
+      ],
+      "overall": 91,
+      "ea_id": 231747,
+      "ea_rank": 1,
+      "ea_position": "ST",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/kylian-mbappe/231747",
+      "id": "laliga-mbappe",
+      "old_overall": 87,
+      "old_league": "La Liga",
+      "old_position": "ATA"
+    },
+    {
+      "name": "Erling Haaland",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "nationality": "Norway",
+      "primary_position": "ATA",
+      "secondary_positions": [],
+      "overall": 91,
+      "ea_id": 239085,
+      "ea_rank": 3,
+      "ea_position": "ST",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/erling-haaland/239085",
+      "id": "pl-haaland",
+      "old_overall": 81,
+      "old_league": "Premier League",
+      "old_position": "ATA"
+    },
+    {
+      "name": "Lamine Yamal",
+      "club": "FC Barcelona",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Spain",
+      "primary_position": "PD",
+      "secondary_positions": [],
+      "overall": 90,
+      "ea_id": 277643,
+      "ea_rank": 4,
+      "ea_position": "RW",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/lamine-yamal/277643",
+      "id": "laliga-yamal",
+      "old_overall": 86,
+      "old_league": "La Liga",
+      "old_position": "PD"
+    },
+    {
+      "name": "Harry Kane",
+      "club": "FC Bayern München",
+      "league": "Bundesliga",
+      "nationality": "England",
+      "primary_position": "ATA",
+      "secondary_positions": [],
+      "overall": 90,
+      "ea_id": 202126,
+      "ea_rank": 5,
+      "ea_position": "ST",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/harry-kane/202126",
+      "id": "bund-kane",
+      "old_overall": 82,
+      "old_league": "Bundesliga",
+      "old_position": "ATA"
+    },
+    {
+      "name": "Ousmane Dembélé",
+      "club": "Paris SG",
+      "league": "Ligue 1 McDonald's",
+      "nationality": "France",
+      "primary_position": "ATA",
+      "secondary_positions": [
+        "PD",
+        "MEI"
+      ],
+      "overall": 90,
+      "ea_id": 231443,
+      "ea_rank": 7,
+      "ea_position": "ST",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/ousmane-dembele/231443",
+      "id": "ligue1-dembele",
+      "old_overall": 88,
+      "old_league": "Ligue 1",
+      "old_position": "PD"
+    },
+    {
+      "name": "Rodri",
+      "club": "FC Barcelona",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Spain",
+      "primary_position": "VOL",
+      "secondary_positions": [
+        "MC"
+      ],
+      "overall": 90,
+      "ea_id": 231866,
+      "ea_rank": 8,
+      "ea_position": "CDM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/rodri/231866",
+      "id": "pl-rodri",
+      "old_overall": 80,
+      "old_league": "Premier League",
+      "old_position": "VOL"
+    },
+    {
+      "name": "Michael Olise",
+      "club": "FC Bayern München",
+      "league": "Bundesliga",
+      "nationality": "France",
+      "primary_position": "PD",
+      "secondary_positions": [
+        "MEI"
+      ],
+      "overall": 90,
+      "ea_id": 247827,
+      "ea_rank": 9,
+      "ea_position": "RM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/michael-olise/247827",
+      "id": "bund-olise",
+      "old_overall": 88,
+      "old_league": "Bundesliga",
+      "old_position": "PD"
+    },
+    {
+      "name": "Thibaut Courtois",
+      "club": "Real Madrid",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Belgium",
+      "primary_position": "GOL",
+      "secondary_positions": [],
+      "overall": 90,
+      "ea_id": 192119,
+      "ea_rank": 10,
+      "ea_position": "GK",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/thibaut-courtois/192119",
+      "id": "laliga-courtois",
+      "old_overall": 81,
+      "old_league": "La Liga",
+      "old_position": "GOL"
+    },
+    {
+      "name": "Pedri",
+      "club": "FC Barcelona",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Spain",
+      "primary_position": "MC",
+      "secondary_positions": [
+        "VOL",
+        "MEI"
+      ],
+      "overall": 90,
+      "ea_id": 251854,
+      "ea_rank": 12,
+      "ea_position": "CM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/pedri/251854",
+      "id": "laliga-pedri",
+      "old_overall": 80,
+      "old_league": "La Liga",
+      "old_position": "MC"
+    },
+    {
+      "name": "Vitinha",
+      "club": "Paris SG",
+      "league": "Ligue 1 McDonald's",
+      "nationality": "Portugal",
+      "primary_position": "MC",
+      "secondary_positions": [
+        "VOL"
+      ],
+      "overall": 90,
+      "ea_id": 255253,
+      "ea_rank": 13,
+      "ea_position": "CM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/vitinha/255253",
+      "id": "ligue1-vitinha",
+      "old_overall": 85,
+      "old_league": "Ligue 1",
+      "old_position": "MC"
+    },
+    {
+      "name": "Jude Bellingham",
+      "club": "Real Madrid",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "England",
+      "primary_position": "MEI",
+      "secondary_positions": [
+        "MC",
+        "PE",
+        "ATA"
+      ],
+      "overall": 90,
+      "ea_id": 252371,
+      "ea_rank": 14,
+      "ea_position": "CAM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/jude-bellingham/252371",
+      "id": "laliga-bellingham",
+      "old_overall": 83,
+      "old_league": "La Liga",
+      "old_position": "MEI"
+    },
+    {
+      "name": "Khvicha Kvaratskhelia",
+      "club": "Paris SG",
+      "league": "Ligue 1 McDonald's",
+      "nationality": "Georgia",
+      "primary_position": "PE",
+      "secondary_positions": [
+        "PD"
+      ],
+      "overall": 89,
+      "ea_id": 247635,
+      "ea_rank": 15,
+      "ea_position": "LW",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/khvicha-kvaratskhelia/247635",
+      "id": "ligue1-kvara",
+      "old_overall": 78,
+      "old_league": "Ligue 1",
+      "old_position": "PE"
+    },
+    {
+      "name": "Nuno Mendes",
+      "club": "Paris SG",
+      "league": "Ligue 1 McDonald's",
+      "nationality": "Portugal",
+      "primary_position": "LE",
+      "secondary_positions": [
+        "PE"
+      ],
+      "overall": 89,
+      "ea_id": 252145,
+      "ea_rank": 16,
+      "ea_position": "LB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/nuno-mendes/252145",
+      "id": "ligue1-nuno",
+      "old_overall": 84,
+      "old_league": "Ligue 1",
+      "old_position": "LE"
+    },
+    {
+      "name": "Bruno Fernandes",
+      "club": "Man Utd",
+      "league": "Premier League",
+      "nationality": "Portugal",
+      "primary_position": "MEI",
+      "secondary_positions": [
+        "MC"
+      ],
+      "overall": 89,
+      "ea_id": 212198,
+      "ea_rank": 20,
+      "ea_position": "CAM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/bruno-fernandes/212198",
+      "id": "pl-bruno",
+      "old_overall": 83,
+      "old_league": "Premier League",
+      "old_position": "MEI"
+    },
+    {
+      "name": "Willian Pacho",
+      "club": "Paris SG",
+      "league": "Ligue 1 McDonald's",
+      "nationality": "Ecuador",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 89,
+      "ea_id": 256196,
+      "ea_rank": 25,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/willian-pacho/256196",
+      "id": "ligue1_willian_pacho",
+      "old_overall": 84,
+      "old_league": "Ligue 1",
+      "old_position": "ZAG"
+    },
+    {
+      "name": "William Saliba",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "nationality": "France",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 88,
+      "ea_id": 243715,
+      "ea_rank": 28,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/william-saliba/243715",
+      "id": "pl-saliba",
+      "old_overall": 87,
+      "old_league": "Premier League",
+      "old_position": "ZAG"
+    },
+    {
+      "name": "João Neves",
+      "club": "Paris SG",
+      "league": "Ligue 1 McDonald's",
+      "nationality": "Portugal",
+      "primary_position": "MC",
+      "secondary_positions": [
+        "VOL"
+      ],
+      "overall": 88,
+      "ea_id": 272834,
+      "ea_rank": 29,
+      "ea_position": "CM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/joao-neves/272834",
+      "id": "ligue1-joao-neves",
+      "old_overall": 86,
+      "old_league": "Ligue 1",
+      "old_position": "MC"
+    },
+    {
+      "name": "Raphinha",
+      "club": "FC Barcelona",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Brazil",
+      "primary_position": "PE",
+      "secondary_positions": [
+        "PD",
+        "MEI"
+      ],
+      "overall": 88,
+      "ea_id": 233419,
+      "ea_rank": 32,
+      "ea_position": "LW",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/raphinha/233419",
+      "id": "laliga-raphinha",
+      "old_overall": 82,
+      "old_league": "La Liga",
+      "old_position": "PD"
+    },
+    {
+      "name": "Joshua Kimmich",
+      "club": "FC Bayern München",
+      "league": "Bundesliga",
+      "nationality": "Germany",
+      "primary_position": "VOL",
+      "secondary_positions": [
+        "MC",
+        "LD"
+      ],
+      "overall": 88,
+      "ea_id": 212622,
+      "ea_rank": 33,
+      "ea_position": "CDM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/joshua-kimmich/212622",
+      "id": "bund-kimmich",
+      "old_overall": 85,
+      "old_league": "Bundesliga",
+      "old_position": "VOL"
+    },
+    {
+      "name": "David Raya",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "nationality": "Spain",
+      "primary_position": "GOL",
+      "secondary_positions": [],
+      "overall": 88,
+      "ea_id": 220901,
+      "ea_rank": 34,
+      "ea_position": "GK",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/david-raya/220901",
+      "id": "pl_david_raya",
+      "old_overall": 85,
+      "old_league": "Premier League",
+      "old_position": "GOL"
+    },
+    {
+      "name": "Declan Rice",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "nationality": "England",
+      "primary_position": "VOL",
+      "secondary_positions": [
+        "MC"
+      ],
+      "overall": 88,
+      "ea_id": 234378,
+      "ea_rank": 35,
+      "ea_position": "CDM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/declan-rice/234378",
+      "id": "pl-rice",
+      "old_overall": 78,
+      "old_league": "Premier League",
+      "old_position": "VOL"
+    },
+    {
+      "name": "Achraf Hakimi",
+      "club": "Paris SG",
+      "league": "Ligue 1 McDonald's",
+      "nationality": "Morocco",
+      "primary_position": "LD",
+      "secondary_positions": [
+        "PD"
+      ],
+      "overall": 88,
+      "ea_id": 235212,
+      "ea_rank": 36,
+      "ea_position": "RB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/achraf-hakimi/235212",
+      "id": "ligue1-hakimi",
+      "old_overall": 81,
+      "old_league": "Ligue 1",
+      "old_position": "LD"
+    },
+    {
+      "name": "Virgil van Dijk",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "nationality": "Holland",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 88,
+      "ea_id": 203376,
+      "ea_rank": 43,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/virgil-van-dijk/203376",
+      "id": "pl-van-dijk",
+      "old_overall": 84,
+      "old_league": "Premier League",
+      "old_position": "ZAG"
+    },
+    {
+      "name": "Jan Oblak",
+      "club": "Atlético de Madrid",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Slovenia",
+      "primary_position": "GOL",
+      "secondary_positions": [],
+      "overall": 88,
+      "ea_id": 200389,
+      "ea_rank": 45,
+      "ea_position": "GK",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/jan-oblak/200389",
+      "id": "laliga-oblak",
+      "old_overall": 88,
+      "old_league": "La Liga",
+      "old_position": "GOL"
+    },
+    {
+      "name": "Lautaro Martínez",
+      "club": "Lombardia FC",
+      "league": "Serie A Enilive",
+      "nationality": "Argentina",
+      "primary_position": "ATA",
+      "secondary_positions": [],
+      "overall": 87,
+      "ea_id": 231478,
+      "ea_rank": 46,
+      "ea_position": "ST",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/lautaro-martinez/231478",
+      "id": "seriea-lautaro",
+      "old_overall": 78,
+      "old_league": "Serie A",
+      "old_position": "ATA"
+    },
+    {
+      "name": "Dayot Upamecano",
+      "club": "FC Bayern München",
+      "league": "Bundesliga",
+      "nationality": "France",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 87,
+      "ea_id": 229558,
+      "ea_rank": 47,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/dayot-upamecano/229558",
+      "id": "bund-upamecano",
+      "old_overall": 81,
+      "old_league": "Bundesliga",
+      "old_position": "ZAG"
+    },
+    {
+      "name": "Mike Maignan",
+      "club": "Milano FC",
+      "league": "Serie A Enilive",
+      "nationality": "France",
+      "primary_position": "GOL",
+      "secondary_positions": [],
+      "overall": 87,
+      "ea_id": 215698,
+      "ea_rank": 49,
+      "ea_position": "GK",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/mike-maignan/215698",
+      "id": "seriea-maignan",
+      "old_overall": 81,
+      "old_league": "Serie A",
+      "old_position": "GOL"
+    },
+    {
+      "name": "Alisson",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "nationality": "Brazil",
+      "primary_position": "GOL",
+      "secondary_positions": [],
+      "overall": 87,
+      "ea_id": 212831,
+      "ea_rank": 51,
+      "ea_position": "GK",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/alisson/212831",
+      "id": "pl-alisson",
+      "old_overall": 78,
+      "old_league": "Premier League",
+      "old_position": "GOL"
+    },
+    {
+      "name": "Federico Valverde",
+      "club": "Real Madrid",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Uruguay",
+      "primary_position": "MC",
+      "secondary_positions": [
+        "LD",
+        "PD",
+        "VOL"
+      ],
+      "overall": 87,
+      "ea_id": 239053,
+      "ea_rank": 52,
+      "ea_position": "CM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/federico-valverde/239053",
+      "id": "laliga-valverde",
+      "old_overall": 84,
+      "old_league": "La Liga",
+      "old_position": "MC"
+    },
+    {
+      "name": "Marquinhos",
+      "club": "Paris SG",
+      "league": "Ligue 1 McDonald's",
+      "nationality": "Brazil",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 87,
+      "ea_id": 207865,
+      "ea_rank": 53,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/marquinhos/207865",
+      "id": "ligue1-marquinhos",
+      "old_overall": 84,
+      "old_league": "Ligue 1",
+      "old_position": "ZAG"
+    },
+    {
+      "name": "Nico Schlotterbeck",
+      "club": "Borussia Dortmund",
+      "league": "Bundesliga",
+      "nationality": "Germany",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 87,
+      "ea_id": 247819,
+      "ea_rank": 55,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/nico-schlotterbeck/247819",
+      "id": "bund-schlotterbeck",
+      "old_overall": 82,
+      "old_league": "Bundesliga",
+      "old_position": "ZAG"
+    },
+    {
+      "name": "Mohamed Salah",
+      "club": "Trabzonspor",
+      "league": "Trendyol Süper Lig",
+      "nationality": "Egypt",
+      "primary_position": "PD",
+      "secondary_positions": [
+        "MEI",
+        "ATA"
+      ],
+      "overall": 87,
+      "ea_id": 209331,
+      "ea_rank": 57,
+      "ea_position": "RM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/mohamed-salah/209331",
+      "id": "pl-salah",
+      "old_overall": 85,
+      "old_league": "Premier League",
+      "old_position": "PD"
+    },
+    {
+      "name": "Rúben Dias",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "nationality": "Portugal",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 87,
+      "ea_id": 239818,
+      "ea_rank": 59,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/ruben-dias/239818",
+      "id": "pl-ruben-dias",
+      "old_overall": 85,
+      "old_league": "Premier League",
+      "old_position": "ZAG"
+    },
+    {
+      "name": "Gregor Kobel",
+      "club": "Borussia Dortmund",
+      "league": "Bundesliga",
+      "nationality": "Switzerland",
+      "primary_position": "GOL",
+      "secondary_positions": [],
+      "overall": 87,
+      "ea_id": 235073,
+      "ea_rank": 61,
+      "ea_position": "GK",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/gregor-kobel/235073",
+      "id": "bund-kobel",
+      "old_overall": 84,
+      "old_league": "Bundesliga",
+      "old_position": "GOL"
+    },
+    {
+      "name": "Nicolò Barella",
+      "club": "Lombardia FC",
+      "league": "Serie A Enilive",
+      "nationality": "Italy",
+      "primary_position": "MC",
+      "secondary_positions": [
+        "VOL"
+      ],
+      "overall": 87,
+      "ea_id": 224232,
+      "ea_rank": 64,
+      "ea_position": "CM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/nicolo-barella/224232",
+      "id": "seriea-barella",
+      "old_overall": 88,
+      "old_league": "Serie A",
+      "old_position": "MC"
+    },
+    {
+      "name": "Bukayo Saka",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "nationality": "England",
+      "primary_position": "PD",
+      "secondary_positions": [],
+      "overall": 87,
+      "ea_id": 246669,
+      "ea_rank": 67,
+      "ea_position": "RW",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/bukayo-saka/246669",
+      "id": "pl-saka",
+      "old_overall": 84,
+      "old_league": "Premier League",
+      "old_position": "PD"
+    },
+    {
+      "name": "Jamal Musiala",
+      "club": "FC Bayern München",
+      "league": "Bundesliga",
+      "nationality": "Germany",
+      "primary_position": "MEI",
+      "secondary_positions": [
+        "PE"
+      ],
+      "overall": 87,
+      "ea_id": 256790,
+      "ea_rank": 68,
+      "ea_position": "CAM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/jamal-musiala/256790",
+      "id": "bund-musiala",
+      "old_overall": 78,
+      "old_league": "Bundesliga",
+      "old_position": "MEI"
+    },
+    {
+      "name": "Fabián Ruiz",
+      "club": "Paris SG",
+      "league": "Ligue 1 McDonald's",
+      "nationality": "Spain",
+      "primary_position": "MC",
+      "secondary_positions": [
+        "VOL",
+        "MEI"
+      ],
+      "overall": 86,
+      "ea_id": 226271,
+      "ea_rank": 74,
+      "ea_position": "CM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/fabian-ruiz/226271",
+      "id": "ligue1_fabian_ruiz",
+      "old_overall": 85,
+      "old_league": "Ligue 1",
+      "old_position": "MC"
+    },
+    {
+      "name": "Désiré Doué",
+      "club": "Paris SG",
+      "league": "Ligue 1 McDonald's",
+      "nationality": "France",
+      "primary_position": "PD",
+      "secondary_positions": [
+        "PE",
+        "MC"
+      ],
+      "overall": 86,
+      "ea_id": 271421,
+      "ea_rank": 75,
+      "ea_position": "RW",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/desire-doue/271421",
+      "id": "ligue1_desire_doue",
+      "old_overall": 84,
+      "old_league": "Ligue 1",
+      "old_position": "MEI"
+    },
+    {
+      "name": "Julián Alvarez",
+      "club": "Atlético de Madrid",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Argentina",
+      "primary_position": "ATA",
+      "secondary_positions": [
+        "MEI"
+      ],
+      "overall": 86,
+      "ea_id": 246191,
+      "ea_rank": 76,
+      "ea_position": "ST",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/julian-alvarez/246191",
+      "id": "laliga_julian_alvarez",
+      "old_overall": 87,
+      "old_league": "La Liga",
+      "old_position": "ATA"
+    },
+    {
+      "name": "Pau Cubarsí",
+      "club": "FC Barcelona",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Spain",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 86,
+      "ea_id": 278046,
+      "ea_rank": 77,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/pau-cubarsi/278046",
+      "id": "laliga_pau_cubarsi",
+      "old_overall": 84,
+      "old_league": "La Liga",
+      "old_position": "ZAG"
+    },
+    {
+      "name": "Scott McTominay",
+      "club": "SSC Napoli",
+      "league": "Serie A Enilive",
+      "nationality": "Scotland",
+      "primary_position": "MC",
+      "secondary_positions": [
+        "MEI",
+        "VOL"
+      ],
+      "overall": 86,
+      "ea_id": 237238,
+      "ea_rank": 79,
+      "ea_position": "CM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/scott-mc-tominay/237238",
+      "id": "seriea-mctominay",
+      "old_overall": 80,
+      "old_league": "Serie A",
+      "old_position": "MC"
+    },
+    {
+      "name": "Federico Dimarco",
+      "club": "Lombardia FC",
+      "league": "Serie A Enilive",
+      "nationality": "Italy",
+      "primary_position": "LE",
+      "secondary_positions": [
+        "PE"
+      ],
+      "overall": 86,
+      "ea_id": 226268,
+      "ea_rank": 81,
+      "ea_position": "LB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/federico-dimarco/226268",
+      "id": "seriea_federico_dimarco",
+      "old_overall": 86,
+      "old_league": "Serie A",
+      "old_position": "LE"
+    },
+    {
+      "name": "Moisés Caicedo",
+      "club": "Chelsea",
+      "league": "Premier League",
+      "nationality": "Ecuador",
+      "primary_position": "VOL",
+      "secondary_positions": [
+        "MC"
+      ],
+      "overall": 86,
+      "ea_id": 256079,
+      "ea_rank": 83,
+      "ea_position": "CDM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/moises-caicedo/256079",
+      "id": "pl_moises_caicedo",
+      "old_overall": 85,
+      "old_league": "Premier League",
+      "old_position": "VOL"
+    },
+    {
+      "name": "Dominik Szoboszlai",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "nationality": "Hungary",
+      "primary_position": "MEI",
+      "secondary_positions": [
+        "LD",
+        "VOL",
+        "MC"
+      ],
+      "overall": 86,
+      "ea_id": 236772,
+      "ea_rank": 84,
+      "ea_position": "CAM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/dominik-szoboszlai/236772",
+      "id": "pl_dominik_szoboszlai",
+      "old_overall": 84,
+      "old_league": "Premier League",
+      "old_position": "MEI"
+    },
+    {
+      "name": "Bruno Guimarães",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "nationality": "Brazil",
+      "primary_position": "MC",
+      "secondary_positions": [
+        "VOL"
+      ],
+      "overall": 86,
+      "ea_id": 247851,
+      "ea_rank": 86,
+      "ea_position": "CM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/bruno-guimaraes/247851",
+      "id": "pl_bruno_guimaraes",
+      "old_overall": 86,
+      "old_league": "Premier League",
+      "old_position": "MC"
+    },
+    {
+      "name": "Enzo Fernández",
+      "club": "Chelsea",
+      "league": "Premier League",
+      "nationality": "Argentina",
+      "primary_position": "MC",
+      "secondary_positions": [
+        "VOL",
+        "MEI"
+      ],
+      "overall": 86,
+      "ea_id": 247090,
+      "ea_rank": 88,
+      "ea_position": "CM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/enzo-fernandez/247090",
+      "id": "pl_enzo_fernandez",
+      "old_overall": 85,
+      "old_league": "Premier League",
+      "old_position": "MC"
+    },
+    {
+      "name": "Bremer",
+      "club": "Juventus",
+      "league": "Serie A Enilive",
+      "nationality": "Brazil",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 86,
+      "ea_id": 239580,
+      "ea_rank": 89,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/bremer/239580",
+      "id": "seriea-bremer",
+      "old_overall": 84,
+      "old_league": "Serie A",
+      "old_position": "ZAG"
+    },
+    {
+      "name": "Alexander Isak",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "nationality": "Sweden",
+      "primary_position": "ATA",
+      "secondary_positions": [],
+      "overall": 86,
+      "ea_id": 233731,
+      "ea_rank": 93,
+      "ea_position": "ST",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/alexander-isak/233731",
+      "id": "pl-isak",
+      "old_overall": 79,
+      "old_league": "Premier League",
+      "old_position": "ATA"
+    },
+    {
+      "name": "Alessandro Bastoni",
+      "club": "Lombardia FC",
+      "league": "Serie A Enilive",
+      "nationality": "Italy",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 86,
+      "ea_id": 237383,
+      "ea_rank": 95,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/alessandro-bastoni/237383",
+      "id": "seriea-bastoni",
+      "old_overall": 85,
+      "old_league": "Serie A",
+      "old_position": "ZAG"
+    },
+    {
+      "name": "Martin Ødegaard",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "nationality": "Norway",
+      "primary_position": "MC",
+      "secondary_positions": [
+        "MEI"
+      ],
+      "overall": 86,
+      "ea_id": 222665,
+      "ea_rank": 96,
+      "ea_position": "CM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/martin-degaard/222665",
+      "id": "pl-odegaard",
+      "old_overall": 79,
+      "old_league": "Premier League",
+      "old_position": "MEI"
+    }
+  ],
+  "additions": [
+    {
+      "name": "Vini Jr.",
+      "club": "Real Madrid",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Brazil",
+      "primary_position": "PE",
+      "secondary_positions": [
+        "ATA"
+      ],
+      "overall": 89,
+      "ea_id": 238794,
+      "ea_rank": 17,
+      "ea_position": "LW",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/vini-jr/238794",
+      "id": "ea27_vinicius"
+    },
+    {
+      "name": "Lionel Messi",
+      "club": "Inter Miami CF",
+      "league": "MLS",
+      "nationality": "Argentina",
+      "primary_position": "MEI",
+      "secondary_positions": [
+        "ATA",
+        "PD"
+      ],
+      "overall": 89,
+      "ea_id": 158023,
+      "ea_rank": 19,
+      "ea_position": "CAM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/lionel-messi/158023",
+      "id": "ea27_lionel_messi"
+    },
+    {
+      "name": "Gabriel",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "nationality": "Brazil",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 89,
+      "ea_id": 232580,
+      "ea_rank": 23,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/gabriel/232580",
+      "id": "ea27_gabriel"
+    },
+    {
+      "name": "Gianluigi Donnarumma",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "nationality": "Italy",
+      "primary_position": "GOL",
+      "secondary_positions": [],
+      "overall": 89,
+      "ea_id": 230621,
+      "ea_rank": 27,
+      "ea_position": "GK",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/gianluigi-donnarumma/230621",
+      "id": "ea27_gianluigi_donnarumma"
+    },
+    {
+      "name": "Luis Díaz",
+      "club": "FC Bayern München",
+      "league": "Bundesliga",
+      "nationality": "Colombia",
+      "primary_position": "PE",
+      "secondary_positions": [
+        "ATA"
+      ],
+      "overall": 88,
+      "ea_id": 241084,
+      "ea_rank": 41,
+      "ea_position": "LM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/luis-diaz/241084",
+      "id": "ea27_luis_diaz"
+    },
+    {
+      "name": "Jonathan Tah",
+      "club": "FC Bayern München",
+      "league": "Bundesliga",
+      "nationality": "Germany",
+      "primary_position": "ZAG",
+      "secondary_positions": [],
+      "overall": 87,
+      "ea_id": 213331,
+      "ea_rank": 65,
+      "ea_position": "CB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/jonathan-tah/213331",
+      "id": "ea27_jonathan_tah"
+    },
+    {
+      "name": "Cucurella",
+      "club": "Real Madrid",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Spain",
+      "primary_position": "LE",
+      "secondary_positions": [],
+      "overall": 86,
+      "ea_id": 239231,
+      "ea_rank": 78,
+      "ea_position": "LB",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/cucurella/239231",
+      "id": "ea27_cucurella"
+    },
+    {
+      "name": "Joan García",
+      "club": "FC Barcelona",
+      "league": "LALIGA EA SPORTS",
+      "nationality": "Spain",
+      "primary_position": "GOL",
+      "secondary_positions": [],
+      "overall": 86,
+      "ea_id": 259532,
+      "ea_rank": 90,
+      "ea_position": "GK",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/joan-garcia/259532",
+      "id": "ea27_joan_garcia"
+    },
+    {
+      "name": "Diogo Costa",
+      "club": "FC Porto",
+      "league": "Liga Portugal",
+      "nationality": "Portugal",
+      "primary_position": "GOL",
+      "secondary_positions": [],
+      "overall": 86,
+      "ea_id": 234577,
+      "ea_rank": 91,
+      "ea_position": "GK",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/diogo-costa/234577",
+      "id": "ea27_diogo_costa"
+    },
+    {
+      "name": "Marco Carnesecchi",
+      "club": "Bergamo Calcio",
+      "league": "Serie A Enilive",
+      "nationality": "Italy",
+      "primary_position": "GOL",
+      "secondary_positions": [],
+      "overall": 86,
+      "ea_id": 252154,
+      "ea_rank": 94,
+      "ea_position": "GK",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/marco-carnesecchi/252154",
+      "id": "ea27_marco_carnesecchi"
+    },
+    {
+      "name": "Viktor Gyökeres",
+      "club": "Arsenal",
+      "league": "Premier League",
+      "nationality": "Sweden",
+      "primary_position": "ATA",
+      "secondary_positions": [],
+      "overall": 86,
+      "ea_id": 241651,
+      "ea_rank": 97,
+      "ea_position": "ST",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/viktor-gyokeres/241651",
+      "id": "ea27_viktor_gyokeres"
+    },
+    {
+      "name": "Rayan Cherki",
+      "club": "Manchester City",
+      "league": "Premier League",
+      "nationality": "France",
+      "primary_position": "PD",
+      "secondary_positions": [
+        "MEI",
+        "MC"
+      ],
+      "overall": 86,
+      "ea_id": 251570,
+      "ea_rank": 98,
+      "ea_position": "RW",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/rayan-cherki/251570",
+      "id": "ea27_rayan_cherki"
+    },
+    {
+      "name": "Florian Wirtz",
+      "club": "Liverpool",
+      "league": "Premier League",
+      "nationality": "Germany",
+      "primary_position": "MEI",
+      "secondary_positions": [
+        "PE",
+        "MC"
+      ],
+      "overall": 86,
+      "ea_id": 256630,
+      "ea_rank": 100,
+      "ea_position": "CAM",
+      "source_url": "https://www.ea.com/games/ea-sports-fc/ratings/player-ratings/florian-wirtz/256630",
+      "id": "ea27_florian_wirtz"
+    }
+  ],
+  "needs_review": [
+    {
+      "id": "bra_agustin_rossi",
+      "name": "Agustín Rossi",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_alan_patrick",
+      "name": "Alan Patrick",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_bastos",
+      "name": "Bastos",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_bruno_henrique",
+      "name": "Bruno Henrique",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_cassio",
+      "name": "Cássio",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_cauly",
+      "name": "Cauly",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_erick_pulgar",
+      "name": "Erick Pulgar",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_everson",
+      "name": "Everson",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_everton_cebolinha",
+      "name": "Everton Cebolinha",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_everton_ribeiro",
+      "name": "Everton Ribeiro",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_fabio",
+      "name": "Fábio",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_fabricio_bruno",
+      "name": "Fabrício Bruno",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_flaco_lopez",
+      "name": "Flaco López",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_gabriel_brazao",
+      "name": "Gabriel Brazão",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_german_cano",
+      "name": "Germán Cano",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_arrascaeta",
+      "name": "Giorgian de Arrascaeta",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_guilherme_arana",
+      "name": "Guilherme Arana",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_gustavo_gomez",
+      "name": "Gustavo Gómez",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_gustavo_scarpa",
+      "name": "Gustavo Scarpa",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_hugo_souza",
+      "name": "Hugo Souza",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_hulk",
+      "name": "Hulk",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_jean_lucas",
+      "name": "Jean Lucas",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_savarino",
+      "name": "Jefferson Savarino",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_joao_ricardo",
+      "name": "João Ricardo",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_joao_schmidt",
+      "name": "João Schmidt",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_joaquin_piquerez",
+      "name": "Joaquín Piquerez",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_calleri",
+      "name": "Jonathan Calleri",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_lucero",
+      "name": "Juan Martín Lucero",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_kaio_jorge",
+      "name": "Kaio Jorge",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_leo_jardim",
+      "name": "Léo Jardim",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_leo_pereira",
+      "name": "Léo Pereira",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_lucas_moura",
+      "name": "Lucas Moura",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_luciano",
+      "name": "Luciano",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_marlon_freitas",
+      "name": "Marlon Freitas",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_braithwaite",
+      "name": "Martin Braithwaite",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_matheus_pereira",
+      "name": "Matheus Pereira",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_villasanti",
+      "name": "Mathías Villasanti",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_memphis_depay",
+      "name": "Memphis Depay",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_murilo",
+      "name": "Murilo",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_neymar",
+      "name": "Neymar Jr.",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_de_la_cruz",
+      "name": "Nicolás de la Cruz",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_pablo_vegetti",
+      "name": "Pablo Vegetti",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_pedro",
+      "name": "Pedro",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_philippe_coutinho",
+      "name": "Philippe Coutinho",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_rafael",
+      "name": "Rafael",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_raphael_veiga",
+      "name": "Raphael Veiga",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_arboleda",
+      "name": "Robert Arboleda",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_rodrigo_garro",
+      "name": "Rodrigo Garro",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_sergio_rochet",
+      "name": "Sergio Rochet",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_thiago_silva",
+      "name": "Thiago Silva",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_pochettino",
+      "name": "Tomás Pochettino",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_vitao",
+      "name": "Vitão",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_vitor_roque",
+      "name": "Vitor Roque",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_weverton",
+      "name": "Weverton",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bra_yuri_alberto",
+      "name": "Yuri Alberto",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_aleix_garcia",
+      "name": "Aleix García",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_aleksandar_pavlovic",
+      "name": "Aleksandar Pavlović",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bund-grimaldo",
+      "name": "Álex Grimaldo",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_alexander_nubel",
+      "name": "Alexander Nübel",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bund-davies",
+      "name": "Alphonso Davies",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_angelo_stiller",
+      "name": "Angelo Stiller",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_chris_fuhrich",
+      "name": "Chris Führich",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_david_raum",
+      "name": "David Raum",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bund-undav",
+      "name": "Deniz Undav",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_edmond_tapsoba",
+      "name": "Edmond Tapsoba",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bund-palacios",
+      "name": "Exequiel Palacios",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_felix_nmecha",
+      "name": "Felix Nmecha",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bund-brandt",
+      "name": "Julian Brandt",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_karim_adeyemi",
+      "name": "Karim Adeyemi",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_kim_min_jae",
+      "name": "Kim Min-jae",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_kingsley_coman",
+      "name": "Kingsley Coman",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_konrad_laimer",
+      "name": "Konrad Laimer",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bund-goretzka",
+      "name": "Leon Goretzka",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bund-neuer",
+      "name": "Manuel Neuer",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_marcel_sabitzer",
+      "name": "Marcel Sabitzer",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_maximilian_mittelstadt",
+      "name": "Maximilian Mittelstädt",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_nicolas_seiwald",
+      "name": "Nicolas Seiwald",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_patrik_schick",
+      "name": "Patrik Schick",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_piero_hincapie",
+      "name": "Piero Hincapié",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_ramy_bensebaini",
+      "name": "Ramy Bensebaini",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_robert_andrich",
+      "name": "Robert Andrich",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bund-gnabry",
+      "name": "Serge Gnabry",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bund-guirassy",
+      "name": "Serhou Guirassy",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bund-boniface",
+      "name": "Victor Boniface",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bundes_willi_orban",
+      "name": "Willi Orbán",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "bund-xavi",
+      "name": "Xavi Simons",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_alejandro_balde",
+      "name": "Alejandro Balde",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_antoine_griezmann",
+      "name": "Antoine Griezmann",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-rudiger",
+      "name": "Antonio Rüdiger",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-tchouameni",
+      "name": "Aurélien Tchouaméni",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_brahim_diaz",
+      "name": "Brahim Díaz",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_dani_carvajal",
+      "name": "Dani Carvajal",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_dani_olmo",
+      "name": "Dani Olmo",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_dani_vivian",
+      "name": "Dani Vivian",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-militao",
+      "name": "Éder Militão",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-camavinga",
+      "name": "Eduardo Camavinga",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_ferland_mendy",
+      "name": "Ferland Mendy",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_ferran_torres",
+      "name": "Ferran Torres",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-dejong",
+      "name": "Frenkie de Jong",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-gavi",
+      "name": "Gavi",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_giovani_lo_celso",
+      "name": "Giovani Lo Celso",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_isco",
+      "name": "Isco",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_jose_gimenez",
+      "name": "José María Giménez",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-kounde",
+      "name": "Jules Koundé",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_koke",
+      "name": "Koke",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-ter-stegen",
+      "name": "Marc-André ter Stegen",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_marcos_llorente",
+      "name": "Marcos Llorente",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_mikel_oyarzabal",
+      "name": "Mikel Oyarzabal",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_nico_williams",
+      "name": "Nico Williams",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_oihan_sancet",
+      "name": "Oihan Sancet",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-lewandowski",
+      "name": "Robert Lewandowski",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-rodrygo",
+      "name": "Rodrygo",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-araujo",
+      "name": "Ronald Araújo",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_takefusa_kubo",
+      "name": "Takefusa Kubo",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga_unai_simon",
+      "name": "Unai Simón",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "laliga-vini",
+      "name": "Vinícius Jr.",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1-rabiot",
+      "name": "Adrien Rabiot",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_aleksandr_golovin",
+      "name": "Aleksandr Golovin",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_amine_gouiri",
+      "name": "Amine Gouiri",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1-barcola",
+      "name": "Bradley Barcola",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_corentin_tolisso",
+      "name": "Corentin Tolisso",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_dante",
+      "name": "Dante",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_denis_zakaria",
+      "name": "Denis Zakaria",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_folarin_balogun",
+      "name": "Folarin Balogun",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_geoffrey_kondogbia",
+      "name": "Geoffrey Kondogbia",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_geronimo_rulli",
+      "name": "Gerónimo Rulli",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1-ramos",
+      "name": "Gonçalo Ramos",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_jonathan_clauss",
+      "name": "Jonathan Clauss",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_kang_in_lee",
+      "name": "Kang-in Lee",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1-balerdi",
+      "name": "Leonardo Balerdi",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1-chevalier",
+      "name": "Lucas Chevalier",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1-lucas-hernandez",
+      "name": "Lucas Hernández",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_ludovic_blas",
+      "name": "Ludovic Blas",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_maghnas_akliouche",
+      "name": "Maghnes Akliouche",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1-greenwood",
+      "name": "Mason Greenwood",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_nicolas_tagliafico",
+      "name": "Nicolás Tagliafico",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_pierre_emile_hojbjerg",
+      "name": "Pierre-Emile Højbjerg",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_presnel_kimpembe",
+      "name": "Presnel Kimpembe",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_seko_fofana",
+      "name": "Seko Fofana",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1_takumi_minamino",
+      "name": "Takumi Minamino",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "ligue1-zaire-emery",
+      "name": "Warren Zaïre-Emery",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_alexis_mac_allister",
+      "name": "Alexis Mac Allister",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_amad_diallo",
+      "name": "Amad Diallo",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_anthony_gordon",
+      "name": "Anthony Gordon",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_bernardo_silva",
+      "name": "Bernardo Silva",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl-palmer",
+      "name": "Cole Palmer",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl-ederson",
+      "name": "Ederson",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl-gabriel",
+      "name": "Gabriel Magalhães",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_ibrahima_konate",
+      "name": "Ibrahima Konate",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_jeremy_doku",
+      "name": "Jeremy Doku",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_josko_gvardiol",
+      "name": "Josko Gvardiol",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_jurrien_timber",
+      "name": "Jurrien Timber",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_kai_havertz",
+      "name": "Kai Havertz",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_kobbie_mainoo",
+      "name": "Kobbie Mainoo",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_lisandro_martinez",
+      "name": "Lisandro Martínez",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_manuel_akanji",
+      "name": "Manuel Akanji",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl-watkins",
+      "name": "Ollie Watkins",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl-foden",
+      "name": "Phil Foden",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_reece_james",
+      "name": "Reece James",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_riccardo_calafiori",
+      "name": "Riccardo Calafiori",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl_sandro_tonali",
+      "name": "Sandro Tonali",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "pl-son",
+      "name": "Son Heung-min",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-lookman",
+      "name": "Ademola Lookman",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_alessandro_buongiorno",
+      "name": "Alessandro Buongiorno",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_alex_meret",
+      "name": "Alex Meret",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_andrea_cambiaso",
+      "name": "Andrea Cambiaso",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-pulisic",
+      "name": "Christian Pulisic",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-vlahovic",
+      "name": "Dušan Vlahović",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_fikayo_tomori",
+      "name": "Fikayo Tomori",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_francesco_acerbi",
+      "name": "Francesco Acerbi",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_frank_anguissa",
+      "name": "Frank Anguissa",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_gianluca_mancini",
+      "name": "Gianluca Mancini",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-dilorenzo",
+      "name": "Giovanni Di Lorenzo",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-calhanoglu",
+      "name": "Hakan Çalhanoğlu",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-yildiz",
+      "name": "Kenan Yıldız",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_khephren_thuram",
+      "name": "Khéphren Thuram",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_lorenzo_pellegrini",
+      "name": "Lorenzo Pellegrini",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-locatelli",
+      "name": "Manuel Locatelli",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-thuram",
+      "name": "Marcus Thuram",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_matteo_guendouzi",
+      "name": "Matteo Guendouzi",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_matteo_politano",
+      "name": "Matteo Politano",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_mattia_zaccagni",
+      "name": "Mattia Zaccagni",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_michele_di_gregorio",
+      "name": "Michele Di Gregorio",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_mile_svilar",
+      "name": "Mile Svilar",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_moise_kean",
+      "name": "Moise Kean",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-dybala",
+      "name": "Paulo Dybala",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_piotr_zielinski",
+      "name": "Piotr Zieliński",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-leao",
+      "name": "Rafael Leão",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_santiago_gimenez",
+      "name": "Santiago Giménez",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_teun_koopmeiners",
+      "name": "Teun Koopmeiners",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-theo",
+      "name": "Theo Hernández",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea-sommer",
+      "name": "Yann Sommer",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "seriea_youssouf_fofana",
+      "name": "Youssouf Fofana",
+      "note": "EA FC 27 launch ratings not confirmed in the official top-100 extraction."
+    },
+    {
+      "id": "icon-pirlo",
+      "name": "Andrea Pirlo",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-iniesta",
+      "name": "Andrés Iniesta",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-cafu",
+      "name": "Cafu",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-valderrama",
+      "name": "Carlos Valderrama",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-carlos-vela",
+      "name": "Carlos Vela",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-dempsey",
+      "name": "Clint Dempsey",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-beckham",
+      "name": "David Beckham",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-forlan",
+      "name": "Diego Forlán",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-maradona",
+      "name": "Diego Maradona",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-eusebio",
+      "name": "Eusébio",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-lampard",
+      "name": "Frank Lampard",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-beckenbauer",
+      "name": "Franz Beckenbauer",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-batistuta",
+      "name": "Gabriel Batistuta",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-buffon",
+      "name": "Gianluigi Buffon",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-hugo-sanchez",
+      "name": "Hugo Sánchez",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-casillas",
+      "name": "Iker Casillas",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-zanetti",
+      "name": "Javier Zanetti",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-cruyff",
+      "name": "Johan Cruyff",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-jorge-campos",
+      "name": "Jorge Campos",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-riquelme",
+      "name": "Juan Román Riquelme",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-kaka",
+      "name": "Kaká",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-keylor",
+      "name": "Keylor Navas",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-donovan",
+      "name": "Landon Donovan",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-vanbasten",
+      "name": "Marco van Basten",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-maldini",
+      "name": "Paolo Maldini",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-pele",
+      "name": "Pelé",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-rafa-marquez",
+      "name": "Rafael Márquez",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-rivaldo",
+      "name": "Rivaldo",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-roberto-carlos",
+      "name": "Roberto Carlos",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-romario",
+      "name": "Romário",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-ronaldinho",
+      "name": "Ronaldinho",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-ronaldo",
+      "name": "Ronaldo Nazário",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-gerrard",
+      "name": "Steven Gerrard",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-henry",
+      "name": "Thierry Henry",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-howard",
+      "name": "Tim Howard",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-xavi",
+      "name": "Xavi",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-zico",
+      "name": "Zico",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    },
+    {
+      "id": "icon-zidane",
+      "name": "Zinedine Zidane",
+      "note": "Official EA FC 27 ratings table excludes Icons/Heroes/special items; keep for review."
+    }
+  ]
+}

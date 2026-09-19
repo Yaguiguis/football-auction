@@ -1,0 +1,3640 @@
+[
+  {
+    "id": "bra_agustin_rossi",
+    "name": "Agustín Rossi",
+    "league": "Brasileirão",
+    "nationality": "Argentina",
+    "primary_position": "GOL",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_alan_patrick",
+    "name": "Alan Patrick",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_bastos",
+    "name": "Bastos",
+    "league": "Brasileirão",
+    "nationality": "Angola",
+    "primary_position": "ZAG",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_bruno_henrique",
+    "name": "Bruno Henrique",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "PE",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_cassio",
+    "name": "Cássio",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "GOL",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_cauly",
+    "name": "Cauly",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_erick_pulgar",
+    "name": "Erick Pulgar",
+    "league": "Brasileirão",
+    "nationality": "Chile",
+    "primary_position": "VOL",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_everson",
+    "name": "Everson",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "GOL",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_everton_cebolinha",
+    "name": "Everton Cebolinha",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "PE",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_everton_ribeiro",
+    "name": "Everton Ribeiro",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_fabio",
+    "name": "Fábio",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "GOL",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_fabricio_bruno",
+    "name": "Fabrício Bruno",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "ZAG",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_flaco_lopez",
+    "name": "Flaco López",
+    "league": "Brasileirão",
+    "nationality": "Argentina",
+    "primary_position": "ATA",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_gabriel_brazao",
+    "name": "Gabriel Brazão",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "GOL",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_german_cano",
+    "name": "Germán Cano",
+    "league": "Brasileirão",
+    "nationality": "Argentina",
+    "primary_position": "ATA",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_arrascaeta",
+    "name": "Giorgian de Arrascaeta",
+    "league": "Brasileirão",
+    "nationality": "Uruguay",
+    "primary_position": "MEI",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_guilherme_arana",
+    "name": "Guilherme Arana",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "LE",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_gustavo_gomez",
+    "name": "Gustavo Gómez",
+    "league": "Brasileirão",
+    "nationality": "Paraguay",
+    "primary_position": "ZAG",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_gustavo_scarpa",
+    "name": "Gustavo Scarpa",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_hugo_souza",
+    "name": "Hugo Souza",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "GOL",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_hulk",
+    "name": "Hulk",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "ATA",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_jean_lucas",
+    "name": "Jean Lucas",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "MC",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_savarino",
+    "name": "Jefferson Savarino",
+    "league": "Brasileirão",
+    "nationality": "Venezuela",
+    "primary_position": "MEI",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_joao_ricardo",
+    "name": "João Ricardo",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "GOL",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_joao_schmidt",
+    "name": "João Schmidt",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "VOL",
+    "overall": 79,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_joaquin_piquerez",
+    "name": "Joaquín Piquerez",
+    "league": "Brasileirão",
+    "nationality": "Uruguay",
+    "primary_position": "LE",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_calleri",
+    "name": "Jonathan Calleri",
+    "league": "Brasileirão",
+    "nationality": "Argentina",
+    "primary_position": "ATA",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_lucero",
+    "name": "Juan Martín Lucero",
+    "league": "Brasileirão",
+    "nationality": "Argentina",
+    "primary_position": "ATA",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_kaio_jorge",
+    "name": "Kaio Jorge",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "ATA",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_leo_jardim",
+    "name": "Léo Jardim",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "GOL",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_leo_pereira",
+    "name": "Léo Pereira",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "ZAG",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_lucas_moura",
+    "name": "Lucas Moura",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_luciano",
+    "name": "Luciano",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "SA",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_marlon_freitas",
+    "name": "Marlon Freitas",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "VOL",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_braithwaite",
+    "name": "Martin Braithwaite",
+    "league": "Brasileirão",
+    "nationality": "Denmark",
+    "primary_position": "ATA",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_matheus_pereira",
+    "name": "Matheus Pereira",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_villasanti",
+    "name": "Mathías Villasanti",
+    "league": "Brasileirão",
+    "nationality": "Paraguay",
+    "primary_position": "MC",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_memphis_depay",
+    "name": "Memphis Depay",
+    "league": "Brasileirão",
+    "nationality": "Netherlands",
+    "primary_position": "ATA",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_murilo",
+    "name": "Murilo",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "ZAG",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_neymar",
+    "name": "Neymar Jr.",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 88,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_de_la_cruz",
+    "name": "Nicolás de la Cruz",
+    "league": "Brasileirão",
+    "nationality": "Uruguay",
+    "primary_position": "MC",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_pablo_vegetti",
+    "name": "Pablo Vegetti",
+    "league": "Brasileirão",
+    "nationality": "Argentina",
+    "primary_position": "ATA",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_pedro",
+    "name": "Pedro",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "ATA",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_philippe_coutinho",
+    "name": "Philippe Coutinho",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_rafael",
+    "name": "Rafael",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "GOL",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_raphael_veiga",
+    "name": "Raphael Veiga",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_arboleda",
+    "name": "Robert Arboleda",
+    "league": "Brasileirão",
+    "nationality": "Ecuador",
+    "primary_position": "ZAG",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_rodrigo_garro",
+    "name": "Rodrigo Garro",
+    "league": "Brasileirão",
+    "nationality": "Argentina",
+    "primary_position": "MEI",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_sergio_rochet",
+    "name": "Sergio Rochet",
+    "league": "Brasileirão",
+    "nationality": "Uruguay",
+    "primary_position": "GOL",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_thiago_silva",
+    "name": "Thiago Silva",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_pochettino",
+    "name": "Tomás Pochettino",
+    "league": "Brasileirão",
+    "nationality": "Argentina",
+    "primary_position": "MEI",
+    "overall": 79,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_vitao",
+    "name": "Vitão",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "ZAG",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_vitor_roque",
+    "name": "Vitor Roque",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "ATA",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_weverton",
+    "name": "Weverton",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "GOL",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bra_yuri_alberto",
+    "name": "Yuri Alberto",
+    "league": "Brasileirão",
+    "nationality": "Brazil",
+    "primary_position": "ATA",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_aleix_garcia",
+    "name": "Aleix García",
+    "league": "Bundesliga",
+    "nationality": "Spain",
+    "primary_position": "MC",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_aleksandar_pavlovic",
+    "name": "Aleksandar Pavlović",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "VOL",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bund-grimaldo",
+    "name": "Álex Grimaldo",
+    "league": "Bundesliga",
+    "nationality": "Spain",
+    "primary_position": "LE",
+    "overall": 79,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bundes_alexander_nubel",
+    "name": "Alexander Nübel",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "GOL",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bund-davies",
+    "name": "Alphonso Davies",
+    "league": "Bundesliga",
+    "nationality": "Canada",
+    "primary_position": "LE",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bundes_angelo_stiller",
+    "name": "Angelo Stiller",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "MC",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_chris_fuhrich",
+    "name": "Chris Führich",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "PE",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_david_raum",
+    "name": "David Raum",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "LE",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bund-upamecano",
+    "name": "Dayot Upamecano",
+    "league": "Bundesliga",
+    "nationality": "France",
+    "primary_position": "ZAG",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bund-undav",
+    "name": "Deniz Undav",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "ATA",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bundes_edmond_tapsoba",
+    "name": "Edmond Tapsoba",
+    "league": "Bundesliga",
+    "nationality": "Burkina Faso",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bund-palacios",
+    "name": "Exequiel Palacios",
+    "league": "Bundesliga",
+    "nationality": "Argentina",
+    "primary_position": "MC",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bundes_felix_nmecha",
+    "name": "Felix Nmecha",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "MC",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bund-kobel",
+    "name": "Gregor Kobel",
+    "league": "Bundesliga",
+    "nationality": "Switzerland",
+    "primary_position": "GOL",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bund-kane",
+    "name": "Harry Kane",
+    "league": "Bundesliga",
+    "nationality": "England",
+    "primary_position": "ATA",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bund-musiala",
+    "name": "Jamal Musiala",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "MEI",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bund-kimmich",
+    "name": "Joshua Kimmich",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "VOL",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bund-brandt",
+    "name": "Julian Brandt",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "MEI",
+    "overall": 79,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bundes_karim_adeyemi",
+    "name": "Karim Adeyemi",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "ATA",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_kim_min_jae",
+    "name": "Kim Min-jae",
+    "league": "Bundesliga",
+    "nationality": "South Korea",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_kingsley_coman",
+    "name": "Kingsley Coman",
+    "league": "Bundesliga",
+    "nationality": "France",
+    "primary_position": "PE",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_konrad_laimer",
+    "name": "Konrad Laimer",
+    "league": "Bundesliga",
+    "nationality": "Austria",
+    "primary_position": "MC",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bund-goretzka",
+    "name": "Leon Goretzka",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "MC",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bund-neuer",
+    "name": "Manuel Neuer",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "GOL",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bundes_marcel_sabitzer",
+    "name": "Marcel Sabitzer",
+    "league": "Bundesliga",
+    "nationality": "Austria",
+    "primary_position": "MC",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_maximilian_mittelstadt",
+    "name": "Maximilian Mittelstädt",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "LE",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bund-olise",
+    "name": "Michael Olise",
+    "league": "Bundesliga",
+    "nationality": "France",
+    "primary_position": "PD",
+    "overall": 88,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bund-schlotterbeck",
+    "name": "Nico Schlotterbeck",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "ZAG",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bundes_nicolas_seiwald",
+    "name": "Nicolas Seiwald",
+    "league": "Bundesliga",
+    "nationality": "Austria",
+    "primary_position": "VOL",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_patrik_schick",
+    "name": "Patrik Schick",
+    "league": "Bundesliga",
+    "nationality": "Czech Republic",
+    "primary_position": "ATA",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_piero_hincapie",
+    "name": "Piero Hincapié",
+    "league": "Bundesliga",
+    "nationality": "Ecuador",
+    "primary_position": "ZAG",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_ramy_bensebaini",
+    "name": "Ramy Bensebaini",
+    "league": "Bundesliga",
+    "nationality": "Algeria",
+    "primary_position": "ZAG",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bundes_robert_andrich",
+    "name": "Robert Andrich",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "VOL",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bund-gnabry",
+    "name": "Serge Gnabry",
+    "league": "Bundesliga",
+    "nationality": "Germany",
+    "primary_position": "PD",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bund-guirassy",
+    "name": "Serhou Guirassy",
+    "league": "Bundesliga",
+    "nationality": "Guinea",
+    "primary_position": "ATA",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bund-boniface",
+    "name": "Victor Boniface",
+    "league": "Bundesliga",
+    "nationality": "Nigeria",
+    "primary_position": "ATA",
+    "overall": 87,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "bundes_willi_orban",
+    "name": "Willi Orbán",
+    "league": "Bundesliga",
+    "nationality": "Hungary",
+    "primary_position": "ZAG",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "bund-xavi",
+    "name": "Xavi Simons",
+    "league": "Bundesliga",
+    "nationality": "Netherlands",
+    "primary_position": "MEI",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga_alejandro_balde",
+    "name": "Alejandro Balde",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "LE",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga_antoine_griezmann",
+    "name": "Antoine Griezmann",
+    "league": "La Liga",
+    "nationality": "France",
+    "primary_position": "SA",
+    "overall": 88,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga-rudiger",
+    "name": "Antonio Rüdiger",
+    "league": "La Liga",
+    "nationality": "Germany",
+    "primary_position": "ZAG",
+    "overall": 88,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga-tchouameni",
+    "name": "Aurélien Tchouaméni",
+    "league": "La Liga",
+    "nationality": "France",
+    "primary_position": "VOL",
+    "overall": 79,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga_brahim_diaz",
+    "name": "Brahim Díaz",
+    "league": "La Liga",
+    "nationality": "Morocco",
+    "primary_position": "MEI",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga_dani_carvajal",
+    "name": "Dani Carvajal",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "LD",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga_dani_olmo",
+    "name": "Dani Olmo",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "MEI",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga_dani_vivian",
+    "name": "Dani Vivian",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "ZAG",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga-militao",
+    "name": "Éder Militão",
+    "league": "La Liga",
+    "nationality": "Brazil",
+    "primary_position": "ZAG",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga-camavinga",
+    "name": "Eduardo Camavinga",
+    "league": "La Liga",
+    "nationality": "France",
+    "primary_position": "MC",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga-valverde",
+    "name": "Federico Valverde",
+    "league": "La Liga",
+    "nationality": "Uruguay",
+    "primary_position": "MC",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga_ferland_mendy",
+    "name": "Ferland Mendy",
+    "league": "La Liga",
+    "nationality": "France",
+    "primary_position": "LE",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga_ferran_torres",
+    "name": "Ferran Torres",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "ATA",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga-dejong",
+    "name": "Frenkie de Jong",
+    "league": "La Liga",
+    "nationality": "Netherlands",
+    "primary_position": "MC",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga-gavi",
+    "name": "Gavi",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "MC",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga_giovani_lo_celso",
+    "name": "Giovani Lo Celso",
+    "league": "La Liga",
+    "nationality": "Argentina",
+    "primary_position": "MC",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga_isco",
+    "name": "Isco",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "MEI",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga-oblak",
+    "name": "Jan Oblak",
+    "league": "La Liga",
+    "nationality": "Slovenia",
+    "primary_position": "GOL",
+    "overall": 88,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga_jose_gimenez",
+    "name": "José María Giménez",
+    "league": "La Liga",
+    "nationality": "Uruguay",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga-bellingham",
+    "name": "Jude Bellingham",
+    "league": "La Liga",
+    "nationality": "England",
+    "primary_position": "MEI",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga-kounde",
+    "name": "Jules Koundé",
+    "league": "La Liga",
+    "nationality": "France",
+    "primary_position": "LD",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga_julian_alvarez",
+    "name": "Julián Álvarez",
+    "league": "La Liga",
+    "nationality": "Argentina",
+    "primary_position": "ATA",
+    "overall": 87,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga_koke",
+    "name": "Koke",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "MC",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga-mbappe",
+    "name": "Kylian Mbappé",
+    "league": "La Liga",
+    "nationality": "France",
+    "primary_position": "ATA",
+    "overall": 87,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga-yamal",
+    "name": "Lamine Yamal",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "PD",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga-ter-stegen",
+    "name": "Marc-André ter Stegen",
+    "league": "La Liga",
+    "nationality": "Germany",
+    "primary_position": "GOL",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga_marcos_llorente",
+    "name": "Marcos Llorente",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "MC",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga_mikel_oyarzabal",
+    "name": "Mikel Oyarzabal",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "ATA",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga_nico_williams",
+    "name": "Nico Williams",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "PE",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga_oihan_sancet",
+    "name": "Oihan Sancet",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "MEI",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga_pau_cubarsi",
+    "name": "Pau Cubarsí",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga-pedri",
+    "name": "Pedri",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "MC",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga-raphinha",
+    "name": "Raphinha",
+    "league": "La Liga",
+    "nationality": "Brazil",
+    "primary_position": "PD",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga-lewandowski",
+    "name": "Robert Lewandowski",
+    "league": "La Liga",
+    "nationality": "Poland",
+    "primary_position": "ATA",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga-rodrygo",
+    "name": "Rodrygo",
+    "league": "La Liga",
+    "nationality": "Brazil",
+    "primary_position": "PD",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga-araujo",
+    "name": "Ronald Araújo",
+    "league": "La Liga",
+    "nationality": "Uruguay",
+    "primary_position": "ZAG",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga_takefusa_kubo",
+    "name": "Takefusa Kubo",
+    "league": "La Liga",
+    "nationality": "Japan",
+    "primary_position": "PD",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga-courtois",
+    "name": "Thibaut Courtois",
+    "league": "La Liga",
+    "nationality": "Belgium",
+    "primary_position": "GOL",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "laliga_unai_simon",
+    "name": "Unai Simón",
+    "league": "La Liga",
+    "nationality": "Spain",
+    "primary_position": "GOL",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "laliga-vini",
+    "name": "Vinícius Jr.",
+    "league": "La Liga",
+    "nationality": "Brazil",
+    "primary_position": "PE",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1-hakimi",
+    "name": "Achraf Hakimi",
+    "league": "Ligue 1",
+    "nationality": "Morocco",
+    "primary_position": "LD",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1-rabiot",
+    "name": "Adrien Rabiot",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "MC",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1_aleksandr_golovin",
+    "name": "Aleksandr Golovin",
+    "league": "Ligue 1",
+    "nationality": "Russia",
+    "primary_position": "MEI",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_amine_gouiri",
+    "name": "Amine Gouiri",
+    "league": "Ligue 1",
+    "nationality": "Algeria",
+    "primary_position": "ATA",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1-barcola",
+    "name": "Bradley Barcola",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "PE",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1_corentin_tolisso",
+    "name": "Corentin Tolisso",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "MC",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_dante",
+    "name": "Dante",
+    "league": "Ligue 1",
+    "nationality": "Brazil",
+    "primary_position": "ZAG",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_denis_zakaria",
+    "name": "Denis Zakaria",
+    "league": "Ligue 1",
+    "nationality": "Switzerland",
+    "primary_position": "VOL",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_desire_doue",
+    "name": "Désiré Doué",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "MEI",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_fabian_ruiz",
+    "name": "Fabián Ruiz",
+    "league": "Ligue 1",
+    "nationality": "Spain",
+    "primary_position": "MC",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_folarin_balogun",
+    "name": "Folarin Balogun",
+    "league": "Ligue 1",
+    "nationality": "United States",
+    "primary_position": "ATA",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_geoffrey_kondogbia",
+    "name": "Geoffrey Kondogbia",
+    "league": "Ligue 1",
+    "nationality": "Central African Republic",
+    "primary_position": "VOL",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_geronimo_rulli",
+    "name": "Gerónimo Rulli",
+    "league": "Ligue 1",
+    "nationality": "Argentina",
+    "primary_position": "GOL",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1-ramos",
+    "name": "Gonçalo Ramos",
+    "league": "Ligue 1",
+    "nationality": "Portugal",
+    "primary_position": "ATA",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1-joao-neves",
+    "name": "João Neves",
+    "league": "Ligue 1",
+    "nationality": "Portugal",
+    "primary_position": "MC",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1_jonathan_clauss",
+    "name": "Jonathan Clauss",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "LD",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_kang_in_lee",
+    "name": "Kang-in Lee",
+    "league": "Ligue 1",
+    "nationality": "South Korea",
+    "primary_position": "MEI",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1-kvara",
+    "name": "Khvicha Kvaratskhelia",
+    "league": "Ligue 1",
+    "nationality": "Georgia",
+    "primary_position": "PE",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1-balerdi",
+    "name": "Leonardo Balerdi",
+    "league": "Ligue 1",
+    "nationality": "Argentina",
+    "primary_position": "ZAG",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1-chevalier",
+    "name": "Lucas Chevalier",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "GOL",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1-lucas-hernandez",
+    "name": "Lucas Hernández",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "ZAG",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1_ludovic_blas",
+    "name": "Ludovic Blas",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "MEI",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_maghnas_akliouche",
+    "name": "Maghnes Akliouche",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "MEI",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1-marquinhos",
+    "name": "Marquinhos",
+    "league": "Ligue 1",
+    "nationality": "Brazil",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1-greenwood",
+    "name": "Mason Greenwood",
+    "league": "Ligue 1",
+    "nationality": "England",
+    "primary_position": "PD",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1_nicolas_tagliafico",
+    "name": "Nicolás Tagliafico",
+    "league": "Ligue 1",
+    "nationality": "Argentina",
+    "primary_position": "LE",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1-nuno",
+    "name": "Nuno Mendes",
+    "league": "Ligue 1",
+    "nationality": "Portugal",
+    "primary_position": "LE",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1-dembele",
+    "name": "Ousmane Dembélé",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "PD",
+    "overall": 88,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1_pierre_emile_hojbjerg",
+    "name": "Pierre-Emile Højbjerg",
+    "league": "Ligue 1",
+    "nationality": "Denmark",
+    "primary_position": "VOL",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_presnel_kimpembe",
+    "name": "Presnel Kimpembe",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "ZAG",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_seko_fofana",
+    "name": "Seko Fofana",
+    "league": "Ligue 1",
+    "nationality": "Ivory Coast",
+    "primary_position": "MC",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1_takumi_minamino",
+    "name": "Takumi Minamino",
+    "league": "Ligue 1",
+    "nationality": "Japan",
+    "primary_position": "MEI",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "ligue1-vitinha",
+    "name": "Vitinha",
+    "league": "Ligue 1",
+    "nationality": "Portugal",
+    "primary_position": "MC",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1-zaire-emery",
+    "name": "Warren Zaïre-Emery",
+    "league": "Ligue 1",
+    "nationality": "France",
+    "primary_position": "MC",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "ligue1_willian_pacho",
+    "name": "Willian Pacho",
+    "league": "Ligue 1",
+    "nationality": "Ecuador",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl-isak",
+    "name": "Alexander Isak",
+    "league": "Premier League",
+    "nationality": "Sweden",
+    "primary_position": "ATA",
+    "overall": 79,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl_alexis_mac_allister",
+    "name": "Alexis Mac Allister",
+    "league": "Premier League",
+    "nationality": "Argentina",
+    "primary_position": "MC",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl-alisson",
+    "name": "Alisson",
+    "league": "Premier League",
+    "nationality": "Brazil",
+    "primary_position": "GOL",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl_amad_diallo",
+    "name": "Amad Diallo",
+    "league": "Premier League",
+    "nationality": "Ivory Coast",
+    "primary_position": "PD",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl_anthony_gordon",
+    "name": "Anthony Gordon",
+    "league": "Premier League",
+    "nationality": "England",
+    "primary_position": "PE",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl_bernardo_silva",
+    "name": "Bernardo Silva",
+    "league": "Premier League",
+    "nationality": "Portugal",
+    "primary_position": "MEI",
+    "overall": 88,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl-bruno",
+    "name": "Bruno Fernandes",
+    "league": "Premier League",
+    "nationality": "Portugal",
+    "primary_position": "MEI",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl_bruno_guimaraes",
+    "name": "Bruno Guimarães",
+    "league": "Premier League",
+    "nationality": "Brazil",
+    "primary_position": "MC",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl-saka",
+    "name": "Bukayo Saka",
+    "league": "Premier League",
+    "nationality": "England",
+    "primary_position": "PD",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl-palmer",
+    "name": "Cole Palmer",
+    "league": "Premier League",
+    "nationality": "England",
+    "primary_position": "MEI",
+    "overall": 79,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl_david_raya",
+    "name": "David Raya",
+    "league": "Premier League",
+    "nationality": "Spain",
+    "primary_position": "GOL",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl-rice",
+    "name": "Declan Rice",
+    "league": "Premier League",
+    "nationality": "England",
+    "primary_position": "VOL",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl_dominik_szoboszlai",
+    "name": "Dominik Szoboszlai",
+    "league": "Premier League",
+    "nationality": "Hungary",
+    "primary_position": "MEI",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl-ederson",
+    "name": "Ederson",
+    "league": "Premier League",
+    "nationality": "Brazil",
+    "primary_position": "GOL",
+    "overall": 87,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl_enzo_fernandez",
+    "name": "Enzo Fernández",
+    "league": "Premier League",
+    "nationality": "Argentina",
+    "primary_position": "MC",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl-haaland",
+    "name": "Erling Haaland",
+    "league": "Premier League",
+    "nationality": "Norway",
+    "primary_position": "ATA",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl-gabriel",
+    "name": "Gabriel Magalhães",
+    "league": "Premier League",
+    "nationality": "Brazil",
+    "primary_position": "ZAG",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl_ibrahima_konate",
+    "name": "Ibrahima Konate",
+    "league": "Premier League",
+    "nationality": "France",
+    "primary_position": "ZAG",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl_jeremy_doku",
+    "name": "Jeremy Doku",
+    "league": "Premier League",
+    "nationality": "Belgium",
+    "primary_position": "PE",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl_josko_gvardiol",
+    "name": "Josko Gvardiol",
+    "league": "Premier League",
+    "nationality": "Croatia",
+    "primary_position": "ZAG",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl_jurrien_timber",
+    "name": "Jurrien Timber",
+    "league": "Premier League",
+    "nationality": "Netherlands",
+    "primary_position": "LD",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl_kai_havertz",
+    "name": "Kai Havertz",
+    "league": "Premier League",
+    "nationality": "Germany",
+    "primary_position": "ATA",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl_kobbie_mainoo",
+    "name": "Kobbie Mainoo",
+    "league": "Premier League",
+    "nationality": "England",
+    "primary_position": "MC",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl_lisandro_martinez",
+    "name": "Lisandro Martínez",
+    "league": "Premier League",
+    "nationality": "Argentina",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl_manuel_akanji",
+    "name": "Manuel Akanji",
+    "league": "Premier League",
+    "nationality": "Switzerland",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl-odegaard",
+    "name": "Martin Ødegaard",
+    "league": "Premier League",
+    "nationality": "Norway",
+    "primary_position": "MEI",
+    "overall": 79,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl-salah",
+    "name": "Mohamed Salah",
+    "league": "Premier League",
+    "nationality": "Egypt",
+    "primary_position": "PD",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl_moises_caicedo",
+    "name": "Moisés Caicedo",
+    "league": "Premier League",
+    "nationality": "Ecuador",
+    "primary_position": "VOL",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl-watkins",
+    "name": "Ollie Watkins",
+    "league": "Premier League",
+    "nationality": "England",
+    "primary_position": "ATA",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl-foden",
+    "name": "Phil Foden",
+    "league": "Premier League",
+    "nationality": "England",
+    "primary_position": "MEI",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl_reece_james",
+    "name": "Reece James",
+    "league": "Premier League",
+    "nationality": "England",
+    "primary_position": "LD",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl_riccardo_calafiori",
+    "name": "Riccardo Calafiori",
+    "league": "Premier League",
+    "nationality": "Italy",
+    "primary_position": "ZAG",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl-rodri",
+    "name": "Rodri",
+    "league": "Premier League",
+    "nationality": "Spain",
+    "primary_position": "VOL",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl-ruben-dias",
+    "name": "Rúben Dias",
+    "league": "Premier League",
+    "nationality": "Portugal",
+    "primary_position": "ZAG",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl_sandro_tonali",
+    "name": "Sandro Tonali",
+    "league": "Premier League",
+    "nationality": "Italy",
+    "primary_position": "MC",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "pl-son",
+    "name": "Son Heung-min",
+    "league": "Premier League",
+    "nationality": "South Korea",
+    "primary_position": "PE",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl-van-dijk",
+    "name": "Virgil van Dijk",
+    "league": "Premier League",
+    "nationality": "Netherlands",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "pl-saliba",
+    "name": "William Saliba",
+    "league": "Premier League",
+    "nationality": "France",
+    "primary_position": "ZAG",
+    "overall": 87,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea-lookman",
+    "name": "Ademola Lookman",
+    "league": "Serie A",
+    "nationality": "Nigeria",
+    "primary_position": "PE",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea-bastoni",
+    "name": "Alessandro Bastoni",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "ZAG",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea_alessandro_buongiorno",
+    "name": "Alessandro Buongiorno",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea_alex_meret",
+    "name": "Alex Meret",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "GOL",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea_andrea_cambiaso",
+    "name": "Andrea Cambiaso",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "LD",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea-bremer",
+    "name": "Bremer",
+    "league": "Serie A",
+    "nationality": "Brazil",
+    "primary_position": "ZAG",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea-pulisic",
+    "name": "Christian Pulisic",
+    "league": "Serie A",
+    "nationality": "United States",
+    "primary_position": "PD",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea-vlahovic",
+    "name": "Dušan Vlahović",
+    "league": "Serie A",
+    "nationality": "Serbia",
+    "primary_position": "ATA",
+    "overall": 87,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea_federico_dimarco",
+    "name": "Federico Dimarco",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "LE",
+    "overall": 86,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea_fikayo_tomori",
+    "name": "Fikayo Tomori",
+    "league": "Serie A",
+    "nationality": "England",
+    "primary_position": "ZAG",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea_francesco_acerbi",
+    "name": "Francesco Acerbi",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "ZAG",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea_frank_anguissa",
+    "name": "Frank Anguissa",
+    "league": "Serie A",
+    "nationality": "Cameroon",
+    "primary_position": "MC",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea_gianluca_mancini",
+    "name": "Gianluca Mancini",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "ZAG",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea-dilorenzo",
+    "name": "Giovanni Di Lorenzo",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "LD",
+    "overall": 85,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea-calhanoglu",
+    "name": "Hakan Çalhanoğlu",
+    "league": "Serie A",
+    "nationality": "Türkiye",
+    "primary_position": "VOL",
+    "overall": 79,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea-yildiz",
+    "name": "Kenan Yıldız",
+    "league": "Serie A",
+    "nationality": "Türkiye",
+    "primary_position": "MEI",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea_khephren_thuram",
+    "name": "Khéphren Thuram",
+    "league": "Serie A",
+    "nationality": "France",
+    "primary_position": "MC",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea-lautaro",
+    "name": "Lautaro Martínez",
+    "league": "Serie A",
+    "nationality": "Argentina",
+    "primary_position": "ATA",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea_lorenzo_pellegrini",
+    "name": "Lorenzo Pellegrini",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "MEI",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea-locatelli",
+    "name": "Manuel Locatelli",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "VOL",
+    "overall": 79,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea-thuram",
+    "name": "Marcus Thuram",
+    "league": "Serie A",
+    "nationality": "France",
+    "primary_position": "ATA",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea_matteo_guendouzi",
+    "name": "Matteo Guendouzi",
+    "league": "Serie A",
+    "nationality": "France",
+    "primary_position": "MC",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea_matteo_politano",
+    "name": "Matteo Politano",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "PD",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea_mattia_zaccagni",
+    "name": "Mattia Zaccagni",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "PE",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea_michele_di_gregorio",
+    "name": "Michele Di Gregorio",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "GOL",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea-maignan",
+    "name": "Mike Maignan",
+    "league": "Serie A",
+    "nationality": "France",
+    "primary_position": "GOL",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea_mile_svilar",
+    "name": "Mile Svilar",
+    "league": "Serie A",
+    "nationality": "Serbia",
+    "primary_position": "GOL",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea_moise_kean",
+    "name": "Moise Kean",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "ATA",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea-barella",
+    "name": "Nicolò Barella",
+    "league": "Serie A",
+    "nationality": "Italy",
+    "primary_position": "MC",
+    "overall": 88,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea-dybala",
+    "name": "Paulo Dybala",
+    "league": "Serie A",
+    "nationality": "Argentina",
+    "primary_position": "MEI",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea_piotr_zielinski",
+    "name": "Piotr Zieliński",
+    "league": "Serie A",
+    "nationality": "Poland",
+    "primary_position": "MC",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea-leao",
+    "name": "Rafael Leão",
+    "league": "Serie A",
+    "nationality": "Portugal",
+    "primary_position": "PE",
+    "overall": 78,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea_santiago_gimenez",
+    "name": "Santiago Giménez",
+    "league": "Serie A",
+    "nationality": "Mexico",
+    "primary_position": "ATA",
+    "overall": 82,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea-mctominay",
+    "name": "Scott McTominay",
+    "league": "Serie A",
+    "nationality": "Scotland",
+    "primary_position": "MC",
+    "overall": 80,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea_teun_koopmeiners",
+    "name": "Teun Koopmeiners",
+    "league": "Serie A",
+    "nationality": "Netherlands",
+    "primary_position": "MC",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "seriea-theo",
+    "name": "Theo Hernández",
+    "league": "Serie A",
+    "nationality": "France",
+    "primary_position": "LE",
+    "overall": 81,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea-sommer",
+    "name": "Yann Sommer",
+    "league": "Serie A",
+    "nationality": "Switzerland",
+    "primary_position": "GOL",
+    "overall": 84,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "seriea_youssouf_fofana",
+    "name": "Youssouf Fofana",
+    "league": "Serie A",
+    "nationality": "France",
+    "primary_position": "MC",
+    "overall": 83,
+    "player_type": "ACTIVE",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {}
+  },
+  {
+    "id": "icon-pirlo",
+    "name": "Andrea Pirlo",
+    "league": "LEGENDS",
+    "nationality": "Italy",
+    "primary_position": "MC",
+    "overall": 88,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-iniesta",
+    "name": "Andrés Iniesta",
+    "league": "LEGENDS",
+    "nationality": "Spain",
+    "primary_position": "MC",
+    "overall": 92,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-cafu",
+    "name": "Cafu",
+    "league": "LEGENDS",
+    "nationality": "Brazil",
+    "primary_position": "LD",
+    "overall": 89,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-valderrama",
+    "name": "Carlos Valderrama",
+    "league": "LEGENDS",
+    "nationality": "Colombia",
+    "primary_position": "MEI",
+    "overall": 92,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-carlos-vela",
+    "name": "Carlos Vela",
+    "league": "LEGENDS",
+    "nationality": "Mexico",
+    "primary_position": "PD",
+    "overall": 94,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-dempsey",
+    "name": "Clint Dempsey",
+    "league": "LEGENDS",
+    "nationality": "United States",
+    "primary_position": "ATA",
+    "overall": 88,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-beckham",
+    "name": "David Beckham",
+    "league": "LEGENDS",
+    "nationality": "England",
+    "primary_position": "MD",
+    "overall": 90,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-forlan",
+    "name": "Diego Forlán",
+    "league": "LEGENDS",
+    "nationality": "Uruguay",
+    "primary_position": "ATA",
+    "overall": 95,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-maradona",
+    "name": "Diego Maradona",
+    "league": "LEGENDS",
+    "nationality": "Argentina",
+    "primary_position": "MEI",
+    "overall": 92,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-eusebio",
+    "name": "Eusébio",
+    "league": "LEGENDS",
+    "nationality": "Portugal",
+    "primary_position": "ATA",
+    "overall": 90,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-lampard",
+    "name": "Frank Lampard",
+    "league": "LEGENDS",
+    "nationality": "England",
+    "primary_position": "MC",
+    "overall": 94,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-beckenbauer",
+    "name": "Franz Beckenbauer",
+    "league": "LEGENDS",
+    "nationality": "Germany",
+    "primary_position": "ZAG",
+    "overall": 91,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-batistuta",
+    "name": "Gabriel Batistuta",
+    "league": "LEGENDS",
+    "nationality": "Argentina",
+    "primary_position": "ATA",
+    "overall": 95,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-buffon",
+    "name": "Gianluigi Buffon",
+    "league": "LEGENDS",
+    "nationality": "Italy",
+    "primary_position": "GOL",
+    "overall": 93,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-hugo-sanchez",
+    "name": "Hugo Sánchez",
+    "league": "LEGENDS",
+    "nationality": "Mexico",
+    "primary_position": "ATA",
+    "overall": 93,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-casillas",
+    "name": "Iker Casillas",
+    "league": "LEGENDS",
+    "nationality": "Spain",
+    "primary_position": "GOL",
+    "overall": 89,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-zanetti",
+    "name": "Javier Zanetti",
+    "league": "LEGENDS",
+    "nationality": "Argentina",
+    "primary_position": "LD",
+    "overall": 95,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-cruyff",
+    "name": "Johan Cruyff",
+    "league": "LEGENDS",
+    "nationality": "Netherlands",
+    "primary_position": "MEI",
+    "overall": 95,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-jorge-campos",
+    "name": "Jorge Campos",
+    "league": "LEGENDS",
+    "nationality": "Mexico",
+    "primary_position": "GOL",
+    "overall": 95,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-riquelme",
+    "name": "Juan Román Riquelme",
+    "league": "LEGENDS",
+    "nationality": "Argentina",
+    "primary_position": "MEI",
+    "overall": 92,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-kaka",
+    "name": "Kaká",
+    "league": "LEGENDS",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 91,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-keylor",
+    "name": "Keylor Navas",
+    "league": "LEGENDS",
+    "nationality": "Costa Rica",
+    "primary_position": "GOL",
+    "overall": 91,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-donovan",
+    "name": "Landon Donovan",
+    "league": "LEGENDS",
+    "nationality": "United States",
+    "primary_position": "MEI",
+    "overall": 94,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-vanbasten",
+    "name": "Marco van Basten",
+    "league": "LEGENDS",
+    "nationality": "Netherlands",
+    "primary_position": "ATA",
+    "overall": 93,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-maldini",
+    "name": "Paolo Maldini",
+    "league": "LEGENDS",
+    "nationality": "Italy",
+    "primary_position": "ZAG",
+    "overall": 89,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-pele",
+    "name": "Pelé",
+    "league": "LEGENDS",
+    "nationality": "Brazil",
+    "primary_position": "ATA",
+    "overall": 93,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-rafa-marquez",
+    "name": "Rafael Márquez",
+    "league": "LEGENDS",
+    "nationality": "Mexico",
+    "primary_position": "ZAG",
+    "overall": 91,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-rivaldo",
+    "name": "Rivaldo",
+    "league": "LEGENDS",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 91,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-roberto-carlos",
+    "name": "Roberto Carlos",
+    "league": "LEGENDS",
+    "nationality": "Brazil",
+    "primary_position": "LE",
+    "overall": 93,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-romario",
+    "name": "Romário",
+    "league": "LEGENDS",
+    "nationality": "Brazil",
+    "primary_position": "ATA",
+    "overall": 91,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-ronaldinho",
+    "name": "Ronaldinho",
+    "league": "LEGENDS",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 89,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-ronaldo",
+    "name": "Ronaldo Nazário",
+    "league": "LEGENDS",
+    "nationality": "Brazil",
+    "primary_position": "ATA",
+    "overall": 94,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-gerrard",
+    "name": "Steven Gerrard",
+    "league": "LEGENDS",
+    "nationality": "England",
+    "primary_position": "MC",
+    "overall": 94,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-henry",
+    "name": "Thierry Henry",
+    "league": "LEGENDS",
+    "nationality": "France",
+    "primary_position": "ATA",
+    "overall": 94,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-howard",
+    "name": "Tim Howard",
+    "league": "LEGENDS",
+    "nationality": "United States",
+    "primary_position": "GOL",
+    "overall": 95,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-xavi",
+    "name": "Xavi",
+    "league": "LEGENDS",
+    "nationality": "Spain",
+    "primary_position": "MC",
+    "overall": 93,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-zico",
+    "name": "Zico",
+    "league": "LEGENDS",
+    "nationality": "Brazil",
+    "primary_position": "MEI",
+    "overall": 90,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  },
+  {
+    "id": "icon-zidane",
+    "name": "Zinedine Zidane",
+    "league": "LEGENDS",
+    "nationality": "France",
+    "primary_position": "MEI",
+    "overall": 93,
+    "player_type": "ICON",
+    "enabled": true,
+    "image_url": null,
+    "metadata": {
+      "catalog_version": "curated_v1"
+    }
+  }
+]
