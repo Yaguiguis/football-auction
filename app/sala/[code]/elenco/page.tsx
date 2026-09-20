@@ -3,12 +3,20 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../../../../lib/supabase";
-import { boardForMode, effectiveGer, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";
+import {
+  benchSlotsForMode,
+  boardForMode,
+  effectiveGer,
+  rosterSizeForMode,
+  squadGer,
+  type GameMode,
+  type RatedPlayer,
+} from "../../../../lib/squad-board";
 import PlayerFace from "../../../../components/PlayerFace";
 
 type Room = { id: string; code: string; mode: GameMode; status: string };
 type Member = { id: string; user_id: string; display_name: string; squad_finalized: boolean };
-type SquadRow = { member_id: string; player_id: string; slot_key: string };
+type SquadRow = { member_id: string; player_id: string; slot_key: string; is_bench: boolean };
 type Player = RatedPlayer & { league: string | null };
 
 function errorMessage(error: unknown) {
@@ -24,6 +32,7 @@ export default function SquadEditorPage() {
   const params = useParams<{ code: string }>();
   const router = useRouter();
   const code = String(params.code).toUpperCase();
+
   const [room, setRoom] = useState<Room | null>(null);
   const [me, setMe] = useState<Member | null>(null);
   const [squad, setSquad] = useState<SquadRow[]>([]);
@@ -60,9 +69,10 @@ export default function SquadEditorPage() {
 
     const { data: squadData, error: squadError } = await supabase
       .from("fa_squad_players")
-      .select("member_id,player_id,slot_key")
+      .select("member_id,player_id,slot_key,is_bench")
       .eq("member_id", typedMember.id);
     if (squadError) throw squadError;
+
     const typedSquad = (squadData || []) as SquadRow[];
     setSquad(typedSquad);
 
@@ -104,31 +114,46 @@ export default function SquadEditorPage() {
       .on("postgres_changes", { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` }, () => void safeLoad())
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "fa_rooms", filter: `id=eq.${room.id}` }, () => void safeLoad())
       .subscribe();
-    return () => { void supabase.removeChannel(channel); };
+
+    return () => {
+      void supabase.removeChannel(channel);
+    };
   }, [room?.id, safeLoad]);
 
   useEffect(() => {
     if (room?.status === "squads") router.replace(`/sala/${code}/times`);
   }, [room?.status, code, router]);
 
+  const mode = room?.mode || "football";
+  const board = boardForMode(mode);
+  const benchSlots = benchSlotsForMode(mode);
+  const totalRosterSize = rosterSizeForMode(mode);
+
   const playersById = useMemo(() => new Map(players.map((p) => [p.id, p])), [players]);
-  const board = boardForMode(room?.mode || "football");
   const bySlot = useMemo(() => new Map(squad.map((row) => [row.slot_key, row])), [squad]);
   const ger = room ? squadGer(squad, playersById, room.mode) : 0;
   const selectedPlayer = selectedPlayerId ? playersById.get(selectedPlayerId) || null : null;
-  const full = squad.length === board.length && board.every((slot) => bySlot.has(slot.key));
+
+  const starterFilled = board.filter((slot) => bySlot.has(slot.key)).length;
+  const benchFilled = benchSlots.filter((slot) => bySlot.has(slot.key)).length;
+  const full =
+    board.every((slot) => bySlot.has(slot.key)) &&
+    benchSlots.every((slot) => bySlot.has(slot.key));
 
   async function moveSelected(targetSlot: string, explicitPlayerId?: string) {
     const playerId = explicitPlayerId || selectedPlayerId;
     if (!playerId || !me || me.squad_finalized) return;
+
     setSaving(true);
     setError("");
+
     try {
       const { error: rpcError } = await getSupabase().rpc("fa_move_squad_player", {
         p_player_id: playerId,
         p_target_slot: targetSlot,
       });
       if (rpcError) throw rpcError;
+
       setSelectedPlayerId(null);
       await safeLoad();
     } catch (e) {
@@ -140,10 +165,14 @@ export default function SquadEditorPage() {
 
   async function finalize() {
     if (!room || !full || me?.squad_finalized) return;
+
     setSaving(true);
     setError("");
+
     try {
-      const { error: rpcError } = await getSupabase().rpc("fa_finalize_squad", { p_room_id: room.id });
+      const { error: rpcError } = await getSupabase().rpc("fa_finalize_squad", {
+        p_room_id: room.id,
+      });
       if (rpcError) throw rpcError;
       await safeLoad();
     } catch (e) {
@@ -153,19 +182,45 @@ export default function SquadEditorPage() {
     }
   }
 
-  if (loading) return <main className="container"><p>Carregando sua prancheta...</p></main>;
+  function selectOrMove(slotKey: string, playerId?: string) {
+    if (selectedPlayerId) {
+      if (playerId === selectedPlayerId) {
+        setSelectedPlayerId(null);
+      } else {
+        void moveSelected(slotKey);
+      }
+    } else if (playerId) {
+      setSelectedPlayerId(playerId);
+    }
+  }
+
+  if (loading) {
+    return <main className="container"><p>Carregando sua prancheta...</p></main>;
+  }
 
   return (
     <main className="container">
       <div className="topbar">
         <div>
           <p className="red" style={{ margin: 0, fontWeight: 900, letterSpacing: 2 }}>SUA PRANCHETA</p>
-          <h1 style={{ margin: "5px 0 0" }}>{room?.mode === "futsal" ? "Futsal" : "Futebol de campo"}</h1>
+          <h1 style={{ margin: "5px 0 0" }}>
+            {room?.mode === "futsal" ? "Futsal" : "Futebol de campo"}
+          </h1>
         </div>
-        <button className="btn btn-secondary" onClick={() => router.push(`/sala/${code}/leilao`)}>Voltar ao leilão</button>
+
+        <button
+          className="btn btn-secondary"
+          onClick={() => router.push(`/sala/${code}/leilao`)}
+        >
+          Voltar ao leilão
+        </button>
       </div>
 
-      {error && <div className="card" style={{ marginBottom: 16 }}><p className="red">{error}</p></div>}
+      {error && (
+        <div className="card" style={{ marginBottom: 16 }}>
+          <p className="red" style={{ margin: 0 }}>{error}</p>
+        </div>
+      )}
 
       <div className="grid grid-2">
         <section>
@@ -174,12 +229,15 @@ export default function SquadEditorPage() {
               <div>
                 <strong>{me?.display_name}</strong>
                 <p className="muted" style={{ margin: "4px 0 0" }}>
-                  {me?.squad_finalized ? "Time finalizado" : "Toque em um jogador e depois na vaga desejada."}
+                  {me?.squad_finalized
+                    ? "Time finalizado"
+                    : "Toque em um jogador e depois na vaga desejada. Você também pode arrastar."}
                 </p>
               </div>
+
               <div style={{ textAlign: "center" }}>
                 <div className="red" style={{ fontSize: 38, fontWeight: 900, lineHeight: 1 }}>{ger}</div>
-                <small className="muted">GER DA ESCALAÇÃO</small>
+                <small className="muted">GER DOS TITULARES</small>
               </div>
             </div>
           </div>
@@ -212,14 +270,7 @@ export default function SquadEditorPage() {
                   key={slot.key}
                   type="button"
                   disabled={saving || !!me?.squad_finalized}
-                  onClick={() => {
-                    if (selectedPlayerId) {
-                      if (player?.id === selectedPlayerId) setSelectedPlayerId(null);
-                      else void moveSelected(slot.key);
-                    } else if (player) {
-                      setSelectedPlayerId(player.id);
-                    }
-                  }}
+                  onClick={() => selectOrMove(slot.key, player?.id)}
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => {
                     e.preventDefault();
@@ -236,13 +287,23 @@ export default function SquadEditorPage() {
                     padding: "7px 5px",
                     background: player ? "#0b0b0b" : "rgba(0,0,0,.35)",
                     color: "white",
-                    border: isSelected ? "3px solid white" : player ? "2px solid #e50914" : "1px dashed rgba(255,255,255,.6)",
+                    border: isSelected
+                      ? "3px solid white"
+                      : player
+                        ? "2px solid #e50914"
+                        : "1px dashed rgba(255,255,255,.6)",
                     cursor: me?.squad_finalized ? "default" : "pointer",
                   }}
                 >
                   <div style={{ fontSize: 10, fontWeight: 900, opacity: .8 }}>{slot.label}</div>
-                  {player && <div style={{ display: "flex", justifyContent: "center", margin: "3px 0" }}><PlayerFace name={player.name} imageUrl={player.image_url} size={38} /></div>}
-                  <div style={{ fontSize: 11, fontWeight: 900, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{player?.name || "Vazio"}</div>
+                  {player && (
+                    <div style={{ display: "flex", justifyContent: "center", margin: "3px 0" }}>
+                      <PlayerFace name={player.name} imageUrl={player.image_url} size={38} />
+                    </div>
+                  )}
+                  <div style={{ fontSize: 11, fontWeight: 900, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    {player?.name || "Vazio"}
+                  </div>
                   {player && (
                     <div className="red" style={{ fontSize: 13, fontWeight: 900 }}>
                       {effective} GER{penalty > 0 ? ` (-${penalty})` : ""}
@@ -252,25 +313,103 @@ export default function SquadEditorPage() {
               );
             })}
           </div>
+
+          <div className="card" style={{ marginTop: 14 }}>
+            <div className="topbar" style={{ marginBottom: 12 }}>
+              <div>
+                <h2 style={{ margin: 0 }}>Banco de reservas</h2>
+                <p className="muted" style={{ margin: "4px 0 0" }}>
+                  {benchFilled}/{benchSlots.length} reservas
+                </p>
+              </div>
+              {selectedPlayer && <span className="badge">Selecionado: {selectedPlayer.name}</span>}
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: `repeat(${benchSlots.length}, minmax(0, 1fr))`,
+                gap: 10,
+              }}
+            >
+              {benchSlots.map((slot) => {
+                const row = bySlot.get(slot.key);
+                const player = row ? playersById.get(row.player_id) : undefined;
+                const selected = player?.id === selectedPlayerId;
+
+                return (
+                  <button
+                    key={slot.key}
+                    type="button"
+                    disabled={saving || !!me?.squad_finalized}
+                    onClick={() => selectOrMove(slot.key, player?.id)}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      const playerId = e.dataTransfer.getData("text/player-id");
+                      if (playerId) void moveSelected(slot.key, playerId);
+                    }}
+                    style={{
+                      minWidth: 0,
+                      padding: 10,
+                      borderRadius: 12,
+                      background: player ? "#0b0b0b" : "rgba(255,255,255,.03)",
+                      border: selected
+                        ? "3px solid #fff"
+                        : player
+                          ? "2px solid #e50914"
+                          : "1px dashed #555",
+                      color: "#fff",
+                      cursor: me?.squad_finalized ? "default" : "pointer",
+                    }}
+                  >
+                    <div className="muted" style={{ fontSize: 10, fontWeight: 900 }}>{slot.label}</div>
+                    {player ? (
+                      <>
+                        <div style={{ display: "flex", justifyContent: "center", margin: "7px 0" }}>
+                          <PlayerFace name={player.name} imageUrl={player.image_url} size={42} />
+                        </div>
+                        <strong style={{ display: "block", fontSize: 12, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {player.name}
+                        </strong>
+                        <span className="red" style={{ fontSize: 12, fontWeight: 900 }}>{player.overall} GER</span>
+                      </>
+                    ) : (
+                      <div className="muted" style={{ padding: "18px 0" }}>Vazio</div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </section>
 
         <section className="card">
           <div className="topbar" style={{ marginBottom: 12 }}>
             <div>
-              <h2 style={{ margin: 0 }}>Seus jogadores</h2>
-              <p className="muted" style={{ margin: "4px 0 0" }}>{squad.length}/{board.length} vagas preenchidas</p>
+              <h2 style={{ margin: 0 }}>Seu elenco</h2>
+              <p className="muted" style={{ margin: "4px 0 0" }}>
+                {squad.length}/{totalRosterSize} jogadores • Titulares {starterFilled}/{board.length} • Banco {benchFilled}/{benchSlots.length}
+              </p>
             </div>
-            {selectedPlayer && <span className="badge">Selecionado: {selectedPlayer.name}</span>}
           </div>
 
           <div className="grid">
             {squad.length === 0 && <p className="muted">Você ainda não ganhou nenhum jogador.</p>}
+
             {squad.map((row) => {
               const player = playersById.get(row.player_id);
               if (!player) return null;
+
               const selected = selectedPlayerId === player.id;
-              const slot = board.find((item) => item.key === row.slot_key);
-              const effective = room ? effectiveGer(player, row.slot_key, room.mode) : player.overall;
+              const boardSlot = board.find((item) => item.key === row.slot_key);
+              const benchSlot = benchSlots.find((item) => item.key === row.slot_key);
+              const slotLabel = boardSlot?.label || benchSlot?.label || row.slot_key;
+              const isBench = row.slot_key.startsWith("BENCH");
+              const effective = room && !isBench
+                ? effectiveGer(player, row.slot_key, room.mode)
+                : player.overall;
+
               return (
                 <button
                   key={row.player_id}
@@ -280,17 +419,29 @@ export default function SquadEditorPage() {
                   onClick={() => setSelectedPlayerId(selected ? null : player.id)}
                   disabled={!!me?.squad_finalized}
                   className="card"
-                  style={{ textAlign: "left", cursor: me?.squad_finalized ? "default" : "pointer", border: selected ? "2px solid #e50914" : undefined }}
+                  style={{
+                    textAlign: "left",
+                    cursor: me?.squad_finalized ? "default" : "pointer",
+                    border: selected ? "2px solid #e50914" : undefined,
+                  }}
                 >
-                  <div style={{ marginBottom: 8 }}><PlayerFace name={player.name} imageUrl={player.image_url} size={50} /></div>
+                  <div style={{ marginBottom: 8 }}>
+                    <PlayerFace name={player.name} imageUrl={player.image_url} size={50} />
+                  </div>
+
                   <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
                     <div>
                       <strong>{player.name}</strong>
-                      <div className="muted">Original: {player.primary_position} • Em: {slot?.label || row.slot_key}</div>
+                      <div className="muted">
+                        Original: {player.primary_position} • Em: {slotLabel}
+                      </div>
                     </div>
+
                     <div style={{ textAlign: "right" }}>
                       <strong className="red">{effective} GER</strong>
-                      {effective !== player.overall && <div className="muted">Base {player.overall}</div>}
+                      {!isBench && effective !== player.overall && (
+                        <div className="muted">Base {player.overall}</div>
+                      )}
                     </div>
                   </div>
                 </button>
@@ -301,12 +452,26 @@ export default function SquadEditorPage() {
           {!me?.squad_finalized && (
             <>
               <p className="muted" style={{ marginTop: 18 }}>
-                Goleiro fica no gol. Jogadores de linha podem trocar entre as outras vagas. Fora da função mais adequada, o GER da escalação recebe uma pequena penalidade.
+                Você pode trocar reservas e titulares livremente. Goleiro pode ficar no banco, mas somente goleiro pode ocupar a vaga GOL.
+                Organize o time antes de finalizar.
               </p>
-              <button className="btn btn-primary" onClick={finalize} disabled={!full || saving}>
-                {full ? "Finalizar meu time" : `Faltam ${board.length - squad.length} jogadores`}
+
+              <button
+                className="btn btn-primary"
+                onClick={finalize}
+                disabled={!full || saving}
+              >
+                {full
+                  ? (saving ? "Finalizando..." : "Finalizar meu time")
+                  : `Faltam ${totalRosterSize - squad.length} jogadores no elenco`}
               </button>
             </>
+          )}
+
+          {me?.squad_finalized && (
+            <p className="red" style={{ fontWeight: 900, marginBottom: 0 }}>
+              ✓ Time finalizado.
+            </p>
           )}
         </section>
       </div>
