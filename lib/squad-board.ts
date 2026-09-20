@@ -41,6 +41,18 @@ export function boardForMode(mode: GameMode) {
   return mode === "futsal" ? futsalBoard : footballBoard;
 }
 
+export function benchSlotsForMode(mode: GameMode) {
+  const count = mode === "futsal" ? 2 : 5;
+  return Array.from({ length: count }, (_, index) => ({
+    key: `BENCH${index + 1}`,
+    label: `Reserva ${index + 1}`,
+  }));
+}
+
+export function rosterSizeForMode(mode: GameMode) {
+  return boardForMode(mode).length + benchSlotsForMode(mode).length;
+}
+
 export function positionGroup(position: string) {
   const pos = position.toUpperCase().trim();
   if (pos === "MD") return "PD";
@@ -97,6 +109,7 @@ function futsalPenalty(position: string, slot: string) {
 }
 
 export function positionPenalty(position: string, slot: string, mode: GameMode) {
+  if (slot.startsWith("BENCH")) return 0;
   return mode === "futsal" ? futsalPenalty(position, slot) : fieldPenalty(position, slot);
 }
 
@@ -110,6 +123,7 @@ export function squadGer(
   mode: GameMode,
 ) {
   const ratings = squad
+    .filter((row) => !row.slot_key.startsWith("BENCH"))
     .map((row) => {
       const player = playersById.get(row.player_id);
       return player ? effectiveGer(player, row.slot_key, mode) : null;
