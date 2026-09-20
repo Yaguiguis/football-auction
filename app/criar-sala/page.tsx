@@ -37,36 +37,49 @@ export default function CreateRoom() {
   }
 
   return (
-    <main className="container">
-      <div className="topbar">
-        <h1>Criar sala</h1>
-        <span className="badge">sem limite de pessoas</span>
-      </div>
-      <div className="card grid" style={{ maxWidth: 620 }}>
-        <label>
-          Nome do administrador
-          <input className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ex.: Gabriel" maxLength={24} />
-        </label>
-        <label>
-          Modalidade
-          <select className="input" value={mode} onChange={(e) => setMode(e.target.value)}>
-            <option value="football">Futebol de campo</option>
-            <option value="futsal">Futsal</option>
-          </select>
-        </label>
-        <label>
-          Orçamento por pessoa
-          <select className="input" value={budget} onChange={(e) => setBudget(e.target.value)}>
-            {[50, 100, 150, 200, 500].map((v) => (
-              <option key={v} value={v}>{v} créditos</option>
-            ))}
-          </select>
-        </label>
-        <p className="muted">A sala não tem limite fixo de participantes.</p>
-        {error && <p className="red">{error}</p>}
-        <button className="btn btn-primary" onClick={createRoom} disabled={loading}>
-          {loading ? "Criando..." : "Criar sala"}
+    <main className="form-page">
+      <div className="form-shell">
+        <button className="back-button" type="button" onClick={() => router.push("/")}>
+          ← Voltar
         </button>
+
+        <h1 className="form-title">Criar sala</h1>
+
+        <div className="card grid form-card">
+          <label>
+            Nome do administrador
+            <input
+              className="input"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Ex.: Gabriel"
+              maxLength={24}
+            />
+          </label>
+
+          <label>
+            Modalidade
+            <select className="input" value={mode} onChange={(e) => setMode(e.target.value)}>
+              <option value="football">Futebol de campo</option>
+              <option value="futsal">Futsal</option>
+            </select>
+          </label>
+
+          <label>
+            Orçamento por pessoa
+            <select className="input" value={budget} onChange={(e) => setBudget(e.target.value)}>
+              {[50, 100, 150, 200, 500].map((v) => (
+                <option key={v} value={v}>{v} créditos</option>
+              ))}
+            </select>
+          </label>
+
+          {error && <p className="red">{error}</p>}
+
+          <button className="btn btn-primary" onClick={createRoom} disabled={loading}>
+            {loading ? "Criando..." : "Criar sala"}
+          </button>
+        </div>
       </div>
     </main>
   );
