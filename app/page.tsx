@@ -1,107 +1,117 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <main className="crias-home">
-      <div className="crias-noise" aria-hidden="true" />
-      <div className="crias-slash crias-slash-one" aria-hidden="true" />
-      <div className="crias-slash crias-slash-two" aria-hidden="true" />
+    <main className="crias-home-v2">
+      <div className="crias-wall" aria-hidden="true" />
 
-      <section className="crias-shell">
-        <div className="crias-hero">
-          <div className="crias-brand">
-            <div className="crias-crown" aria-hidden="true">♛</div>
-
-            <div className="crias-graffiti-wrap">
-              <span className="spray spray-a" aria-hidden="true" />
-              <span className="spray spray-b" aria-hidden="true" />
-              <span className="spray spray-c" aria-hidden="true" />
-              <span className="spray spray-d" aria-hidden="true" />
-              <span className="spray spray-e" aria-hidden="true" />
-
-              <h1 className="crias-title" aria-label="Leilão dos Crias">
-                <span className="crias-title-white">LEILÃO</span>
-                <span className="crias-title-red">DOS CRIAS</span>
-              </h1>
-
-              <span className="crias-brush crias-brush-white" aria-hidden="true" />
-              <span className="crias-brush crias-brush-red" aria-hidden="true" />
-            </div>
+      <section className="crias-shell-v2">
+        <div className="crias-hero-v2">
+          <div className="crias-logo-panel">
+            <Image
+              src="/crias-graffiti.jpg"
+              alt="Leilão dos Crias"
+              width={720}
+              height={486}
+              priority
+              className="crias-graffiti-image"
+            />
           </div>
 
-          <div className="crias-scene" aria-label="Martelo de leilão animado">
-            <div className="crias-glow" aria-hidden="true" />
+          <div className="crias-gavel-stage" aria-label="Martelo de leilão animado">
+            <div className="crias-red-haze" aria-hidden="true" />
 
-            <div className="crias-gavel-wrap" aria-hidden="true">
-              <svg
-                className="crias-gavel-svg"
-                viewBox="0 0 520 310"
-                role="presentation"
-                focusable="false"
-              >
+            <div className="crias-real-gavel" aria-hidden="true">
+              <svg viewBox="0 0 760 420" role="presentation" focusable="false">
                 <defs>
-                  <linearGradient id="headMetal" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#4c4c4c" />
-                    <stop offset="18%" stopColor="#111111" />
-                    <stop offset="42%" stopColor="#262626" />
-                    <stop offset="75%" stopColor="#080808" />
-                    <stop offset="100%" stopColor="#2e2e2e" />
+                  <linearGradient id="woodA" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#070403" />
+                    <stop offset="18%" stopColor="#2a120d" />
+                    <stop offset="42%" stopColor="#6a2d1e" />
+                    <stop offset="58%" stopColor="#1f0c08" />
+                    <stop offset="78%" stopColor="#5a2418" />
+                    <stop offset="100%" stopColor="#090403" />
                   </linearGradient>
-                  <linearGradient id="redBand" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#5d0007" />
-                    <stop offset="48%" stopColor="#ff1b2a" />
-                    <stop offset="100%" stopColor="#6a0008" />
+                  <linearGradient id="woodB" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#5a2418" />
+                    <stop offset="22%" stopColor="#120706" />
+                    <stop offset="58%" stopColor="#3c160f" />
+                    <stop offset="100%" stopColor="#050202" />
                   </linearGradient>
-                  <linearGradient id="handleMetal" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#4b4b4b" />
-                    <stop offset="35%" stopColor="#171717" />
-                    <stop offset="58%" stopColor="#050505" />
-                    <stop offset="100%" stopColor="#303030" />
+                  <linearGradient id="metalA" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#5c3514" />
+                    <stop offset="16%" stopColor="#b98538" />
+                    <stop offset="42%" stopColor="#f4cf71" />
+                    <stop offset="62%" stopColor="#9d6422" />
+                    <stop offset="84%" stopColor="#e0b459" />
+                    <stop offset="100%" stopColor="#56310f" />
                   </linearGradient>
-                  <filter id="gavelShadow" x="-30%" y="-40%" width="180%" height="200%">
-                    <feDropShadow dx="0" dy="16" stdDeviation="12" floodColor="#000" floodOpacity=".7" />
-                    <feDropShadow dx="0" dy="0" stdDeviation="10" floodColor="#e50914" floodOpacity=".18" />
+                  <linearGradient id="handleA" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#2b110c" />
+                    <stop offset="32%" stopColor="#7a3322" />
+                    <stop offset="48%" stopColor="#1c0a07" />
+                    <stop offset="74%" stopColor="#542117" />
+                    <stop offset="100%" stopColor="#070302" />
+                  </linearGradient>
+                  <radialGradient id="baseTop" cx="50%" cy="35%" r="75%">
+                    <stop offset="0%" stopColor="#5f2720" />
+                    <stop offset="34%" stopColor="#1b0b08" />
+                    <stop offset="100%" stopColor="#030202" />
+                  </radialGradient>
+                  <filter id="grain" x="-20%" y="-20%" width="140%" height="140%">
+                    <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="noise" />
+                    <feColorMatrix in="noise" type="saturate" values="0" result="mono" />
+                    <feBlend in="SourceGraphic" in2="mono" mode="soft-light" />
+                  </filter>
+                  <filter id="shadow" x="-30%" y="-40%" width="180%" height="220%">
+                    <feDropShadow dx="0" dy="18" stdDeviation="16" floodColor="#000" floodOpacity=".85" />
+                    <feDropShadow dx="0" dy="0" stdDeviation="10" floodColor="#e50914" floodOpacity=".26" />
                   </filter>
                 </defs>
 
-                <g filter="url(#gavelShadow)" transform="rotate(-14 210 150)">
-                  <rect x="58" y="82" width="210" height="118" rx="34" fill="url(#headMetal)" stroke="#4a4a4a" strokeWidth="2" />
-                  <ellipse cx="163" cy="83" rx="113" ry="23" fill="#303030" stroke="#555" strokeWidth="2" />
-                  <ellipse cx="163" cy="199" rx="113" ry="23" fill="#090909" stroke="#303030" strokeWidth="2" />
-                  <rect x="112" y="95" width="102" height="94" rx="14" fill="url(#redBand)" />
-                  <rect x="141" y="95" width="18" height="94" rx="8" fill="rgba(255,255,255,.18)" />
-                  <path d="M251 139 L456 139" stroke="url(#handleMetal)" strokeWidth="34" strokeLinecap="round" />
-                  <path d="M269 129 L444 129" stroke="rgba(255,255,255,.13)" strokeWidth="6" strokeLinecap="round" />
-                  <ellipse cx="463" cy="139" rx="23" ry="28" fill="#151515" stroke="#343434" strokeWidth="2" />
+                <g className="crias-gavel-swing" filter="url(#shadow)">
+                  <g transform="rotate(-15 300 180)">
+                    <ellipse cx="230" cy="104" rx="118" ry="30" fill="#160907" stroke="#3f1a13" strokeWidth="6" />
+                    <rect x="120" y="100" width="220" height="132" rx="42" fill="url(#woodA)" stroke="#240e0b" strokeWidth="6" filter="url(#grain)" />
+                    <ellipse cx="230" cy="226" rx="119" ry="31" fill="url(#woodB)" stroke="#1c0a08" strokeWidth="6" />
+                    <rect x="176" y="113" width="108" height="106" rx="16" fill="url(#metalA)" stroke="#7a4a1d" strokeWidth="4" />
+                    <path d="M340 164 L640 164" stroke="url(#handleA)" strokeWidth="36" strokeLinecap="round" />
+                    <path d="M350 154 L624 154" stroke="rgba(255,255,255,.12)" strokeWidth="6" strokeLinecap="round" />
+                    <ellipse cx="651" cy="164" rx="28" ry="33" fill="#1a0a07" stroke="#35150e" strokeWidth="5" />
+                  </g>
+                </g>
+
+                <g className="crias-gavel-base">
+                  <ellipse cx="325" cy="326" rx="170" ry="34" fill="#070303" opacity=".95" />
+                  <rect x="145" y="302" width="360" height="76" rx="26" fill="url(#woodB)" stroke="#1f0b08" strokeWidth="6" filter="url(#grain)" />
+                  <ellipse cx="325" cy="304" rx="162" ry="34" fill="url(#baseTop)" stroke="#4a1914" strokeWidth="5" />
+                  <ellipse cx="325" cy="300" rx="128" ry="18" fill="#140806" stroke="#7e271f" strokeWidth="3" />
+                </g>
+
+                <g className="crias-hit-rays">
+                  <path d="M326 290 L326 238" />
+                  <path d="M285 294 L248 252" />
+                  <path d="M365 294 L406 251" />
+                  <path d="M270 310 L216 297" />
+                  <path d="M381 309 L439 296" />
                 </g>
               </svg>
-            </div>
-
-            <div className="crias-block" aria-hidden="true">
-              <span />
-            </div>
-
-            <div className="crias-impact" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-              <i />
-              <i />
             </div>
           </div>
         </div>
 
-        <div className="crias-actions">
-          <Link className="crias-action crias-action-primary" href="/criar-sala">
-            <span className="crias-action-kicker">COMEÇAR</span>
+        <div className="crias-actions-v2">
+          <Link href="/criar-sala" className="crias-btn-v2 primary">
+            <span>COMEÇAR</span>
             <strong>Criar sala</strong>
-            <b aria-hidden="true">→</b>
+            <b>→</b>
           </Link>
 
-          <Link className="crias-action crias-action-secondary" href="/entrar">
-            <span className="crias-action-kicker">JÁ TEM CÓDIGO?</span>
+          <Link href="/entrar" className="crias-btn-v2 secondary">
+            <span>JÁ TEM CÓDIGO?</span>
             <strong>Entrar com código</strong>
-            <b aria-hidden="true">→</b>
+            <b>→</b>
           </Link>
         </div>
       </section>
