@@ -22,3 +22,75 @@ linear-gradient(90deg,rgba(0,0,0,.35),transparent 10%,rgba(0,0,0,.13) 62%,transp
 @media(max-width:560px){.crias-home{padding:22px 14px 28px}.crias-title{letter-spacing:-3px}.crias-title-white{font-size:66px}.crias-title-red{font-size:58px}.crias-brush-red{height:12px;box-shadow:95px 8px 0 -4px #e50914}.crias-scene{height:310px}.crias-gavel-wrap{left:-4%;top:28px;width:430px;height:270px;animation-name:criasStrikePhone}.crias-block{left:20%;bottom:34px;width:230px;transform:scale(.84)}.crias-impact{left:37%;bottom:82px;transform:scale(.8)}.crias-action{min-height:92px;padding:16px 18px;border-radius:14px}.crias-action strong{font-size:22px}.crias-action b{font-size:30px}.crias-slash{width:150px;height:12px}}@keyframes criasStrikePhone{0%,61%,100%{transform:scale(.72) rotate(-10deg) translateY(-10px)}70%{transform:scale(.72) rotate(8deg) translateY(34px)}74%{transform:scale(.72) rotate(5deg) translateY(25px)}82%{transform:scale(.72) rotate(-4deg) translateY(5px)}}
 
 @media(prefers-reduced-motion:reduce){.crias-gavel-wrap,.crias-impact,.crias-block span,.crias-glow{animation:none!important}.crias-action{transition:none}}
+
+
+/* Home v2: true graffiti lettering + realistic animated gavel */
+.crias-home-v2{min-height:100vh;position:relative;overflow:hidden;background:
+radial-gradient(circle at 72% 34%,rgba(210,0,14,.20),transparent 28%),
+linear-gradient(180deg,#050505 0%,#020202 100%);padding:clamp(22px,4vw,60px) clamp(16px,5vw,72px)}
+.crias-wall{position:absolute;inset:0;pointer-events:none;opacity:.18;background-image:
+linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px),
+radial-gradient(circle at 10% 20%,#d10a14 0 2px,transparent 2.3px),
+radial-gradient(circle at 78% 38%,#fff 0 1px,transparent 1.4px);
+background-size:64px 64px,64px 64px,92px 92px,110px 110px}
+.crias-shell-v2{width:min(1240px,100%);margin:0 auto;position:relative;z-index:1}
+.crias-hero-v2{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(430px,.95fr);gap:28px;align-items:center;min-height:590px}
+.crias-logo-panel{position:relative}
+.crias-graffiti-image{display:block;width:min(100%,720px);height:auto;object-fit:contain;mix-blend-mode:screen;filter:contrast(1.08) saturate(1.08) drop-shadow(0 20px 25px rgba(0,0,0,.45))}
+.crias-gavel-stage{position:relative;min-height:500px}
+.crias-red-haze{position:absolute;inset:14% 0 8% 0;background:radial-gradient(circle at 48% 50%,rgba(229,9,20,.28),rgba(229,9,20,.08) 40%,transparent 72%);filter:blur(18px);animation:criasHaze 2.8s ease-in-out infinite}
+.crias-real-gavel{position:absolute;inset:0;display:grid;place-items:center}
+.crias-real-gavel svg{width:min(100%,690px);height:auto;overflow:visible}
+.crias-gavel-swing{transform-origin:39% 62%;animation:criasRealStrike 2.8s cubic-bezier(.42,0,.2,1) infinite}
+.crias-hit-rays{stroke:#ff1a27;stroke-width:6;stroke-linecap:round;opacity:0;filter:drop-shadow(0 0 8px rgba(229,9,20,.8));animation:criasRealImpact 2.8s ease-in-out infinite}
+.crias-gavel-base{filter:drop-shadow(0 18px 18px rgba(0,0,0,.65))}
+.crias-actions-v2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:6px}
+.crias-btn-v2{min-height:112px;border-radius:18px;padding:20px 24px;display:grid;grid-template-columns:minmax(0,1fr) 42px;align-items:center;position:relative;overflow:hidden;transition:transform .18s ease,border-color .18s ease}
+.crias-btn-v2:hover{transform:translateY(-3px)}
+.crias-btn-v2.primary{border:2px solid #e50914;background:linear-gradient(90deg,rgba(104,0,8,.92),rgba(27,0,2,.96))}
+.crias-btn-v2.secondary{border:2px solid #383838;background:linear-gradient(90deg,#151515,#080808)}
+.crias-btn-v2 span{grid-column:1;font-size:11px;letter-spacing:2px;font-weight:900;color:#e50914}
+.crias-btn-v2 strong{grid-column:1;font-size:clamp(22px,2.4vw,31px);line-height:1}
+.crias-btn-v2 b{grid-column:2;grid-row:1 / span 2;font-size:36px;text-align:right;color:#e50914}
+.crias-btn-v2.secondary b{color:#aaa}
+
+@keyframes criasRealStrike{
+0%,60%,100%{transform:rotate(-11deg) translate(-6px,-12px)}
+69%{transform:rotate(8deg) translate(10px,34px)}
+73%{transform:rotate(5deg) translate(8px,24px)}
+81%{transform:rotate(-3deg) translate(2px,6px)}
+}
+@keyframes criasRealImpact{
+0%,66%,100%{opacity:0;transform:scale(.55)}
+69%{opacity:1;transform:scale(1)}
+77%{opacity:0;transform:scale(1.28)}
+}
+@keyframes criasHaze{
+0%,100%{opacity:.58;transform:scale(.96)}
+50%{opacity:.92;transform:scale(1.04)}
+}
+
+@media(max-width:940px){
+.crias-home-v2{padding:26px 18px 34px}
+.crias-hero-v2{grid-template-columns:1fr;gap:4px;min-height:0}
+.crias-logo-panel{display:grid;place-items:center}
+.crias-graffiti-image{width:min(100%,680px)}
+.crias-gavel-stage{min-height:390px}
+.crias-real-gavel svg{width:min(100%,620px)}
+.crias-actions-v2{grid-template-columns:1fr;gap:14px}
+.crias-btn-v2{min-height:96px}
+}
+@media(max-width:560px){
+.crias-home-v2{padding:20px 12px 28px}
+.crias-graffiti-image{width:100%}
+.crias-gavel-stage{min-height:300px;margin-top:-10px}
+.crias-real-gavel svg{width:118%;max-width:none}
+.crias-btn-v2{min-height:90px;padding:16px 18px;border-radius:14px}
+.crias-btn-v2 strong{font-size:22px}
+.crias-btn-v2 b{font-size:30px}
+}
+@media(prefers-reduced-motion:reduce){
+.crias-gavel-swing,.crias-hit-rays,.crias-red-haze{animation:none!important}
+.crias-btn-v2{transition:none}
+}
