@@ -43,3 +43,13 @@ As 58 imagens preexistentes não fazem parte da atualização.
 - `PlayerFace` é usado no leilão, na prancheta compartilhada de futebol/futsal e na tela final; fallback de iniciais preservado.
 - Build de produção e renderização do componente nos tamanhos 124, 38 e 34 pixels, com teste do fallback sem imagem.
 - Verificação visual de uma partida em produção não concluída: a URL de deploy exige login da Vercel neste ambiente.
+
+## Revisão adicional — 20/09/2026
+
+Mais 4 faces adicionadas: João Ricardo, Juan Martín Lucero, Tomás Pochettino e Kenan Yıldız. Total do catálogo: 286 com face e 9 sem face.
+
+- Fabio Giannelli / SOCCER DIGITAL: 3 fotos marcadas Public Domain nas páginas originais do Flickr, com PDMark-owner no Commons.
+- MLSZ / Danyele: 1 foto com permissão explícita de uso mediante atribuição, confirmada em https://en.mlsz.hu/imprint.
+- URLs das permissões armazenadas no metadata e créditos atualizados.
+- Pesquisas complementares: categorias Commons, Wikipedia em português/italiano/espanhol/alemão e imagens P18 do Wikidata.
+- Pendentes: Agustín Rossi, Andrea Cambiaso, Cauly, Dani Vivian, Fabrício Bruno, Kaio Jorge, Mathías Villasanti, Matteo Politano, Rafael.
