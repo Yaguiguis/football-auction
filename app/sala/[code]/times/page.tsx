@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../../../../lib/supabase";
-import { boardForMode, effectiveGer, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";
+import { benchSlotsForMode, boardForMode, effectiveGer, rosterSizeForMode, squadGer, type GameMode, type RatedPlayer } from "../../../../lib/squad-board";
 import PlayerFace from "../../../../components/PlayerFace";
 
 type Room = { id: string; code: string; host_user_id: string; mode: GameMode; status: string };
@@ -110,6 +110,8 @@ export default function TeamsPage() {
 
   const playerById = useMemo(() => new Map(players.map((p) => [p.id, p])), [players]);
   const boardSlots = boardForMode(room?.mode || "football");
+  const benchSlots = benchSlotsForMode(room?.mode || "football");
+  const rosterSize = rosterSizeForMode(room?.mode || "football");
   const me = members.find((member) => member.user_id === userId) || null;
   const isHost = !!room && room.host_user_id === userId;
   const replayRequests = members.filter((member) => member.replay_requested).length;
@@ -214,8 +216,51 @@ export default function TeamsPage() {
                 })}
               </div>
 
+              <div className="card" style={{ marginTop: 14, padding: 14 }}>
+                <h3 style={{ margin: "0 0 10px" }}>Banco de reservas</h3>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: `repeat(${benchSlots.length}, minmax(0, 1fr))`,
+                    gap: 8,
+                  }}
+                >
+                  {benchSlots.map((slot) => {
+                    const p = bySlot.get(slot.key);
+                    return (
+                      <div
+                        key={slot.key}
+                        style={{
+                          minWidth: 0,
+                          textAlign: "center",
+                          padding: 9,
+                          borderRadius: 10,
+                          background: p ? "#0b0b0b" : "rgba(255,255,255,.03)",
+                          border: p ? "1px solid #e50914" : "1px dashed #444",
+                        }}
+                      >
+                        <div className="muted" style={{ fontSize: 9, fontWeight: 900 }}>{slot.label}</div>
+                        {p ? (
+                          <>
+                            <div style={{ display: "flex", justifyContent: "center", margin: "6px 0" }}>
+                              <PlayerFace name={p.name} imageUrl={p.image_url} size={34} />
+                            </div>
+                            <strong style={{ display: "block", fontSize: 11, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                              {p.name}
+                            </strong>
+                            <span className="red" style={{ fontSize: 11, fontWeight: 900 }}>{p.overall} GER</span>
+                          </>
+                        ) : (
+                          <div className="muted" style={{ padding: "16px 0" }}>Vazio</div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
               <div style={{ display: "flex", justifyContent: "space-between", gap: 12, marginTop: 14 }}>
-                <span className="muted">{memberSquad.length}/{boardSlots.length} jogadores</span>
+                <span className="muted">{memberSquad.length}/{rosterSize} jogadores</span>
                 <strong>{member.balance} créditos restantes</strong>
               </div>
             </section>
