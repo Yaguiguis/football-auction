@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../lib/supabase";
-import { positionGroup } from "../lib/squad-board";
+import { benchSlotsForMode, positionGroup, rosterSizeForMode } from "../lib/squad-board";
 import PlayerFace from "./PlayerFace";
 import GavelWinAnimation from "./GavelWinAnimation";
 
@@ -40,6 +40,7 @@ type SquadSlot = {
   member_id: string;
   player_id: string;
   slot_key: string;
+  is_bench: boolean;
 };
 
 type Auction = {
@@ -91,7 +92,6 @@ export default function AuctionGame() {
   const [members, setMembers] = useState<Member[]>([]);
   const [me, setMe] = useState<Member | null>(null);
   const [mySquad, setMySquad] = useState<SquadSlot[]>([]);
-  const [ownedPositions, setOwnedPositions] = useState<string[]>([]);
   const [auction, setAuction] = useState<Auction | null>(null);
   const [player, setPlayer] = useState<Player | null>(null);
   const [myInterest, setMyInterest] = useState<Interest | null>(null);
@@ -132,22 +132,11 @@ export default function AuctionGame() {
 
     const { data: squadData, error: squadError } = await supabase
       .from("fa_squad_players")
-      .select("member_id,player_id,slot_key")
+      .select("member_id,player_id,slot_key,is_bench")
       .eq("member_id", myMember.id);
     if (squadError) throw squadError;
     const typedSquad = (squadData || []) as SquadSlot[];
     setMySquad(typedSquad);
-
-    if (typedSquad.length) {
-      const { data: ownedData, error: ownedError } = await supabase
-        .from("fa_players")
-        .select("id,primary_position")
-        .in("id", typedSquad.map((row) => row.player_id));
-      if (ownedError) throw ownedError;
-      setOwnedPositions((ownedData || []).map((row) => String(row.primary_position)));
-    } else {
-      setOwnedPositions([]);
-    }
 
     const { data: auctionData, error: auctionError } = await supabase
       .from("fa_auctions")
@@ -259,21 +248,31 @@ export default function AuctionGame() {
   const isHighestBidder = !!auction && !!me && auction.current_bidder_member_id === me.id;
   const isActiveBidder = !!myInterest?.bidding_active;
   const requiredSlots = room?.mode === "futsal" ? futsalSlots : footballSlots;
+  const benchSlots = benchSlotsForMode(room?.mode || "football").map((slot) => slot.key);
+  const rosterSize = rosterSizeForMode(room?.mode || "football");
   const filledSlots = new Set(mySquad.map((s) => s.slot_key));
-  const squadComplete = requiredSlots.every((slot) => filledSlots.has(slot));
+  const starterComplete = requiredSlots.every((slot) => filledSlots.has(slot));
+  const rosterComplete = starterComplete && benchSlots.every((slot) => filledSlots.has(slot));
   const minimumBid = (auction?.current_bid || 0) + 1;
 
   const currentPositionFull = useMemo(() => {
     if (!player || !room) return false;
+    if (mySquad.length >= rosterSize) return true;
+    if (starterComplete) return false;
+
     const target = positionGroup(player.primary_position);
-    const ownedGroups = ownedPositions.map(positionGroup);
+
     if (room.mode === "futsal") {
-      if (target === "GOL") return ownedGroups.filter((g) => g === "GOL").length >= 1;
-      return ownedGroups.filter((g) => g !== "GOL").length >= 4;
+      if (target === "GOL") return filledSlots.has("GOL");
+      return ["FIXO", "ALAE", "ALAD", "PIVO"].every((slot) => filledSlots.has(slot));
     }
-    const limit = target === "ZAG" ? 2 : 1;
-    return ownedGroups.filter((g) => g === target).length >= limit;
-  }, [player, room, ownedPositions]);
+
+    if (target === "ZAG") return filledSlots.has("ZAG1") && filledSlots.has("ZAG2");
+    if (["GOL", "LD", "LE", "VOL", "MC", "MEI", "PD", "PE", "ATA"].includes(target)) {
+      return filledSlots.has(target);
+    }
+    return true;
+  }, [player, room, mySquad.length, rosterSize, starterComplete, filledSlots]);
 
   async function chooseInterest(wants: boolean) {
     if (!auction) return;
@@ -312,17 +311,26 @@ export default function AuctionGame() {
   async function nextPlayer() {
     if (!room) return;
     setActionError("");
-    const { error } = await getSupabase().rpc("fa_start_next_auction", { p_room_id: room.id });
+    const { data, error } = await getSupabase().rpc("fa_start_next_auction", { p_room_id: room.id });
     if (error) return setActionError(error.message);
-    setAnswered(false);
-    await safeRefresh();
-  }
 
-  async function finalizeSquad() {
-    if (!room || !squadComplete) return;
-    setActionError("");
-    const { error } = await getSupabase().rpc("fa_finalize_squad", { p_room_id: room.id });
-    if (error) return setActionError(error.message);
+    const result = data as {
+      auto_completed_last?: boolean;
+      waiting_for_lineups?: boolean;
+      players_added?: number;
+    } | null;
+
+    if (result?.auto_completed_last) {
+      setActionError(
+        result.players_added
+          ? `O último elenco recebeu ${result.players_added} jogador(es) automaticamente. Agora ele precisa organizar a prancheta e finalizar.`
+          : "O último elenco já está completo. Falta organizar a prancheta e finalizar."
+      );
+    } else if (result?.waiting_for_lineups) {
+      setActionError("Os elencos restantes já estão completos. Falta organizar a prancheta e finalizar.");
+    }
+
+    setAnswered(false);
     await safeRefresh();
   }
 
@@ -336,7 +344,7 @@ export default function AuctionGame() {
           <button className="btn btn-secondary" onClick={() => router.push(`/sala/${code}/elenco`)} disabled={!mySquad.length}>
             Organizar prancheta
           </button>
-          <span className="badge">Time: {mySquad.length}/{requiredSlots.length}</span>
+          <span className="badge">Elenco: {mySquad.length}/{rosterSize}</span>
           <strong>Saldo: {me?.balance ?? 0}</strong>
         </div>
       </div>
@@ -351,13 +359,17 @@ export default function AuctionGame() {
         </div>
         {mySquad.length > 0 && !me?.squad_finalized && (
           <p className="muted" style={{ marginBottom: 0 }}>
-            Você pode reorganizar os jogadores livremente na prancheta. O limite do leilão continua baseado na posição original de cada jogador.
+            Você pode reorganizar titulares e reservas na prancheta. O leilão prioriza as posições titulares que ainda faltam; depois, completa o banco.
           </p>
         )}
-        {squadComplete && !me?.squad_finalized && (
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 14 }}>
-            <button className="btn btn-secondary" onClick={() => router.push(`/sala/${code}/elenco`)}>Ajustar escalação</button>
-            <button className="btn btn-primary" onClick={finalizeSquad}>Finalizar meu time</button>
+        {rosterComplete && !me?.squad_finalized && (
+          <div style={{ marginTop: 14 }}>
+            <p className="red" style={{ fontWeight: 900 }}>
+              Seu elenco está completo. Organize titulares e reservas antes de finalizar.
+            </p>
+            <button className="btn btn-primary" onClick={() => router.push(`/sala/${code}/elenco`)}>
+              Organizar prancheta e finalizar
+            </button>
           </div>
         )}
         {me?.squad_finalized && (
@@ -406,7 +418,7 @@ export default function AuctionGame() {
               {me?.squad_finalized ? (
                 <p className="muted">Seu time já está finalizado.</p>
               ) : currentPositionFull ? (
-                <p className="muted">Você já atingiu o limite dessa posição original. PASSAR automático.</p>
+                <p className="muted">Este jogador não pode entrar no seu elenco neste momento. PASSAR automático.</p>
               ) : answered ? (
                 <p className="muted">Resposta enviada. Aguardando os outros jogadores...</p>
               ) : (
