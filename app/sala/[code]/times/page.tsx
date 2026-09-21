@@ -13,6 +13,7 @@ import {
   type RatedPlayer,
 } from "../../../../lib/squad-board";
 import ConnectionBanner from "../../../../components/ConnectionBanner";
+import RoomChat from "../../../../components/RoomChat";
 import PlayerFace from "../../../../components/PlayerFace";
 
 type Room = {
@@ -311,6 +312,8 @@ export default function TeamsPage() {
           <p className="red" style={{ margin: 0 }}>{error}</p>
         </div>
       )}
+
+      {room && <RoomChat roomId={room.id} />}
 
       <section className="stats-grid">
         <div className="stat-card">
