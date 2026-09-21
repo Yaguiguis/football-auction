@@ -415,3 +415,94 @@ a{color:inherit;text-decoration:none}
     animation:none!important;
   }
 }
+
+
+/* Multiplayer/game UX */
+.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.settings-checks{display:grid;gap:10px}
+.check-row{display:flex!important;grid-template-columns:none!important;align-items:center;gap:10px}
+.check-row input{width:18px;height:18px;accent-color:var(--red)}
+.league-multiselect{min-height:150px}
+.join-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+.connection-banner{margin:0 0 16px;padding:12px 14px;border-radius:12px;font-weight:800;text-align:center}
+.connection-banner.offline{background:#331d00;border:1px solid #9b5b00;color:#ffd58a}
+.connection-banner.restored{background:#092b18;border:1px solid #1d8b50;color:#a9efc8}
+
+.member-list{display:grid;gap:10px}
+.member-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--border);border-radius:12px;background:#0b0b0b}
+.presence-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
+.presence-dot.online{background:#2ecc71;box-shadow:0 0 8px rgba(46,204,113,.55)}
+.presence-dot.offline{background:#666}
+.ready-badge{border-color:#246a43;color:#9ee7bd}
+.spectator-badge{border-color:#4b3d7a;color:#c7bbff}
+.danger-btn{background:#2a0a0d;color:#ffb6bc;border:1px solid #5c151c}
+.settings-summary{display:flex;gap:8px;flex-wrap:wrap}
+
+.auction-topbar{margin-bottom:14px}
+.auction-tabs{display:flex;gap:8px;margin-bottom:12px}
+.online-strip{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.squad-progress-card{margin-bottom:16px}
+.auction-card-shell{max-width:680px;margin:0 auto;text-align:center}
+.auction-player-card{position:relative;overflow:hidden}
+.auction-player-card:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.22}
+.auction-player-card.active-card:before{background:radial-gradient(circle at 50% 15%,rgba(229,9,20,.24),transparent 42%)}
+.auction-player-card.icon-card{border-color:#8b6a21;box-shadow:0 0 28px rgba(190,142,44,.12)}
+.auction-player-card.icon-card:before{background:radial-gradient(circle at 50% 12%,rgba(219,179,82,.3),transparent 45%)}
+.auction-player-card>*{position:relative;z-index:1}
+.icon-badge{border-color:#8b6a21;color:#f1d78d;background:#211a09}
+.auction-ger{font-size:58px;font-weight:900;line-height:1}
+.auction-face{display:flex;justify-content:center;margin:14px 0 4px}
+.auction-player-name{font-size:clamp(32px,6vw,42px);margin:12px 0 8px}
+.spectator-message{margin-top:24px;padding:14px;border-radius:12px;background:#0b0b0b;border:1px solid #2b2540}
+.bid-status-card{background:#0c0c0c;margin-bottom:16px}
+.bid-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center}
+
+.reveal-stage{min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:
+radial-gradient(circle at center,rgba(229,9,20,.16),transparent 45%),#101010}
+.reveal-kicker{font-size:12px;letter-spacing:4px;font-weight:900;color:#aaa}
+.reveal-position{font-size:clamp(68px,15vw,118px);font-weight:1000;line-height:1;color:#fff;margin:18px 0;text-shadow:0 0 28px rgba(229,9,20,.35)}
+.reveal-pulse{font-size:34px;letter-spacing:10px;color:var(--red);animation:revealPulse .8s ease-in-out infinite alternate}
+@keyframes revealPulse{from{opacity:.25;transform:scale(.92)}to{opacity:1;transform:scale(1.04)}}
+
+.history-panel{max-width:840px;margin:0 auto}
+.history-list{display:grid;gap:8px}
+.history-row{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:#0b0b0b}
+
+.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:#0d0d0d;border:1px solid var(--border);border-radius:14px;padding:16px;display:grid;gap:6px}
+.stat-card span{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#999;font-weight:800}
+.stat-card strong{font-size:18px}
+.final-team-grid{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.final-board{position:relative;width:100%;max-width:520px;margin:0 auto;aspect-ratio:68/105;border:2px solid rgba(255,255,255,.7);border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#173f2d 0%,#102d22 100%)}
+.final-board[data-mode="futsal"]{aspect-ratio:3/4}
+.pitch-half-line{position:absolute;left:0;right:0;top:50%;border-top:1px solid rgba(255,255,255,.45)}
+.pitch-center-circle{position:absolute;left:35%;top:43%;width:30%;aspect-ratio:1;border:1px solid rgba(255,255,255,.35);border-radius:50%}
+.final-board-slot{position:absolute;transform:translate(-50%,-50%);width:clamp(68px,16vw,92px);text-align:center}
+.final-board[data-mode="futsal"] .final-board-slot{width:clamp(84px,22vw,112px)}
+.final-player-card{background:#0b0b0b;border:2px solid #e50914;border-radius:12px;padding:7px 5px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.icon-card-mini{border-color:#9f7b2e;background:linear-gradient(180deg,#181204,#090909)}
+.slot-label{font-size:10px;font-weight:900}
+.player-name-small{display:block;font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bench-final-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:8px}
+.bench-final-card{min-width:0;text-align:center;padding:9px;border-radius:10px;background:#0b0b0b;border:1px solid #444}
+
+@media(max-width:700px){
+  .container{padding:14px}
+  .topbar{align-items:flex-start}
+  .settings-grid,.join-actions{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .history-row{align-items:flex-start}
+  .auction-tabs .btn{flex:1}
+  .online-strip{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+  .online-strip .badge{white-space:nowrap}
+  .final-team-grid{grid-template-columns:1fr!important}
+  .reveal-stage{min-height:320px}
+}
+
+@media(max-width:430px){
+  .stats-grid{grid-template-columns:1fr}
+  .member-row{align-items:flex-start}
+  .auction-ger{font-size:50px}
+  .bid-controls .btn{min-height:44px}
+}
