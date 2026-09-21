@@ -497,6 +497,13 @@ export default function AuctionGame() {
         </div>
 
         <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", justifyContent: "flex-end" }}>
+          <button
+            className="btn btn-secondary"
+            onClick={() => router.push(`/sala/${code}/lobby`)}
+          >
+            Voltar ao lobby
+          </button>
+
           {!isSpectator && (
             <button
               className="btn btn-secondary"
