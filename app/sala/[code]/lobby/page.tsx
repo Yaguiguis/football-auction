@@ -47,6 +47,7 @@ export default function Lobby() {
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState(false);
   const [busyMember, setBusyMember] = useState<string | null>(null);
+  const [changingMode, setChangingMode] = useState(false);
 
   const refresh = useCallback(async () => {
     const supabase = getSupabase();
@@ -122,16 +123,6 @@ export default function Lobby() {
     return () => window.clearInterval(timer);
   }, [room?.id]);
 
-  useEffect(() => {
-    if (!room) return;
-
-    if (room.status === "auction") {
-      router.replace(`/sala/${room.code}/leilao`);
-    } else if (room.status === "squads" || room.status === "finished") {
-      router.replace(`/sala/${room.code}/times`);
-    }
-  }, [room, router]);
-
   const isHost = !!room && room.host_user_id === userId;
   const me = members.find((member) => member.user_id === userId) || null;
 
@@ -178,6 +169,27 @@ export default function Lobby() {
     }
   }
 
+  async function changeMode(nextMode: "football" | "futsal") {
+    if (!room || !isHost || room.status !== "lobby" || changingMode) return;
+
+    setChangingMode(true);
+    setError("");
+
+    try {
+      const { error: rpcError } = await getSupabase().rpc("fa_set_room_mode", {
+        p_room_id: room.id,
+        p_mode: nextMode,
+      });
+
+      if (rpcError) throw rpcError;
+      await refresh();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Não foi possível alterar a modalidade.");
+    } finally {
+      setChangingMode(false);
+    }
+  }
+
   async function startAuction() {
     if (!room || starting) return;
 
@@ -221,11 +233,38 @@ export default function Lobby() {
         </div>
       )}
 
+      {room?.status !== "lobby" && (
+        <div className="card" style={{ marginBottom: 16 }}>
+          <div className="topbar" style={{ marginBottom: 0 }}>
+            <div>
+              <strong>
+                {room?.status === "auction" ? "Partida em andamento" : "Partida finalizada"}
+              </strong>
+              <p className="muted" style={{ margin: "5px 0 0" }}>
+                O lobby continua disponível para ver participantes, configurações e usar o chat.
+              </p>
+            </div>
+            <button
+              className="btn btn-primary"
+              onClick={() =>
+                router.push(
+                  room?.status === "auction"
+                    ? `/sala/${code}/leilao`
+                    : `/sala/${code}/times`
+                )
+              }
+            >
+              {room?.status === "auction" ? "Voltar ao leilão" : "Ver resultados"}
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-2">
         <section className="card">
           <div className="topbar" style={{ marginBottom: 12 }}>
             <h2 style={{ margin: 0 }}>Participantes</h2>
-            {!me?.is_spectator && (
+            {room?.status === "lobby" && !me?.is_spectator && (
               <button
                 className={`btn ${me?.ready ? "btn-secondary" : "btn-primary"}`}
                 onClick={() => void toggleReady()}
@@ -255,7 +294,7 @@ export default function Lobby() {
                     </small>
                   </div>
 
-                  {isHost && member.user_id !== userId && (
+                  {room?.status === "lobby" && isHost && member.user_id !== userId && (
                     <button
                       className="btn danger-btn"
                       onClick={() => void kick(member.id)}
@@ -278,7 +317,25 @@ export default function Lobby() {
           <h2>Configuração</h2>
 
           <div className="settings-summary">
-            <span className="badge">{room?.mode === "futsal" ? "Futsal" : "Futebol de campo"}</span>
+            {isHost && room?.status === "lobby" ? (
+              <label style={{ display: "grid", gap: 6, minWidth: 220 }}>
+                <span className="muted" style={{ fontSize: 12, fontWeight: 800 }}>MODALIDADE</span>
+                <select
+                  className="input"
+                  value={room.mode}
+                  disabled={changingMode}
+                  onChange={(e) => void changeMode(e.target.value as "football" | "futsal")}
+                >
+                  <option value="football">Futebol de campo</option>
+                  <option value="futsal">Futsal</option>
+                </select>
+                <small className="muted">
+                  Ao trocar, as reservas viram {room.mode === "futsal" ? "5 no campo" : "2 no futsal"} e todos precisam marcar “Pronto” novamente.
+                </small>
+              </label>
+            ) : (
+              <span className="badge">{room?.mode === "futsal" ? "Futsal" : "Futebol de campo"}</span>
+            )}
             <span className="badge">{room?.budget} créditos</span>
             <span className="badge">{room?.reserve_count} reservas</span>
             <span className="badge">GER {room?.min_overall}–{room?.max_overall}</span>
@@ -310,30 +367,32 @@ export default function Lobby() {
 
       {room && <RoomChat roomId={room.id} />}
 
-      {isHost ? (
-        <button
-          className="btn btn-primary"
-          style={{ marginTop: 16, width: "100%" }}
-          onClick={() => void startAuction()}
-          disabled={!allReady || catalogCount === 0 || starting}
-        >
-          {starting
-            ? "Iniciando..."
-            : activePlayers.length < 2
-              ? "Aguardando mais 1 jogador online"
-              : !allReady
-                ? "Aguardando todos ficarem prontos"
-                : "Iniciar leilão"}
-        </button>
-      ) : me?.is_spectator ? (
-        <p className="muted" style={{ marginTop: 16, textAlign: "center" }}>
-          Você está assistindo. Quando a partida começar, irá automaticamente para o leilão.
-        </p>
-      ) : (
-        <p className="muted" style={{ marginTop: 16, textAlign: "center" }}>
-          Marque “Estou pronto” e aguarde o administrador iniciar.
-        </p>
-      )}
+      {room?.status === "lobby" ? (
+        isHost ? (
+          <button
+            className="btn btn-primary"
+            style={{ marginTop: 16, width: "100%" }}
+            onClick={() => void startAuction()}
+            disabled={!allReady || catalogCount === 0 || starting}
+          >
+            {starting
+              ? "Iniciando..."
+              : activePlayers.length < 2
+                ? "Aguardando mais 1 jogador online"
+                : !allReady
+                  ? "Aguardando todos ficarem prontos"
+                  : "Iniciar leilão"}
+          </button>
+        ) : me?.is_spectator ? (
+          <p className="muted" style={{ marginTop: 16, textAlign: "center" }}>
+            Você está assistindo. Aguarde o administrador iniciar.
+          </p>
+        ) : (
+          <p className="muted" style={{ marginTop: 16, textAlign: "center" }}>
+            Marque “Estou pronto” e aguarde o administrador iniciar.
+          </p>
+        )
+      ) : null}
     </main>
   );
 }
