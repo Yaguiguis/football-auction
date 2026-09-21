@@ -94,6 +94,19 @@ export default function Lobby() {
     }
   }, [room?.status, room?.code, router]);
 
+
+  useEffect(() => {
+    if (!room?.id) return;
+
+    const heartbeat = async () => {
+      await getSupabase().rpc("fa_heartbeat_room", { p_room_id: room.id });
+    };
+
+    void heartbeat();
+    const timer = window.setInterval(() => void heartbeat(), 8000);
+    return () => window.clearInterval(timer);
+  }, [room?.id]);
+
   const isHost = !!room && room.host_user_id === userId;
 
   async function startAuction() {
