@@ -225,12 +225,20 @@ export default function SquadEditorPage() {
           </h1>
         </div>
 
-        <button
-          className="btn btn-secondary"
-          onClick={() => router.push(`/sala/${code}/leilao`)}
-        >
-          Voltar ao leilão
-        </button>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "flex-end" }}>
+          <button
+            className="btn btn-secondary"
+            onClick={() => router.push(`/sala/${code}/lobby`)}
+          >
+            Voltar ao lobby
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => router.push(`/sala/${code}/leilao`)}
+          >
+            Voltar ao leilão
+          </button>
+        </div>
       </div>
 
       {error && (
