@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../../../../lib/supabase";
 import ConnectionBanner from "../../../../components/ConnectionBanner";
+import RoomChat from "../../../../components/RoomChat";
 
 type Room = {
   id: string;
@@ -306,6 +307,8 @@ export default function Lobby() {
           <span className="badge">{catalogCount} cadastrados</span>
         </div>
       </section>
+
+      {room && <RoomChat roomId={room.id} />}
 
       {isHost ? (
         <button
