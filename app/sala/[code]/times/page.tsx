@@ -304,7 +304,15 @@ export default function TeamsPage() {
           <p className="red" style={{ margin: 0, fontWeight: 900, letterSpacing: 2 }}>RESULTADO DOS ELENCOS</p>
           <h1 style={{ marginTop: 6 }}>Pranchetas finais</h1>
         </div>
-        <span className="badge">Sala {code}</span>
+        <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap", justifyContent: "flex-end" }}>
+          <button
+            className="btn btn-secondary"
+            onClick={() => router.push(`/sala/${code}/lobby`)}
+          >
+            Voltar ao lobby
+          </button>
+          <span className="badge">Sala {code}</span>
+        </div>
       </div>
 
       {error && (
