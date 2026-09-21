@@ -124,6 +124,19 @@ export default function SquadEditorPage() {
     if (room?.status === "squads") router.replace(`/sala/${code}/times`);
   }, [room?.status, code, router]);
 
+
+  useEffect(() => {
+    if (!room?.id) return;
+
+    const heartbeat = async () => {
+      await getSupabase().rpc("fa_heartbeat_room", { p_room_id: room.id });
+    };
+
+    void heartbeat();
+    const timer = window.setInterval(() => void heartbeat(), 8000);
+    return () => window.clearInterval(timer);
+  }, [room?.id]);
+
   const mode = room?.mode || "football";
   const board = boardForMode(mode);
   const benchSlots = benchSlotsForMode(mode);
