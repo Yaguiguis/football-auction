@@ -15,6 +15,7 @@ import {
 } from "../../../../lib/squad-board";
 import PlayerFace from "../../../../components/PlayerFace";
 import ConnectionBanner from "../../../../components/ConnectionBanner";
+import RoomChat from "../../../../components/RoomChat";
 
 type Room = { id: string; code: string; mode: GameMode; reserve_count: number; status: string };
 type Member = { id: string; user_id: string; display_name: string; squad_finalized: boolean };
@@ -237,6 +238,8 @@ export default function SquadEditorPage() {
           <p className="red" style={{ margin: 0 }}>{error}</p>
         </div>
       )}
+
+      {room && <RoomChat roomId={room.id} />}
 
       <div className="grid grid-2">
         <section>
