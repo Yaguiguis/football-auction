@@ -6,6 +6,7 @@ import { ensureAnonymousSession, getSupabase } from "../lib/supabase";
 import { benchSlotsForMode, positionGroup, rosterSizeForMode } from "../lib/squad-board";
 import { playAuctionWinFeedback } from "../lib/feedback";
 import ConnectionBanner from "./ConnectionBanner";
+import RoomChat from "./RoomChat";
 import PlayerFace from "./PlayerFace";
 import GavelWinAnimation from "./GavelWinAnimation";
 
@@ -576,6 +577,8 @@ export default function AuctionGame() {
           <p className="red" style={{ margin: 0 }}>{actionError}</p>
         </div>
       )}
+
+      {room && <RoomChat roomId={room.id} />}
 
       {view === "history" ? (
         <section className="card history-panel">
