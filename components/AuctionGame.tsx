@@ -387,10 +387,16 @@ export default function AuctionGame() {
     if (isSpectator) return true;
     if (!player || !room) return false;
     if (mySquad.length >= rosterSize) return true;
-    if (starterComplete) return false;
+
+    // Enquanto houver lugar no banco, um segundo jogador da mesma posição
+    // continua elegível. Depois ele pode substituir o titular na prancheta.
+    const benchHasRoom = benchSlots.some((slot) => !filledSlots.has(slot));
+    if (benchHasRoom) return false;
 
     const target = positionGroup(player.primary_position);
 
+    // Banco cheio: só deixa disputar se essa posição ainda puder preencher
+    // uma vaga titular que esteja faltando.
     if (room.mode === "futsal") {
       if (target === "GOL") return filledSlots.has("GOL");
       return ["FIXO", "ALAE", "ALAD", "PIVO"].every((slot) => filledSlots.has(slot));
@@ -403,7 +409,7 @@ export default function AuctionGame() {
     }
 
     return true;
-  }, [isSpectator, player, room, mySquad.length, rosterSize, starterComplete, filledSlots]);
+  }, [isSpectator, player, room, mySquad.length, rosterSize, benchSlots, filledSlots]);
 
   async function chooseInterest(wants: boolean) {
     if (!auction || isSpectator) return;
