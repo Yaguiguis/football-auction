@@ -7,14 +7,16 @@ import {
   benchSlotsForMode,
   boardForMode,
   effectiveGer,
+  positionPenalty,
   rosterSizeForMode,
   squadGer,
   type GameMode,
   type RatedPlayer,
 } from "../../../../lib/squad-board";
 import PlayerFace from "../../../../components/PlayerFace";
+import ConnectionBanner from "../../../../components/ConnectionBanner";
 
-type Room = { id: string; code: string; mode: GameMode; status: string };
+type Room = { id: string; code: string; mode: GameMode; reserve_count: number; status: string };
 type Member = { id: string; user_id: string; display_name: string; squad_finalized: boolean };
 type SquadRow = { member_id: string; player_id: string; slot_key: string; is_bench: boolean };
 type Player = RatedPlayer & { league: string | null };
@@ -48,7 +50,7 @@ export default function SquadEditorPage() {
 
     const { data: roomData, error: roomError } = await supabase
       .from("fa_rooms")
-      .select("id,code,mode,status")
+      .select("id,code,mode,reserve_count,status")
       .eq("code", code)
       .maybeSingle();
     if (roomError) throw roomError;
@@ -139,8 +141,8 @@ export default function SquadEditorPage() {
 
   const mode = room?.mode || "football";
   const board = boardForMode(mode);
-  const benchSlots = benchSlotsForMode(mode);
-  const totalRosterSize = rosterSizeForMode(mode);
+  const benchSlots = benchSlotsForMode(mode, room?.reserve_count);
+  const totalRosterSize = rosterSizeForMode(mode, room?.reserve_count);
 
   const playersById = useMemo(() => new Map(players.map((p) => [p.id, p])), [players]);
   const bySlot = useMemo(() => new Map(squad.map((row) => [row.slot_key, row])), [squad]);
@@ -213,6 +215,7 @@ export default function SquadEditorPage() {
 
   return (
     <main className="container">
+      <ConnectionBanner />
       <div className="topbar">
         <div>
           <p className="red" style={{ margin: 0, fontWeight: 900, letterSpacing: 2 }}>SUA PRANCHETA</p>
@@ -277,6 +280,23 @@ export default function SquadEditorPage() {
               const isSelected = !!player && player.id === selectedPlayerId;
               const effective = player && room ? effectiveGer(player, slot.key, room.mode) : 0;
               const penalty = player ? player.overall - effective : 0;
+              const selectedPenalty = selectedPlayer && room
+                ? positionPenalty(selectedPlayer.primary_position, slot.key, room.mode)
+                : null;
+              const selectedGroup = selectedPlayer?.primary_position.toUpperCase();
+              const incompatible =
+                !!selectedPlayer &&
+                ((slot.key === "GOL" && selectedGroup !== "GOL") ||
+                  (slot.key !== "GOL" && selectedGroup === "GOL"));
+              const guideBorder = selectedPlayer
+                ? incompatible
+                  ? "2px solid #ff4d4f"
+                  : selectedPenalty === 0
+                    ? "2px solid #2ecc71"
+                    : selectedPenalty !== null && selectedPenalty <= 2
+                      ? "2px solid #f1c40f"
+                      : "2px solid #ff7a00"
+                : null;
 
               return (
                 <button
@@ -295,16 +315,18 @@ export default function SquadEditorPage() {
                     left: `${slot.x}%`,
                     top: `${slot.y}%`,
                     transform: "translate(-50%, -50%)",
-                    width: room?.mode === "futsal" ? 112 : 92,
+                    width: room?.mode === "futsal" ? "clamp(84px, 22vw, 112px)" : "clamp(68px, 17vw, 92px)",
                     borderRadius: 12,
                     padding: "7px 5px",
                     background: player ? "#0b0b0b" : "rgba(0,0,0,.35)",
                     color: "white",
                     border: isSelected
                       ? "3px solid white"
-                      : player
-                        ? "2px solid #e50914"
-                        : "1px dashed rgba(255,255,255,.6)",
+                      : guideBorder
+                        ? guideBorder
+                        : player
+                          ? "2px solid #e50914"
+                          : "1px dashed rgba(255,255,255,.6)",
                     cursor: me?.squad_finalized ? "default" : "pointer",
                   }}
                 >
@@ -341,7 +363,7 @@ export default function SquadEditorPage() {
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: `repeat(${benchSlots.length}, minmax(0, 1fr))`,
+                gridTemplateColumns: "repeat(auto-fit, minmax(96px, 1fr))",
                 gap: 10,
               }}
             >
@@ -466,6 +488,7 @@ export default function SquadEditorPage() {
             <>
               <p className="muted" style={{ marginTop: 18 }}>
                 Você pode trocar reservas e titulares livremente. Goleiro pode ficar no banco, mas somente goleiro pode ocupar a vaga GOL.
+                Toque em um jogador para ver as melhores posições: verde = ideal, amarelo = boa, laranja = improvisada e vermelho = inválida.
                 Organize o time antes de finalizar.
               </p>
 
