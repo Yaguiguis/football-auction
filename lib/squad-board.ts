@@ -41,16 +41,20 @@ export function boardForMode(mode: GameMode) {
   return mode === "futsal" ? futsalBoard : footballBoard;
 }
 
-export function benchSlotsForMode(mode: GameMode) {
-  const count = mode === "futsal" ? 2 : 5;
+export function defaultBenchCount(mode: GameMode) {
+  return mode === "futsal" ? 2 : 5;
+}
+
+export function benchSlotsForMode(mode: GameMode, reserveCount = defaultBenchCount(mode)) {
+  const count = Math.max(0, Math.min(5, reserveCount));
   return Array.from({ length: count }, (_, index) => ({
     key: `BENCH${index + 1}`,
     label: `Reserva ${index + 1}`,
   }));
 }
 
-export function rosterSizeForMode(mode: GameMode) {
-  return boardForMode(mode).length + benchSlotsForMode(mode).length;
+export function rosterSizeForMode(mode: GameMode, reserveCount = defaultBenchCount(mode)) {
+  return boardForMode(mode).length + benchSlotsForMode(mode, reserveCount).length;
 }
 
 export function positionGroup(position: string) {
