@@ -8,27 +8,36 @@ export default function JoinRoom() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [password, setPassword] = useState("");
+  const [loadingMode, setLoadingMode] = useState<"player" | "spectator" | null>(null);
   const [error, setError] = useState("");
 
-  async function joinRoom() {
+  async function enter(asSpectator: boolean) {
     setError("");
-    setLoading(true);
+    setLoadingMode(asSpectator ? "spectator" : "player");
+
     try {
       await ensureAnonymousSession();
+      const code = room.trim().toUpperCase();
       const supabase = getSupabase();
-      const { error: rpcError } = await supabase.rpc("fa_join_room", {
-        p_code: room.trim().toUpperCase(),
-        p_display_name: name.trim() || "Jogador",
+
+      const { error: rpcError } = await supabase.rpc("fa_join_room_v2", {
+        p_code: code,
+        p_display_name: name.trim() || (asSpectator ? "Espectador" : "Jogador"),
+        p_password: password.trim() || null,
+        p_as_spectator: asSpectator,
       });
+
       if (rpcError) throw rpcError;
-      router.push(`/sala/${room.trim().toUpperCase()}/lobby`);
+      router.push(`/sala/${code}/lobby`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Não foi possível entrar na sala.");
     } finally {
-      setLoading(false);
+      setLoadingMode(null);
     }
   }
+
+  const validCode = room.trim().length === 6;
 
   return (
     <main className="form-page">
@@ -56,11 +65,38 @@ export default function JoinRoom() {
             maxLength={6}
           />
 
+          <input
+            className="input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Senha da sala (se tiver)"
+            maxLength={32}
+          />
+
           {error && <p className="red">{error}</p>}
 
-          <button className="btn btn-primary" onClick={joinRoom} disabled={loading || room.trim().length !== 6}>
-            {loading ? "Entrando..." : "Entrar"}
-          </button>
+          <div className="join-actions">
+            <button
+              className="btn btn-primary"
+              onClick={() => void enter(false)}
+              disabled={loadingMode !== null || !validCode}
+            >
+              {loadingMode === "player" ? "Entrando..." : "Entrar para jogar"}
+            </button>
+
+            <button
+              className="btn btn-secondary"
+              onClick={() => void enter(true)}
+              disabled={loadingMode !== null || !validCode}
+            >
+              {loadingMode === "spectator" ? "Entrando..." : "Assistir como espectador"}
+            </button>
+          </div>
+
+          <p className="muted" style={{ margin: 0 }}>
+            Se a partida já começou, use o modo espectador. Se você já fazia parte da sala neste navegador, o jogo reconecta sua sessão automaticamente.
+          </p>
         </div>
       </div>
     </main>
