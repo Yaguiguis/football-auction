@@ -211,6 +211,19 @@ export default function AuctionGame() {
     return () => window.clearInterval(retry);
   }, [safeRefresh]);
 
+
+  useEffect(() => {
+    if (!room?.id) return;
+
+    const heartbeat = async () => {
+      await getSupabase().rpc("fa_heartbeat_room", { p_room_id: room.id });
+    };
+
+    void heartbeat();
+    const timer = window.setInterval(() => void heartbeat(), 8000);
+    return () => window.clearInterval(timer);
+  }, [room?.id]);
+
   useEffect(() => {
     if (room?.status === "squads") router.replace(`/sala/${code}/times`);
   }, [room?.status, code, router]);
