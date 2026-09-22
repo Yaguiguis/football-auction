@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import LeagueMultiSelect, { type LeagueOption } from "../../components/LeagueMultiSelect";
 import { ensureAnonymousSession, getSupabase } from "../../lib/supabase";
 
 export default function CreateRoom() {
   const router = useRouter();
+
   const [name, setName] = useState("");
   const [mode, setMode] = useState<"football" | "futsal">("football");
   const [budget, setBudget] = useState("100");
@@ -17,7 +19,7 @@ export default function CreateRoom() {
   const [disconnectMode, setDisconnectMode] = useState<"skip" | "bot">("skip");
   const [spectatorsAllowed, setSpectatorsAllowed] = useState(true);
   const [password, setPassword] = useState("");
-  const [leagues, setLeagues] = useState<string[]>([]);
+  const [leagues, setLeagues] = useState<LeagueOption[]>([]);
   const [selectedLeagues, setSelectedLeagues] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -28,19 +30,31 @@ export default function CreateRoom() {
     void (async () => {
       try {
         await ensureAnonymousSession();
-        const { data } = await getSupabase()
+
+        const { data, error: catalogError } = await getSupabase()
           .from("fa_catalog_players")
           .select("league")
           .eq("enabled", true)
-          .limit(1000);
+          .limit(2000);
 
+        if (catalogError) throw catalogError;
         if (!alive) return;
-        const unique = Array.from(
-          new Set((data || []).map((row) => String(row.league || "").trim()).filter(Boolean)),
-        ).sort((a, b) => a.localeCompare(b));
-        setLeagues(unique);
+
+        const counts = new Map<string, number>();
+
+        for (const row of data || []) {
+          const league = String(row.league || "").trim();
+          if (!league) continue;
+          counts.set(league, (counts.get(league) || 0) + 1);
+        }
+
+        setLeagues(
+          Array.from(counts.entries())
+            .map(([league, count]) => ({ name: league, count }))
+            .sort((a, b) => a.name.localeCompare(b.name, "pt-BR")),
+        );
       } catch {
-        // A lista de ligas é opcional; a sala pode ser criada sem filtro.
+        // A sala continua criável mesmo se a lista visual de ligas não carregar.
       }
     })();
 
@@ -48,6 +62,17 @@ export default function CreateRoom() {
       alive = false;
     };
   }, []);
+
+  const selectedPlayerCount = useMemo(() => {
+    if (selectedLeagues.length === 0) {
+      return leagues.reduce((total, league) => total + (league.count || 0), 0);
+    }
+
+    const selected = new Set(selectedLeagues);
+    return leagues
+      .filter((league) => selected.has(league.name))
+      .reduce((total, league) => total + (league.count || 0), 0);
+  }, [leagues, selectedLeagues]);
 
   function changeMode(next: "football" | "futsal") {
     setMode(next);
@@ -91,159 +116,263 @@ export default function CreateRoom() {
   }
 
   return (
-    <main className="form-page">
-      <div className="form-shell">
-        <button className="back-button" type="button" onClick={() => router.push("/")}>
-          ← Voltar
+    <main className="room-setup-page">
+      <div className="room-setup-glow room-setup-glow-one" />
+      <div className="room-setup-glow room-setup-glow-two" />
+
+      <div className="room-setup-shell">
+        <button className="setup-back-button" type="button" onClick={() => router.push("/")}>
+          <span>←</span>
+          Voltar
         </button>
 
-        <h1 className="form-title">Criar sala</h1>
+        <header className="setup-hero">
+          <span className="setup-eyebrow">NOVA PARTIDA</span>
+          <h1>Criar sala</h1>
+          <p>Monte as regras do leilão e deixe tudo pronto antes da galera entrar.</p>
+        </header>
 
-        <div className="card grid form-card">
-          <label>
-            Nome do administrador
-            <input
-              className="input"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Ex.: Gabriel"
-              maxLength={24}
-            />
-          </label>
+        <div className="setup-layout">
+          <div className="setup-main">
+            <section className="setup-section">
+              <div className="setup-section-heading">
+                <span className="setup-step">01</span>
+                <div>
+                  <h2>Informações da sala</h2>
+                  <p>Quem cria a sala vira o administrador inicial.</p>
+                </div>
+              </div>
 
-          <label>
-            Modalidade
-            <select
-              className="input"
-              value={mode}
-              onChange={(e) => changeMode(e.target.value as "football" | "futsal")}
+              <label className="setup-field">
+                <span>Nome do administrador</span>
+                <input
+                  className="input setup-input"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Ex.: Gabriel"
+                  maxLength={24}
+                />
+              </label>
+
+              <div className="setup-field">
+                <span>Modalidade</span>
+                <div className="mode-selector">
+                  <button
+                    type="button"
+                    className={mode === "football" ? "active" : ""}
+                    onClick={() => changeMode("football")}
+                  >
+                    <span className="mode-selector-icon">⚽</span>
+                    <span>
+                      <strong>Campo</strong>
+                      <small>11 titulares</small>
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={mode === "futsal" ? "active" : ""}
+                    onClick={() => changeMode("futsal")}
+                  >
+                    <span className="mode-selector-icon">◉</span>
+                    <span>
+                      <strong>Futsal</strong>
+                      <small>5 titulares</small>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <section className="setup-section">
+              <div className="setup-section-heading">
+                <span className="setup-step">02</span>
+                <div>
+                  <h2>Regras do leilão</h2>
+                  <p>Defina orçamento, reservas e comportamento da sala.</p>
+                </div>
+              </div>
+
+              <div className="setup-grid-two">
+                <label className="setup-field">
+                  <span>Orçamento por pessoa</span>
+                  <select className="input setup-input" value={budget} onChange={(e) => setBudget(e.target.value)}>
+                    {[50, 100, 150, 200, 500].map((value) => (
+                      <option key={value} value={value}>{value} créditos</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="setup-field">
+                  <span>Reservas</span>
+                  <select
+                    className="input setup-input"
+                    value={reserveCount}
+                    onChange={(e) => setReserveCount(Number(e.target.value))}
+                  >
+                    {[0, 1, 2, 3, 4, 5].map((value) => (
+                      <option key={value} value={value}>{value}</option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="setup-field">
+                  <span>GER mínimo</span>
+                  <input
+                    className="input setup-input"
+                    type="number"
+                    min={1}
+                    max={100}
+                    value={minOverall}
+                    onChange={(e) => setMinOverall(Number(e.target.value))}
+                  />
+                </label>
+
+                <label className="setup-field">
+                  <span>GER máximo</span>
+                  <input
+                    className="input setup-input"
+                    type="number"
+                    min={1}
+                    max={100}
+                    value={maxOverall}
+                    onChange={(e) => setMaxOverall(Number(e.target.value))}
+                  />
+                </label>
+
+                <label className="setup-field">
+                  <span>Quando alguém desconectar</span>
+                  <select
+                    className="input setup-input"
+                    value={disconnectMode}
+                    onChange={(e) => setDisconnectMode(e.target.value as "skip" | "bot")}
+                  >
+                    <option value="skip">Continuar sem o jogador</option>
+                    <option value="bot">BOT conservador assume</option>
+                  </select>
+                </label>
+
+                <label className="setup-field">
+                  <span>Senha opcional</span>
+                  <input
+                    className="input setup-input"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Sala aberta se ficar vazio"
+                    maxLength={32}
+                  />
+                </label>
+              </div>
+
+              <div className="setup-toggle-grid">
+                <label className="setup-toggle-card">
+                  <input type="checkbox" checked={allowIcons} onChange={(e) => setAllowIcons(e.target.checked)} />
+                  <span className="setup-toggle-copy">
+                    <strong>ICONS e cartas especiais</strong>
+                    <small>Lendas podem aparecer no sorteio.</small>
+                  </span>
+                  <span className="setup-switch" />
+                </label>
+
+                <label className="setup-toggle-card">
+                  <input type="checkbox" checked={activeOnly} onChange={(e) => setActiveOnly(e.target.checked)} />
+                  <span className="setup-toggle-copy">
+                    <strong>Somente jogadores ativos</strong>
+                    <small>Remove cartas históricas comuns.</small>
+                  </span>
+                  <span className="setup-switch" />
+                </label>
+
+                <label className="setup-toggle-card">
+                  <input
+                    type="checkbox"
+                    checked={spectatorsAllowed}
+                    onChange={(e) => setSpectatorsAllowed(e.target.checked)}
+                  />
+                  <span className="setup-toggle-copy">
+                    <strong>Permitir espectadores</strong>
+                    <small>Quem entrar depois pode assistir e usar o chat.</small>
+                  </span>
+                  <span className="setup-switch" />
+                </label>
+              </div>
+            </section>
+
+            <section className="setup-section">
+              <div className="setup-section-heading">
+                <span className="setup-step">03</span>
+                <div>
+                  <h2>Filtro de ligas</h2>
+                  <p>Escolha uma ou várias ligas. Sem seleção, todas ficam liberadas.</p>
+                </div>
+              </div>
+
+              <LeagueMultiSelect
+                options={leagues}
+                selected={selectedLeagues}
+                onChange={setSelectedLeagues}
+              />
+            </section>
+
+            {error && (
+              <div className="setup-error">
+                <strong>Não foi possível criar a sala</strong>
+                <span>{error}</span>
+              </div>
+            )}
+          </div>
+
+          <aside className="setup-summary-card">
+            <span className="setup-summary-kicker">RESUMO DA SALA</span>
+            <h2>{name.trim() || "Sua sala"}</h2>
+
+            <div className="setup-summary-list">
+              <div>
+                <span>Modalidade</span>
+                <strong>{mode === "football" ? "Futebol de campo" : "Futsal"}</strong>
+              </div>
+              <div>
+                <span>Orçamento</span>
+                <strong>{budget} créditos</strong>
+              </div>
+              <div>
+                <span>Reservas</span>
+                <strong>{reserveCount}</strong>
+              </div>
+              <div>
+                <span>Faixa de GER</span>
+                <strong>{minOverall}–{maxOverall}</strong>
+              </div>
+              <div>
+                <span>Ligas</span>
+                <strong>{selectedLeagues.length || "Todas"}</strong>
+              </div>
+              <div>
+                <span>Jogadores elegíveis</span>
+                <strong>{selectedPlayerCount || "—"}</strong>
+              </div>
+            </div>
+
+            <div className="setup-summary-tags">
+              {allowIcons && <span>★ ICONS</span>}
+              {activeOnly && <span>Ativos</span>}
+              {spectatorsAllowed && <span>Espectadores</span>}
+              {disconnectMode === "bot" && <span>BOT</span>}
+            </div>
+
+            <button
+              className="btn btn-primary setup-create-button"
+              onClick={() => void createRoom()}
+              disabled={loading || minOverall > maxOverall}
             >
-              <option value="football">Futebol de campo</option>
-              <option value="futsal">Futsal</option>
-            </select>
-          </label>
+              {loading ? "Criando sala..." : "Criar sala"}
+            </button>
 
-          <div className="settings-grid">
-            <label>
-              Orçamento por pessoa
-              <select className="input" value={budget} onChange={(e) => setBudget(e.target.value)}>
-                {[50, 100, 150, 200, 500].map((value) => (
-                  <option key={value} value={value}>{value} créditos</option>
-                ))}
-              </select>
-            </label>
-
-            <label>
-              Reservas
-              <select
-                className="input"
-                value={reserveCount}
-                onChange={(e) => setReserveCount(Number(e.target.value))}
-              >
-                {[0, 1, 2, 3, 4, 5].map((value) => (
-                  <option key={value} value={value}>{value}</option>
-                ))}
-              </select>
-            </label>
-
-            <label>
-              GER mínimo
-              <input
-                className="input"
-                type="number"
-                min={1}
-                max={100}
-                value={minOverall}
-                onChange={(e) => setMinOverall(Number(e.target.value))}
-              />
-            </label>
-
-            <label>
-              GER máximo
-              <input
-                className="input"
-                type="number"
-                min={1}
-                max={100}
-                value={maxOverall}
-                onChange={(e) => setMaxOverall(Number(e.target.value))}
-              />
-            </label>
-          </div>
-
-          <label>
-            Ligas permitidas
-            <select
-              className="input league-multiselect"
-              multiple
-              value={selectedLeagues}
-              onChange={(e) =>
-                setSelectedLeagues(Array.from(e.target.selectedOptions).map((option) => option.value))
-              }
-            >
-              {leagues.map((league) => (
-                <option key={league} value={league}>{league}</option>
-              ))}
-            </select>
-            <small className="muted">Sem seleção = todas as ligas. No celular, selecione apenas se quiser filtrar.</small>
-          </label>
-
-          <div className="settings-grid">
-            <label>
-              Desconexão
-              <select
-                className="input"
-                value={disconnectMode}
-                onChange={(e) => setDisconnectMode(e.target.value as "skip" | "bot")}
-              >
-                <option value="skip">Continuar sem o jogador</option>
-                <option value="bot">BOT conservador assume</option>
-              </select>
-            </label>
-
-            <label>
-              Senha opcional
-              <input
-                className="input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Deixe vazio para sala aberta"
-                maxLength={32}
-              />
-            </label>
-          </div>
-
-          <div className="settings-checks">
-            <label className="check-row">
-              <input type="checkbox" checked={allowIcons} onChange={(e) => setAllowIcons(e.target.checked)} />
-              Permitir ICONS e cartas especiais
-            </label>
-
-            <label className="check-row">
-              <input type="checkbox" checked={activeOnly} onChange={(e) => setActiveOnly(e.target.checked)} />
-              Somente jogadores ativos
-            </label>
-
-            <label className="check-row">
-              <input
-                type="checkbox"
-                checked={spectatorsAllowed}
-                onChange={(e) => setSpectatorsAllowed(e.target.checked)}
-              />
-              Permitir espectadores
-            </label>
-          </div>
-
-          {error && <p className="red">{error}</p>}
-
-          <button
-            className="btn btn-primary"
-            onClick={createRoom}
-            disabled={loading || minOverall > maxOverall}
-          >
-            {loading ? "Criando..." : "Criar sala"}
-          </button>
+            <small>
+              Você ainda poderá alterar a modalidade depois, enquanto a partida estiver no lobby.
+            </small>
+          </aside>
         </div>
       </div>
     </main>
