@@ -1,0 +1,227 @@
+[
+  {
+    "id": "andres-iniesta-2010-special",
+    "name": "Andrés Iniesta",
+    "season_year": 2010,
+    "version_label": "2010",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Andr%C3%A9s_Iniesta_Argentina_v_Spain_19_July_2026-034_(cropped).jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "icon-iniesta"
+  },
+  {
+    "id": "cristiano-ronaldo-2008-special",
+    "name": "Cristiano Ronaldo",
+    "season_year": 2008,
+    "version_label": "2008",
+    "image_source_url": null,
+    "image_license": null,
+    "reused_from": "icon_cristiano_ronaldo_2017"
+  },
+  {
+    "id": "cristiano-ronaldo-2014-special",
+    "name": "Cristiano Ronaldo",
+    "season_year": 2014,
+    "version_label": "2014",
+    "image_source_url": null,
+    "image_license": null,
+    "reused_from": "icon_cristiano_ronaldo_2017"
+  },
+  {
+    "id": "cristiano-ronaldo-2017-special",
+    "name": "Cristiano Ronaldo",
+    "season_year": 2017,
+    "version_label": "2017",
+    "image_source_url": null,
+    "image_license": null,
+    "reused_from": "icon_cristiano_ronaldo_2017"
+  },
+  {
+    "id": "eden-hazard-2018-special",
+    "name": "Eden Hazard",
+    "season_year": 2018,
+    "version_label": "2018",
+    "image_source_url": null,
+    "image_license": null,
+    "reused_from": null
+  },
+  {
+    "id": "gareth-bale-2014-special",
+    "name": "Gareth Bale",
+    "season_year": 2014,
+    "version_label": "2014",
+    "image_source_url": null,
+    "image_license": null,
+    "reused_from": null
+  },
+  {
+    "id": "kaka-2007-special",
+    "name": "Kaká",
+    "season_year": 2007,
+    "version_label": "2007",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Kak%C3%A1_visited_Stadium_St._Petersburg.jpg",
+    "image_license": "CC BY-SA 3.0",
+    "reused_from": "icon-kaka"
+  },
+  {
+    "id": "kylian-mbappe-2022-special",
+    "name": "Kylian Mbappé",
+    "season_year": 2022,
+    "version_label": "2022",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Kylian_Mbappe_France_v_Senegal_16_June_2026-391_(cropped).jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "laliga-mbappe"
+  },
+  {
+    "id": "lionel-messi-2009-special",
+    "name": "Lionel Messi",
+    "season_year": 2009,
+    "version_label": "2009",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Leo_Messi_Argentina_v_Egypt_7_July_2026-1.jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "ea27_lionel_messi"
+  },
+  {
+    "id": "lionel-messi-2012-special",
+    "name": "Lionel Messi",
+    "season_year": 2012,
+    "version_label": "2012",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Leo_Messi_Argentina_v_Egypt_7_July_2026-1.jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "ea27_lionel_messi"
+  },
+  {
+    "id": "lionel-messi-2014-special",
+    "name": "Lionel Messi",
+    "season_year": 2014,
+    "version_label": "2014",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Leo_Messi_Argentina_v_Egypt_7_July_2026-1.jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "ea27_lionel_messi"
+  },
+  {
+    "id": "lionel-messi-2015-special",
+    "name": "Lionel Messi",
+    "season_year": 2015,
+    "version_label": "2015",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Leo_Messi_Argentina_v_Egypt_7_July_2026-1.jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "ea27_lionel_messi"
+  },
+  {
+    "id": "luis-suarez-2015-special",
+    "name": "Luis Suárez",
+    "season_year": 2015,
+    "version_label": "2015/16",
+    "image_source_url": null,
+    "image_license": null,
+    "reused_from": null
+  },
+  {
+    "id": "luka-modric-2018-special",
+    "name": "Luka Modrić",
+    "season_year": 2018,
+    "version_label": "2018",
+    "image_source_url": null,
+    "image_license": null,
+    "reused_from": null
+  },
+  {
+    "id": "mohamed-salah-2018-special",
+    "name": "Mohamed Salah",
+    "season_year": 2018,
+    "version_label": "2018",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Mohamed_Salah_Argentina_v_Egypt_7_July_2026-163_(cropped).jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "pl-salah"
+  },
+  {
+    "id": "neymar-2011-special",
+    "name": "Neymar",
+    "season_year": 2011,
+    "version_label": "2011",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Neymar_Junior_Brazil_V_Morocco_13_June_2026-40.jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "bra_neymar"
+  },
+  {
+    "id": "neymar-2015-special",
+    "name": "Neymar",
+    "season_year": 2015,
+    "version_label": "2015",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Neymar_Junior_Brazil_V_Morocco_13_June_2026-40.jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "bra_neymar"
+  },
+  {
+    "id": "neymar-2020-special",
+    "name": "Neymar",
+    "season_year": 2020,
+    "version_label": "2020",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Neymar_Junior_Brazil_V_Morocco_13_June_2026-40.jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "bra_neymar"
+  },
+  {
+    "id": "rivaldo-2002-special",
+    "name": "Rivaldo",
+    "season_year": 2002,
+    "version_label": "2002",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Rivaldo.jpg",
+    "image_license": "CC BY 3.0 br",
+    "reused_from": "icon-rivaldo"
+  },
+  {
+    "id": "robert-lewandowski-2020-special",
+    "name": "Robert Lewandowski",
+    "season_year": 2020,
+    "version_label": "2020",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:2019147183134_2019-05-27_Fussball_1.FC_Kaiserslautern_vs_FC_Bayern_M%C3%BCnchen_-_Sven_-_1D_X_MK_II_-_0228_-_B70I8527_(cropped).jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "laliga-lewandowski"
+  },
+  {
+    "id": "romario-1994-special",
+    "name": "Romário",
+    "season_year": 1994,
+    "version_label": "1994",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Senadores_da_57%C2%AA_Legislatura_(52689451805).jpg",
+    "image_license": "CC BY 2.0",
+    "reused_from": "icon-romario"
+  },
+  {
+    "id": "ronaldinho-2005-special",
+    "name": "Ronaldinho",
+    "season_year": 2005,
+    "version_label": "2005",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Ronaldinho_in_2019.jpg",
+    "image_license": "CC BY 2.0",
+    "reused_from": "icon-ronaldinho"
+  },
+  {
+    "id": "ronaldo-nazario-2002-special",
+    "name": "Ronaldo Nazário",
+    "season_year": 2002,
+    "version_label": "2002",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:12.12.2025_%E2%80%93_Cerim%C3%B4nia_de_lan%C3%A7amento_do_SBT_News_-_54980664160_(cropped2).jpg",
+    "image_license": "CC BY-SA 4.0",
+    "reused_from": "icon-ronaldo"
+  },
+  {
+    "id": "thierry-henry-2004-special",
+    "name": "Thierry Henry",
+    "season_year": 2004,
+    "version_label": "2004",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Thierry_Henry_(51649035951)_(cropped).jpg",
+    "image_license": "CC BY 2.0",
+    "reused_from": "icon-henry"
+  },
+  {
+    "id": "xavi-2011-special",
+    "name": "Xavi",
+    "season_year": 2011,
+    "version_label": "2011",
+    "image_source_url": "https://commons.wikimedia.org/wiki/File:Xavi_Hern%C3%A1ndez_-_002_(cropped).jpg",
+    "image_license": "Public domain",
+    "reused_from": "icon-xavi"
+  }
+]

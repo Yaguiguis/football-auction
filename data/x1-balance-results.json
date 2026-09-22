@@ -1,0 +1,30 @@
+[
+  {
+    "scenario": "94 vs 90",
+    "matches": 20000,
+    "win": 0.5572,
+    "draw": 0.2157,
+    "lose": 0.2271
+  },
+  {
+    "scenario": "92 vs 91",
+    "matches": 20000,
+    "win": 0.4234,
+    "draw": 0.23675,
+    "lose": 0.33985
+  },
+  {
+    "scenario": "90 vs 90",
+    "matches": 20000,
+    "win": 0.38025,
+    "draw": 0.23745,
+    "lose": 0.3823
+  },
+  {
+    "scenario": "97 vs 88",
+    "matches": 20000,
+    "win": 0.77085,
+    "draw": 0.1366,
+    "lose": 0.09255
+  }
+]

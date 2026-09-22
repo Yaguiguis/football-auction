@@ -13,6 +13,8 @@ export type RatedPlayer = {
   primary_position: string;
   overall: number;
   image_url?: string | null;
+  player_type?: "ACTIVE" | "ICON" | "SPECIAL";
+  metadata?: {version_label?: string; season_year?: number} | null;
 };
 
 export const footballBoard: BoardSlot[] = [

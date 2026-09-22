@@ -15,6 +15,9 @@ import {
 import ConnectionBanner from "../../../../components/ConnectionBanner";
 import RoomChat from "../../../../components/RoomChat";
 import PlayerFace from "../../../../components/PlayerFace";
+import CardBadge, {cardClass} from "../../../../components/CardBadge";
+import X1Arena from "../../../../components/X1Arena";
+import RoundArchive from "../../../../components/RoundArchive";
 
 type Room = {
   id: string;
@@ -44,7 +47,7 @@ type SquadRow = {
 };
 
 type Player = RatedPlayer & {
-  player_type: "ACTIVE" | "ICON";
+  player_type: "ACTIVE" | "ICON" | "SPECIAL";
 };
 
 type AuctionRow = {
@@ -140,7 +143,7 @@ export default function TeamsPage() {
 
     const { data: playerData, error: playerError } = await supabase
       .from("fa_players")
-      .select("id,name,primary_position,overall,image_url,player_type")
+      .select("id,name,primary_position,overall,image_url,player_type,metadata")
       .in("id", playerIds);
 
     if (playerError) throw playerError;
@@ -322,6 +325,7 @@ export default function TeamsPage() {
       )}
 
       {room && <RoomChat roomId={room.id} />}
+      {room && <X1Arena roomId={room.id} members={members} me={me}/>}
 
       <section className="stats-grid">
         <div className="stat-card">
@@ -410,14 +414,14 @@ export default function TeamsPage() {
                       className="final-board-slot"
                       style={{ left: `${slot.x}%`, top: `${slot.y}%` }}
                     >
-                      <div className={`final-player-card ${player?.player_type === "ICON" ? "icon-card-mini" : ""}`}>
+                      <div className={`final-player-card ${cardClass(player)}`}>
                         <div className="slot-label">{slot.label}</div>
                         {player && (
                           <div style={{ display: "flex", justifyContent: "center", margin: "3px 0" }}>
                             <PlayerFace name={player.name} imageUrl={player.image_url} size={34} />
                           </div>
                         )}
-                        <div className="player-name-small">{player?.name || "Vazio"}</div>
+                        {player && <CardBadge player={player}/>}<div className="player-name-small">{player?.name || "Vazio"}</div>
                         {player && (
                           <div className="red" style={{ fontSize: 13, fontWeight: 900 }}>
                             {effective} GER{penalty > 0 ? ` (-${penalty})` : ""}
@@ -437,14 +441,14 @@ export default function TeamsPage() {
                       const player = bySlot.get(slot.key);
 
                       return (
-                        <div className="bench-final-card" key={slot.key}>
+                        <div className={`bench-final-card ${cardClass(player)}`} key={slot.key}>
                           <div className="muted" style={{ fontSize: 9, fontWeight: 900 }}>{slot.label}</div>
                           {player ? (
                             <>
                               <div style={{ display: "flex", justifyContent: "center", margin: "6px 0" }}>
                                 <PlayerFace name={player.name} imageUrl={player.image_url} size={34} />
                               </div>
-                              <strong className="player-name-small">{player.name}</strong>
+                              <CardBadge player={player}/><strong className="player-name-small">{player.name}</strong>
                               <span className="red" style={{ fontSize: 11, fontWeight: 900 }}>{player.overall} GER</span>
                             </>
                           ) : (
@@ -480,9 +484,9 @@ export default function TeamsPage() {
             const winner = auction.winner_member_id ? memberById.get(auction.winner_member_id) : null;
 
             return (
-              <div className="history-row" key={auction.id}>
+              <div className={`history-row ${cardClass(historyPlayer)}`} key={auction.id}>
                 <div>
-                  <strong>{historyPlayer?.player_type === "ICON" ? "★ " : ""}{historyPlayer?.name || "Jogador"}</strong>
+                  {historyPlayer && <CardBadge player={historyPlayer}/>} <strong>{historyPlayer?.name || "Jogador"}</strong>
                   {historyPlayer && <span className="muted"> • GER {historyPlayer.overall}</span>}
                 </div>
 
@@ -503,6 +507,8 @@ export default function TeamsPage() {
           })}
         </div>
       </section>
+
+      {room && <RoundArchive roomId={room.id}/>}
 
       {spectators.length > 0 && (
         <section className="card" style={{ marginTop: 20 }}>

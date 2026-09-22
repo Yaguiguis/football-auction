@@ -14,6 +14,7 @@ import {
   type RatedPlayer,
 } from "../../../../lib/squad-board";
 import PlayerFace from "../../../../components/PlayerFace";
+import CardBadge, { cardClass } from "../../../../components/CardBadge";
 import ConnectionBanner from "../../../../components/ConnectionBanner";
 import RoomChat from "../../../../components/RoomChat";
 
@@ -87,7 +88,7 @@ export default function SquadEditorPage() {
 
     const { data: playerData, error: playerError } = await supabase
       .from("fa_players")
-      .select("id,name,primary_position,overall,league,image_url")
+      .select("id,name,primary_position,overall,league,image_url,player_type,metadata")
       .in("id", ids);
     if (playerError) throw playerError;
     setPlayers((playerData || []) as Player[]);
@@ -312,6 +313,8 @@ export default function SquadEditorPage() {
               return (
                 <button
                   key={slot.key}
+                  className={cardClass(player)}
+                  aria-pressed={isSelected}
                   type="button"
                   disabled={saving || !!me?.squad_finalized}
                   onClick={() => selectOrMove(slot.key, player?.id)}
@@ -347,6 +350,7 @@ export default function SquadEditorPage() {
                       <PlayerFace name={player.name} imageUrl={player.image_url} size={38} />
                     </div>
                   )}
+                  {player && <CardBadge player={player}/>}
                   <div style={{ fontSize: 11, fontWeight: 900, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                     {player?.name || "Vazio"}
                   </div>
@@ -386,6 +390,8 @@ export default function SquadEditorPage() {
                 return (
                   <button
                     key={slot.key}
+                    className={cardClass(player)}
+                    aria-pressed={selected}
                     type="button"
                     disabled={saving || !!me?.squad_finalized}
                     onClick={() => selectOrMove(slot.key, player?.id)}
@@ -415,7 +421,7 @@ export default function SquadEditorPage() {
                         <div style={{ display: "flex", justifyContent: "center", margin: "7px 0" }}>
                           <PlayerFace name={player.name} imageUrl={player.image_url} size={42} />
                         </div>
-                        <strong style={{ display: "block", fontSize: 12, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        <CardBadge player={player}/><strong style={{ display: "block", fontSize: 12, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                           {player.name}
                         </strong>
                         <span className="red" style={{ fontSize: 12, fontWeight: 900 }}>{player.overall} GER</span>
@@ -464,14 +470,15 @@ export default function SquadEditorPage() {
                   onDragStart={(e) => e.dataTransfer.setData("text/player-id", player.id)}
                   onClick={() => setSelectedPlayerId(selected ? null : player.id)}
                   disabled={!!me?.squad_finalized}
-                  className="card"
+                  className={`card ${cardClass(player)}`}
+                  aria-pressed={selected}
                   style={{
                     textAlign: "left",
                     cursor: me?.squad_finalized ? "default" : "pointer",
                     border: selected ? "2px solid #e50914" : undefined,
                   }}
                 >
-                  <div style={{ marginBottom: 8 }}>
+                  <CardBadge player={player}/><div style={{ marginBottom: 8 }}>
                     <PlayerFace name={player.name} imageUrl={player.image_url} size={50} />
                   </div>
 

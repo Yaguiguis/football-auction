@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test": "npm run typecheck && npm run build"
+    "test": "npm run typecheck && npm run test:simulator && npm run build",
+    "test:simulator": "tsc lib/match-simulator.ts --target es2020 --module commonjs --outDir .test-build --skipLibCheck && node tests/match-simulator.cjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
