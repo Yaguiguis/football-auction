@@ -40,64 +40,124 @@ export default function JoinRoom() {
   const validCode = room.trim().length === 6;
 
   return (
-    <main className="form-page">
-      <div className="form-shell">
-        <button className="back-button" type="button" onClick={() => router.push("/")}>
-          ← Voltar
+    <main className="room-setup-page join-page">
+      <div className="room-setup-glow room-setup-glow-one" />
+      <div className="room-setup-glow room-setup-glow-two" />
+
+      <div className="room-setup-shell join-shell">
+        <button className="setup-back-button" type="button" onClick={() => router.push("/")}>
+          <span>←</span>
+          Voltar
         </button>
 
-        <h1 className="form-title">Entrar na sala</h1>
+        <header className="setup-hero join-hero">
+          <span className="setup-eyebrow">ENTRAR NA PARTIDA</span>
+          <h1>Entrar na sala</h1>
+          <p>Use o código enviado pelo administrador para voltar direto para o jogo.</p>
+        </header>
 
-        <div className="card grid form-card">
-          <input
-            className="input"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Seu nome"
-            maxLength={24}
-          />
+        <section className="join-premium-card">
+          <div className="join-card-accent" />
 
-          <input
-            className="input"
-            value={room}
-            onChange={(e) => setRoom(e.target.value.toUpperCase())}
-            placeholder="Código da sala"
-            maxLength={6}
-          />
+          <div className="join-card-heading">
+            <span className="join-card-icon">⚽</span>
+            <div>
+              <h2>Dados de entrada</h2>
+              <p>Se a sala tiver senha, informe junto com o código.</p>
+            </div>
+          </div>
 
-          <input
-            className="input"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Senha da sala (se tiver)"
-            maxLength={32}
-          />
+          <div className="join-field-stack">
+            <label className="setup-field">
+              <span>Seu nome</span>
+              <input
+                className="input setup-input"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Como seus amigos vão te ver"
+                maxLength={24}
+              />
+            </label>
 
-          {error && <p className="red">{error}</p>}
+            <label className="setup-field">
+              <span>Código da sala</span>
+              <input
+                className="input setup-input room-code-input"
+                value={room}
+                onChange={(e) =>
+                  setRoom(
+                    e.target.value
+                      .toUpperCase()
+                      .replace(/[^A-Z0-9]/g, "")
+                      .slice(0, 6),
+                  )
+                }
+                placeholder="ABC123"
+                maxLength={6}
+                autoCapitalize="characters"
+                autoCorrect="off"
+                spellCheck={false}
+              />
+              <small className="field-help">
+                {room.length}/6 caracteres
+              </small>
+            </label>
 
-          <div className="join-actions">
+            <label className="setup-field">
+              <span>Senha da sala <em>opcional</em></span>
+              <input
+                className="input setup-input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Preencha apenas se a sala tiver senha"
+                maxLength={32}
+              />
+            </label>
+          </div>
+
+          {error && (
+            <div className="setup-error">
+              <strong>Não foi possível entrar</strong>
+              <span>{error}</span>
+            </div>
+          )}
+
+          <div className="join-choice-grid">
             <button
-              className="btn btn-primary"
+              className="join-choice-card primary"
               onClick={() => void enter(false)}
               disabled={loadingMode !== null || !validCode}
             >
-              {loadingMode === "player" ? "Entrando..." : "Entrar para jogar"}
+              <span className="join-choice-icon">🎮</span>
+              <span className="join-choice-copy">
+                <strong>{loadingMode === "player" ? "Entrando..." : "Entrar para jogar"}</strong>
+                <small>Participa do leilão e monta seu próprio time.</small>
+              </span>
+              <span className="join-choice-arrow">→</span>
             </button>
 
             <button
-              className="btn btn-secondary"
+              className="join-choice-card"
               onClick={() => void enter(true)}
               disabled={loadingMode !== null || !validCode}
             >
-              {loadingMode === "spectator" ? "Entrando..." : "Assistir como espectador"}
+              <span className="join-choice-icon">👀</span>
+              <span className="join-choice-copy">
+                <strong>{loadingMode === "spectator" ? "Entrando..." : "Assistir como espectador"}</strong>
+                <small>Acompanha a partida e participa do chat.</small>
+              </span>
+              <span className="join-choice-arrow">→</span>
             </button>
           </div>
 
-          <p className="muted" style={{ margin: 0 }}>
-            Se a partida já começou, use o modo espectador. Se você já fazia parte da sala neste navegador, o jogo reconecta sua sessão automaticamente.
-          </p>
-        </div>
+          <div className="join-info-strip">
+            <span>↻</span>
+            <p>
+              Já fazia parte desta sala neste navegador? Sua sessão é reconhecida e você volta para o estado atual da partida.
+            </p>
+          </div>
+        </section>
       </div>
     </main>
   );
