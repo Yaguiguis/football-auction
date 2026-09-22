@@ -27,6 +27,12 @@ export default function HomePage() {
             <span className="grafite-btn-kicker">JÁ TEM CÓDIGO?</span>
             <strong>Entrar com código</strong>
           </Link>
+
+          <Link href="/criar-torneio" className="grafite-btn grafite-btn-tournament">
+            <span className="grafite-btn-kicker">🏆 NOVO MODO</span>
+            <strong>Criar torneio</strong>
+            <small>Leilão + chave mata-mata até sair o campeão</small>
+          </Link>
         </div>
       </section>
     </main>
