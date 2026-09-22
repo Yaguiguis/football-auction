@@ -7,6 +7,12 @@ begin
  perform set_config('request.jwt.claim.sub',u1::text,true);
  select * into r from public.fa_create_room_v3('X1 TEST A','futsal',100,0,true,1,100,false,null,'skip',true,null,true,true);
  m1:=r.member_id;
+ res:=public.fa_room_catalog_summary(r.room_id);
+ if coalesce((res->>'total')::int,0)<=0
+    or coalesce((res->>'base')::int,0)<=0
+    or coalesce((res->>'icons')::int,0)<=0
+    or coalesce((res->>'specials')::int,0)<=0
+ then raise exception 'room catalog summary mismatch';end if;
  perform set_config('request.jwt.claim.sub',u2::text,true);
  perform public.fa_join_room_v2(r.room_code,'X1 TEST B',null,false);
  select id into m2 from public.fa_room_members where room_id=r.room_id and user_id=u2;
@@ -103,5 +109,5 @@ begin
  exception when unique_violation then denied:=true;end;
  if not denied then raise exception 'canonical duplicate was accepted';end if;
 end $$;
-select 'PASS: filters, SPECIAL draw, QUERO/PASSAR, sequential bidding, withdrawal, chat, finalization, X1 accept/decline, seed replay, RLS, tamper rejection, replay archive, deduplication' as result;
+select 'PASS: room catalog summary, filters, SPECIAL draw, QUERO/PASSAR, sequential bidding, withdrawal, chat, finalization, X1 accept/decline, seed replay, RLS, tamper rejection, replay archive, deduplication' as result;
 rollback;
