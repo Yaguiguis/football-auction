@@ -1327,3 +1327,40 @@ radial-gradient(circle at center,rgba(229,9,20,.16),transparent 45%),#101010}
   .league-logo-card{min-height:132px}
   .league-logo{width:60px;height:60px}
 }
+
+
+/* Uploaded league artwork */
+.league-logo-real{
+  width:82px;
+  height:82px;
+  padding:8px;
+  border-radius:18px;
+  background:#f6f6f6;
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 10px 24px rgba(0,0,0,.28);
+  overflow:hidden;
+}
+.league-logo-real:before,
+.league-logo-real:after{
+  display:none!important;
+}
+.league-logo-image{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+.league-logo-card.selected .league-logo-real{
+  box-shadow:0 0 0 2px rgba(229,9,20,.22),0 12px 28px rgba(0,0,0,.32);
+}
+.league-logo-card.selected .league-logo-image{
+  transform:scale(1.035);
+}
+@media(max-width:640px){
+  .league-logo-real{
+    width:72px;
+    height:72px;
+    padding:7px;
+  }
+}
