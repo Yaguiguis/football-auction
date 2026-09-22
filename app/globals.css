@@ -1364,3 +1364,19 @@ radial-gradient(circle at center,rgba(229,9,20,.16),transparent 45%),#101010}
     padding:7px;
   }
 }
+
+/* Original WORLD STARS identity. No external artwork or brand marks. */
+.card-type-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;line-height:1.3;font-weight:900;letter-spacing:.06em;padding:3px 5px;border-radius:5px;max-width:100%;flex-wrap:wrap}
+.special-badge{color:#84eeff;background:#073441;border:1px solid #16c9eb}
+.special-card{position:relative;background:radial-gradient(ellipse at 50% 0%,#09546a 0,transparent 60%),linear-gradient(145deg,#131e24,#06090e)!important;border-color:#15c7ea!important;box-shadow:inset 0 0 16px #08b8ea22,0 0 12px #00bbdd33}
+.special-card .red{color:#83efff}
+.special-card .auction-ger{color:#b7f6ff;text-shadow:0 0 24px #00c8f999}
+.special-card.auction-player-card{border-radius:28px 28px 70px 70px;border-width:2px;overflow:hidden}
+.special-orbit{font-size:30px;color:#6be8ff;line-height:1;margin:6px auto;display:grid;place-items:center;width:62px;height:62px;border:1px solid #49d8f4;border-radius:50%;background:repeating-linear-gradient(90deg,transparent 0 18px,#17c8f222 19px 20px),repeating-linear-gradient(0deg,transparent 0 18px,#17c8f222 19px 20px);transform:rotate(-12deg)}
+.special-reveal{animation:special-arrive .75s cubic-bezier(.18,.8,.24,1) both}
+@keyframes special-arrive{from{opacity:0;transform:translateY(20px) scale(.94);filter:brightness(1.8)}to{opacity:1;transform:none;filter:brightness(1)}}
+.x1-arena{margin:20px 0;border-color:#154756}.x1-arena h2{margin:10px 0 0}.x1-arena .topbar{flex-wrap:wrap}.x1-opponents{display:flex;gap:10px;flex-wrap:wrap}.x1-match{border-top:1px solid #26383c;padding:20px 0;margin-top:18px}.x1-score{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:16px;align-items:center;text-align:center;font-weight:700}.x1-score>span{overflow-wrap:anywhere}.x1-score strong{font-size:clamp(30px,6vw,52px);color:#8decff;font-variant-numeric:tabular-nums}.x1-events{list-style:none;padding:0;display:grid;gap:10px}.x1-events li{padding:10px;background:#0b191e;border-radius:8px;animation:special-arrive .3s ease-out}.x1-events small{color:#aaa}.x1-playback progress{width:100%;height:5px;accent-color:#21c5e6;margin-bottom:12px}.x1-playback details{color:#aaa;font-size:12px}.special-card.history-row{padding:12px;border-radius:8px}.final-player-card .card-type-badge{font-size:7px;padding:1px 3px}.icon-card-mini{border-color:#d6b768!important}.x1-arena button:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:480px){.x1-opponents{flex-direction:column}.x1-opponents .btn{width:100%}.x1-score{gap:8px;font-size:12px}.x1-arena{padding:14px}.special-card .card-type-badge{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.special-reveal,.x1-events li{animation:none}}
+
+.special-card[aria-pressed="true"]{outline:3px solid #fff;outline-offset:2px}.special-card:focus-visible{outline:3px solid #fff;outline-offset:3px}

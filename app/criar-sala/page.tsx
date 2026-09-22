@@ -15,7 +15,8 @@ export default function CreateRoom() {
   const [allowIcons, setAllowIcons] = useState(true);
   const [minOverall, setMinOverall] = useState(1);
   const [maxOverall, setMaxOverall] = useState(100);
-  const [activeOnly, setActiveOnly] = useState(false);
+  const [allowBase, setAllowBase] = useState(true);
+  const [allowSpecials, setAllowSpecials] = useState(true);
   const [disconnectMode, setDisconnectMode] = useState<"skip" | "bot">("skip");
   const [spectatorsAllowed, setSpectatorsAllowed] = useState(true);
   const [password, setPassword] = useState("");
@@ -94,10 +95,11 @@ export default function CreateRoom() {
     setLoading(true);
 
     try {
+      if (!allowBase && !allowIcons && !allowSpecials) throw new Error("Selecione ao menos um tipo de carta.");
       await ensureAnonymousSession();
       const supabase = getSupabase();
 
-      const { data, error: rpcError } = await supabase.rpc("fa_create_room_v2", {
+      const { data, error: rpcError } = await supabase.rpc("fa_create_room_v3", {
         p_display_name: name.trim() || "Administrador",
         p_mode: mode,
         p_budget: Number(budget),
@@ -105,7 +107,9 @@ export default function CreateRoom() {
         p_allow_icons: allowIcons,
         p_min_overall: minOverall,
         p_max_overall: maxOverall,
-        p_active_only: activeOnly,
+        p_active_only: false,
+        p_allow_base: allowBase,
+        p_allow_specials: allowSpecials,
         p_allowed_leagues: selectedLeagues.length ? selectedLeagues : null,
         p_disconnect_mode: disconnectMode,
         p_spectators_allowed: spectatorsAllowed,
@@ -279,18 +283,24 @@ export default function CreateRoom() {
                 <label className="setup-toggle-card">
                   <input type="checkbox" checked={allowIcons} onChange={(e) => setAllowIcons(e.target.checked)} />
                   <span className="setup-toggle-copy">
-                    <strong>ICONS e cartas especiais</strong>
+                    <strong>ICONS</strong>
                     <small>Lendas podem aparecer no sorteio.</small>
                   </span>
                   <span className="setup-switch" />
                 </label>
 
                 <label className="setup-toggle-card">
-                  <input type="checkbox" checked={activeOnly} onChange={(e) => setActiveOnly(e.target.checked)} />
+                  <input type="checkbox" checked={allowBase} onChange={(e) => setAllowBase(e.target.checked)} />
                   <span className="setup-toggle-copy">
-                    <strong>Somente jogadores ativos</strong>
-                    <small>Remove cartas históricas comuns.</small>
+                    <strong>Jogadores normais (BASE)</strong>
+                    <small>Inclui as cartas normais do catálogo.</small>
                   </span>
+                  <span className="setup-switch" />
+                </label>
+
+                <label className="setup-toggle-card">
+                  <input type="checkbox" checked={allowSpecials} onChange={(e) => setAllowSpecials(e.target.checked)} />
+                  <span className="setup-toggle-copy"><strong>SPECIALS</strong><small>Versões históricas com ano e visual exclusivo.</small></span>
                   <span className="setup-switch" />
                 </label>
 
@@ -366,7 +376,8 @@ export default function CreateRoom() {
 
             <div className="setup-summary-tags">
               {allowIcons && <span>★ ICONS</span>}
-              {activeOnly && <span>Ativos</span>}
+              {allowBase && <span>BASE</span>}
+              {allowSpecials && <span>SPECIALS</span>}
               {spectatorsAllowed && <span>Espectadores</span>}
               {disconnectMode === "bot" && <span>BOT</span>}
             </div>

@@ -1,0 +1,337 @@
+{
+  "duplicates": {
+    "laliga-vini": "ea27_vinicius",
+    "pl-gabriel": "ea27_gabriel"
+  },
+  "rating_changes": [
+    {
+      "name": "Álex Grimaldo",
+      "type": "ACTIVE",
+      "before": 79,
+      "after": 85
+    },
+    {
+      "name": "Aurélien Tchouaméni",
+      "type": "ACTIVE",
+      "before": 79,
+      "after": 85
+    },
+    {
+      "name": "Bradley Barcola",
+      "type": "ACTIVE",
+      "before": 78,
+      "after": 84
+    },
+    {
+      "name": "Cole Palmer",
+      "type": "ACTIVE",
+      "before": 79,
+      "after": 87
+    },
+    {
+      "name": "Eduardo Camavinga",
+      "type": "ACTIVE",
+      "before": 78,
+      "after": 84
+    },
+    {
+      "name": "Hakan Çalhanoğlu",
+      "type": "ACTIVE",
+      "before": 79,
+      "after": 86
+    },
+    {
+      "name": "Jules Koundé",
+      "type": "ACTIVE",
+      "before": 78,
+      "after": 86
+    },
+    {
+      "name": "Manuel Neuer",
+      "type": "ACTIVE",
+      "before": 78,
+      "after": 85
+    },
+    {
+      "name": "Phil Foden",
+      "type": "ACTIVE",
+      "before": 83,
+      "after": 86
+    },
+    {
+      "name": "Rafael Leão",
+      "type": "ACTIVE",
+      "before": 78,
+      "after": 86
+    },
+    {
+      "name": "Robert Lewandowski",
+      "type": "ACTIVE",
+      "before": 83,
+      "after": 87
+    },
+    {
+      "name": "Rodrygo",
+      "type": "ACTIVE",
+      "before": 80,
+      "after": 86
+    },
+    {
+      "name": "Theo Hernández",
+      "type": "ACTIVE",
+      "before": 81,
+      "after": 86
+    },
+    {
+      "name": "Xavi Simons",
+      "type": "ACTIVE",
+      "before": 80,
+      "after": 84
+    },
+    {
+      "name": "Andrea Pirlo",
+      "type": "ICON",
+      "before": 88,
+      "after": 90
+    },
+    {
+      "name": "Cafu",
+      "type": "ICON",
+      "before": 89,
+      "after": 90
+    },
+    {
+      "name": "Clint Dempsey",
+      "type": "ICON",
+      "before": 88,
+      "after": 90
+    },
+    {
+      "name": "Iker Casillas",
+      "type": "ICON",
+      "before": 89,
+      "after": 90
+    },
+    {
+      "name": "Paolo Maldini",
+      "type": "ICON",
+      "before": 89,
+      "after": 90
+    },
+    {
+      "name": "Ronaldinho",
+      "type": "ICON",
+      "before": 89,
+      "after": 90
+    }
+  ],
+  "new_icons": [
+    {
+      "name": "Garrincha",
+      "overall": 96
+    },
+    {
+      "name": "Ferenc Puskás",
+      "overall": 96
+    },
+    {
+      "name": "Lev Yashin",
+      "overall": 95
+    },
+    {
+      "name": "Lothar Matthäus",
+      "overall": 95
+    },
+    {
+      "name": "Roberto Baggio",
+      "overall": 94
+    },
+    {
+      "name": "Alessandro Nesta",
+      "overall": 93
+    },
+    {
+      "name": "Luís Figo",
+      "overall": 93
+    },
+    {
+      "name": "Didier Drogba",
+      "overall": 92
+    },
+    {
+      "name": "Eric Cantona",
+      "overall": 93
+    },
+    {
+      "name": "Andriy Shevchenko",
+      "overall": 93
+    },
+    {
+      "name": "Wayne Rooney",
+      "overall": 92
+    },
+    {
+      "name": "Franco Baresi",
+      "overall": 95
+    },
+    {
+      "name": "Clarence Seedorf",
+      "overall": 92
+    },
+    {
+      "name": "Ruud Gullit",
+      "overall": 95
+    },
+    {
+      "name": "Frank Rijkaard",
+      "overall": 93
+    },
+    {
+      "name": "Paul Scholes",
+      "overall": 92
+    },
+    {
+      "name": "Dennis Bergkamp",
+      "overall": 93
+    },
+    {
+      "name": "Kenny Dalglish",
+      "overall": 93
+    },
+    {
+      "name": "Samuel Eto’o",
+      "overall": 93
+    },
+    {
+      "name": "Miroslav Klose",
+      "overall": 91
+    }
+  ],
+  "specials": [
+    {
+      "name": "Cristiano Ronaldo",
+      "year": 2008,
+      "overall": 96
+    },
+    {
+      "name": "Cristiano Ronaldo",
+      "year": 2014,
+      "overall": 98
+    },
+    {
+      "name": "Cristiano Ronaldo",
+      "year": 2017,
+      "overall": 96
+    },
+    {
+      "name": "Lionel Messi",
+      "year": 2009,
+      "overall": 96
+    },
+    {
+      "name": "Lionel Messi",
+      "year": 2012,
+      "overall": 99
+    },
+    {
+      "name": "Lionel Messi",
+      "year": 2014,
+      "overall": 97
+    },
+    {
+      "name": "Lionel Messi",
+      "year": 2015,
+      "overall": 98
+    },
+    {
+      "name": "Neymar",
+      "year": 2011,
+      "overall": 94
+    },
+    {
+      "name": "Neymar",
+      "year": 2015,
+      "overall": 96
+    },
+    {
+      "name": "Neymar",
+      "year": 2020,
+      "overall": 95
+    },
+    {
+      "name": "Ronaldinho",
+      "year": 2005,
+      "overall": 97
+    },
+    {
+      "name": "Kaká",
+      "year": 2007,
+      "overall": 96
+    },
+    {
+      "name": "Ronaldo Nazário",
+      "year": 2002,
+      "overall": 97
+    },
+    {
+      "name": "Romário",
+      "year": 1994,
+      "overall": 96
+    },
+    {
+      "name": "Rivaldo",
+      "year": 2002,
+      "overall": 95
+    },
+    {
+      "name": "Thierry Henry",
+      "year": 2004,
+      "overall": 95
+    },
+    {
+      "name": "Luis Suárez",
+      "year": 2015,
+      "overall": 95
+    },
+    {
+      "name": "Gareth Bale",
+      "year": 2014,
+      "overall": 94
+    },
+    {
+      "name": "Luka Modrić",
+      "year": 2018,
+      "overall": 94
+    },
+    {
+      "name": "Xavi",
+      "year": 2011,
+      "overall": 95
+    },
+    {
+      "name": "Andrés Iniesta",
+      "year": 2010,
+      "overall": 95
+    },
+    {
+      "name": "Kylian Mbappé",
+      "year": 2022,
+      "overall": 96
+    },
+    {
+      "name": "Mohamed Salah",
+      "year": 2018,
+      "overall": 94
+    },
+    {
+      "name": "Eden Hazard",
+      "year": 2018,
+      "overall": 94
+    },
+    {
+      "name": "Robert Lewandowski",
+      "year": 2020,
+      "overall": 96
+    }
+  ]
+}

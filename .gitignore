@@ -1,0 +1,7 @@
+node_modules
+.next/
+.test-build/
+*.tsbuildinfo
+.env*
+supabase/.temp/
+next-env.d.ts

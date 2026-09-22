@@ -8,6 +8,7 @@ import { playAuctionWinFeedback } from "../lib/feedback";
 import ConnectionBanner from "./ConnectionBanner";
 import RoomChat from "./RoomChat";
 import PlayerFace from "./PlayerFace";
+import CardBadge, { cardClass } from "./CardBadge";
 import GavelWinAnimation from "./GavelWinAnimation";
 
 type Room = {
@@ -39,7 +40,8 @@ type Player = {
   club: string | null;
   league: string | null;
   image_url: string | null;
-  player_type: "ACTIVE" | "ICON";
+  player_type: "ACTIVE" | "ICON" | "SPECIAL";
+  metadata?: {version_label?: string; season_year?: number};
 };
 
 type SquadSlot = {
@@ -74,6 +76,7 @@ type HistoryItem = {
   playerName: string;
   overall: number;
   playerType: Player["player_type"];
+  metadata?: Player["metadata"];
   winnerName: string;
   finalPrice: number | null;
   createdAt: string;
@@ -190,7 +193,7 @@ export default function AuctionGame() {
     if (historyPlayerIds.length) {
       const { data: historyPlayerData, error: historyPlayerError } = await supabase
         .from("fa_players")
-        .select("id,name,club,primary_position,overall,league,image_url,player_type")
+        .select("id,name,club,primary_position,overall,league,image_url,player_type,metadata")
         .in("id", historyPlayerIds);
 
       if (historyPlayerError) throw historyPlayerError;
@@ -209,6 +212,7 @@ export default function AuctionGame() {
           playerName: historyPlayer?.name || "Jogador",
           overall: historyPlayer?.overall || 0,
           playerType: historyPlayer?.player_type || "ACTIVE",
+          metadata: historyPlayer?.metadata,
           winnerName: item.winner_member_id
             ? memberMap.get(item.winner_member_id)?.display_name || "Jogador"
             : "",
@@ -253,7 +257,7 @@ export default function AuctionGame() {
 
     const { data: playerData, error: playerError } = await supabase
       .from("fa_players")
-      .select("id,name,club,primary_position,overall,league,image_url,player_type")
+      .select("id,name,club,primary_position,overall,league,image_url,player_type,metadata")
       .eq("id", typedAuction.player_id)
       .maybeSingle();
 
@@ -606,9 +610,9 @@ export default function AuctionGame() {
             {history.length === 0 && <p className="muted">Nenhum jogador sorteado ainda.</p>}
 
             {history.map((item) => (
-              <div className="history-row" key={item.id}>
+              <div className={`history-row ${cardClass({player_type:item.playerType})}`} key={item.id}>
                 <div>
-                  <strong>{item.playerType === "ICON" ? "★ " : ""}{item.playerName}</strong>
+                  <CardBadge player={{player_type:item.playerType,metadata:item.metadata}} /> <strong>{item.playerName}</strong>
                   {item.overall > 0 && <span className="muted"> • GER {item.overall}</span>}
                 </div>
 
@@ -643,9 +647,10 @@ export default function AuctionGame() {
           <p className="muted">Revelando...</p>
         </section>
       ) : (
-        <section className={`card auction-card-shell auction-player-card ${player.player_type === "ICON" ? "icon-card" : "active-card"}`}>
+        <section className={`card auction-card-shell auction-player-card ${player.player_type === "SPECIAL" ? "special-card special-reveal" : player.player_type === "ICON" ? "icon-card" : "active-card"}`}>
           <div className="red" style={{ fontSize: 18, fontWeight: 900, letterSpacing: 2 }}>GER</div>
           <div className="red auction-ger">{player.overall}</div>
+          {player.player_type === "SPECIAL" && <><div className="special-orbit" aria-hidden="true">✦</div><CardBadge player={player}/></>}
 
           {player.player_type === "ICON" && (
             <div style={{ marginTop: 8 }}>
