@@ -18,7 +18,7 @@ import CardBadge, { cardClass } from "../../../../components/CardBadge";
 import ConnectionBanner from "../../../../components/ConnectionBanner";
 import RoomChat from "../../../../components/RoomChat";
 
-type Room = { id: string; code: string; mode: GameMode; reserve_count: number; status: string };
+type Room = { id: string; code: string; mode: GameMode; reserve_count: number; room_kind: "auction" | "tournament"; status: string };
 type Member = { id: string; user_id: string; display_name: string; squad_finalized: boolean };
 type SquadRow = { member_id: string; player_id: string; slot_key: string; is_bench: boolean };
 type Player = RatedPlayer & { league: string | null };
@@ -52,7 +52,7 @@ export default function SquadEditorPage() {
 
     const { data: roomData, error: roomError } = await supabase
       .from("fa_rooms")
-      .select("id,code,mode,reserve_count,status")
+      .select("id,code,mode,reserve_count,room_kind,status")
       .eq("code", code)
       .maybeSingle();
     if (roomError) throw roomError;
@@ -125,8 +125,14 @@ export default function SquadEditorPage() {
   }, [room?.id, safeLoad]);
 
   useEffect(() => {
-    if (room?.status === "squads") router.replace(`/sala/${code}/times`);
-  }, [room?.status, code, router]);
+    if (room?.status === "squads" || room?.status === "finished") {
+      router.replace(
+        room.room_kind === "tournament"
+          ? `/sala/${code}/torneio`
+          : `/sala/${code}/times`
+      );
+    }
+  }, [room?.status, room?.room_kind, code, router]);
 
 
   useEffect(() => {
