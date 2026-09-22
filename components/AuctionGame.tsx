@@ -18,6 +18,7 @@ type Room = {
   budget: number;
   mode: "football" | "futsal";
   reserve_count: number;
+  room_kind: "auction" | "tournament";
   status: string;
 };
 
@@ -133,7 +134,7 @@ export default function AuctionGame() {
 
     const { data: roomData, error: roomError } = await supabase
       .from("fa_rooms")
-      .select("id,code,host_user_id,budget,mode,reserve_count,status")
+      .select("id,code,host_user_id,budget,mode,reserve_count,room_kind,status")
       .eq("code", code)
       .maybeSingle();
 
@@ -316,10 +317,14 @@ export default function AuctionGame() {
   }, [room?.id]);
 
   useEffect(() => {
-    if (room?.status === "squads") {
-      router.replace(`/sala/${code}/times`);
+    if (room?.status === "squads" || room?.status === "finished") {
+      router.replace(
+        room.room_kind === "tournament"
+          ? `/sala/${code}/torneio`
+          : `/sala/${code}/times`
+      );
     }
-  }, [room?.status, code, router]);
+  }, [room?.status, room?.room_kind, code, router]);
 
   useEffect(() => {
     if (!room?.id) return;
