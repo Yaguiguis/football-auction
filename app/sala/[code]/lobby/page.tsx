@@ -22,6 +22,9 @@ type Room = {
   allowed_leagues: string[] | null;
   disconnect_mode: "skip" | "bot";
   spectators_allowed: boolean;
+  room_kind: "auction" | "tournament";
+  tournament_size: 4 | 8 | 16 | null;
+  tournament_champion_member_id: string | null;
   status: string;
 };
 
@@ -63,7 +66,7 @@ export default function Lobby() {
 
     const { data: roomData, error: roomError } = await supabase
       .from("fa_rooms")
-      .select("id,code,host_user_id,mode,budget,reserve_count,allow_icons,allow_base,allow_specials,min_overall,max_overall,active_only,allowed_leagues,disconnect_mode,spectators_allowed,status")
+      .select("id,code,host_user_id,mode,budget,reserve_count,allow_icons,allow_base,allow_specials,min_overall,max_overall,active_only,allowed_leagues,disconnect_mode,spectators_allowed,room_kind,tournament_size,tournament_champion_member_id,status")
       .eq("code", code)
       .single();
 
@@ -241,7 +244,10 @@ export default function Lobby() {
         </div>
 
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
-          <span className="badge">{activePlayers.length} jogando online</span>
+          {room?.room_kind === "tournament" && <span className="badge">🏆 Torneio</span>}
+          <span className="badge">
+            {activePlayers.length}{room?.room_kind === "tournament" && room.tournament_size ? `/${room.tournament_size}` : ""} jogando online
+          </span>
           <span className="badge">{members.filter((m) => m.is_spectator).length} espectadores</span>
         </div>
       </div>
@@ -269,11 +275,17 @@ export default function Lobby() {
                 router.push(
                   room?.status === "auction"
                     ? `/sala/${code}/leilao`
-                    : `/sala/${code}/times`
+                    : room?.room_kind === "tournament"
+                      ? `/sala/${code}/torneio`
+                      : `/sala/${code}/times`
                 )
               }
             >
-              {room?.status === "auction" ? "Voltar ao leilão" : "Ver resultados"}
+              {room?.status === "auction"
+                ? "Voltar ao leilão"
+                : room?.room_kind === "tournament"
+                  ? "Ver chave do torneio"
+                  : "Ver resultados"}
             </button>
           </div>
         </div>
@@ -355,6 +367,9 @@ export default function Lobby() {
             ) : (
               <span className="badge">{room?.mode === "futsal" ? "Futsal" : "Futebol de campo"}</span>
             )}
+            {room?.room_kind === "tournament" && (
+              <span className="badge">🏆 Chave até {room.tournament_size} jogadores</span>
+            )}
             <span className="badge">{room?.budget} créditos</span>
             <span className="badge">{room?.reserve_count} reservas</span>
             <span className="badge">GER {room?.min_overall}–{room?.max_overall}</span>
@@ -407,7 +422,7 @@ export default function Lobby() {
                 ? "Aguardando mais 1 jogador online"
                 : !allReady
                   ? "Aguardando todos ficarem prontos"
-                  : "Iniciar leilão"}
+                  : room?.room_kind === "tournament" ? "Iniciar leilão do torneio" : "Iniciar leilão"}
           </button>
         ) : me?.is_spectator ? (
           <p className="muted" style={{ marginTop: 16, textAlign: "center" }}>
