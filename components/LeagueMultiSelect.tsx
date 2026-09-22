@@ -1,47 +1,68 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo } from "react";
 
 export type LeagueOption = {
   name: string;
   count?: number;
 };
 
-const leagueVisuals: Record<string, { mark: string; flag: string }> = {
-  "Brasileirão": { mark: "BR", flag: "🇧🇷" },
-  "Bundesliga": { mark: "BUN", flag: "🇩🇪" },
-  "La Liga": { mark: "LL", flag: "🇪🇸" },
-  "LALIGA EA SPORTS": { mark: "LL", flag: "🇪🇸" },
-  "LEGENDS": { mark: "★", flag: "🏆" },
-  "Liga Portugal": { mark: "LP", flag: "🇵🇹" },
-  "Ligue 1": { mark: "L1", flag: "🇫🇷" },
-  "Ligue 1 McDonald's": { mark: "L1", flag: "🇫🇷" },
-  "MLS": { mark: "MLS", flag: "🇺🇸" },
-  "Premier League": { mark: "PL", flag: "🏴" },
-  "Serie A": { mark: "SA", flag: "🇮🇹" },
-  "Serie A Enilive": { mark: "SA", flag: "🇮🇹" },
-  "Trendyol Süper Lig": { mark: "TSL", flag: "🇹🇷" },
+type LeagueVisual = {
+  label: string;
+  short: string;
+  country: string;
+  variant: string;
 };
 
-function visualForLeague(name: string) {
-  return leagueVisuals[name] || {
-    mark: name
-      .split(/\s+/)
-      .map((part) => part[0])
-      .join("")
-      .slice(0, 3)
-      .toUpperCase(),
-    flag: "⚽",
-  };
+const leagueAliases: Record<string, string> = {
+  "LALIGA EA SPORTS": "La Liga",
+  "Ligue 1 McDonald's": "Ligue 1",
+  "Serie A Enilive": "Serie A",
+};
+
+const leagueVisuals: Record<string, LeagueVisual> = {
+  "Brasileirão": { label: "Brasileirão", short: "BR", country: "BR", variant: "brasileirao" },
+  "Bundesliga": { label: "Bundesliga", short: "B", country: "DE", variant: "bundesliga" },
+  "La Liga": { label: "La Liga", short: "LL", country: "ES", variant: "laliga" },
+  "LEGENDS": { label: "Lendas", short: "★", country: "ICON", variant: "legends" },
+  "Liga Portugal": { label: "Liga Portugal", short: "LP", country: "PT", variant: "portugal" },
+  "Ligue 1": { label: "Ligue 1", short: "L1", country: "FR", variant: "ligue1" },
+  "MLS": { label: "MLS", short: "MLS", country: "US", variant: "mls" },
+  "Premier League": { label: "Premier League", short: "PL", country: "EN", variant: "premier" },
+  "Serie A": { label: "Serie A", short: "A", country: "IT", variant: "seriea" },
+  "Trendyol Süper Lig": { label: "Süper Lig", short: "SL", country: "TR", variant: "superlig" },
+};
+
+function canonicalLeague(name: string) {
+  return leagueAliases[name] || name;
 }
 
-function LeagueMark({ name, compact = false }: { name: string; compact?: boolean }) {
+function visualForLeague(name: string): LeagueVisual {
+  const canonical = canonicalLeague(name);
+  return (
+    leagueVisuals[canonical] || {
+      label: canonical,
+      short: canonical
+        .split(/\s+/)
+        .map((part) => part[0])
+        .join("")
+        .slice(0, 3)
+        .toUpperCase(),
+      country: "⚽",
+      variant: "generic",
+    }
+  );
+}
+
+function LeagueLogo({ name }: { name: string }) {
   const visual = visualForLeague(name);
 
   return (
-    <span className={`league-mark ${compact ? "compact" : ""}`} aria-hidden="true">
-      <span className="league-mark-flag">{visual.flag}</span>
-      <strong>{visual.mark}</strong>
+    <span className={`league-logo league-logo-${visual.variant}`} aria-hidden="true">
+      <span className="league-logo-inner">
+        <strong>{visual.short}</strong>
+        <small>{visual.country}</small>
+      </span>
     </span>
   );
 }
@@ -55,154 +76,115 @@ export default function LeagueMultiSelect({
   selected: string[];
   onChange: (next: string[]) => void;
 }) {
-  const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const rootRef = useRef<HTMLDivElement | null>(null);
+  const groups = useMemo(() => {
+    const map = new Map<
+      string,
+      { canonical: string; values: string[]; count: number; visual: LeagueVisual }
+    >();
 
-  useEffect(() => {
-    function onPointerDown(event: MouseEvent) {
-      if (!rootRef.current?.contains(event.target as Node)) {
-        setOpen(false);
+    for (const option of options) {
+      const canonical = canonicalLeague(option.name);
+      const current = map.get(canonical);
+
+      if (current) {
+        current.values.push(option.name);
+        current.count += option.count || 0;
+      } else {
+        map.set(canonical, {
+          canonical,
+          values: [option.name],
+          count: option.count || 0,
+          visual: visualForLeague(canonical),
+        });
       }
     }
 
-    document.addEventListener("mousedown", onPointerDown);
-    return () => document.removeEventListener("mousedown", onPointerDown);
-  }, []);
-
-  const filtered = useMemo(() => {
-    const normalized = query.trim().toLocaleLowerCase("pt-BR");
-    if (!normalized) return options;
-
-    return options.filter((option) =>
-      option.name.toLocaleLowerCase("pt-BR").includes(normalized),
+    return Array.from(map.values()).sort((a, b) =>
+      a.visual.label.localeCompare(b.visual.label, "pt-BR"),
     );
-  }, [options, query]);
+  }, [options]);
 
   const selectedSet = useMemo(() => new Set(selected), [selected]);
 
-  function toggle(name: string) {
-    if (selectedSet.has(name)) {
-      onChange(selected.filter((league) => league !== name));
-    } else {
-      onChange([...selected, name]);
-    }
+  const selectedGroups = useMemo(
+    () =>
+      groups.filter((group) =>
+        group.values.some((value) => selectedSet.has(value)),
+      ),
+    [groups, selectedSet],
+  );
+
+  function isSelected(values: string[]) {
+    return values.some((value) => selectedSet.has(value));
   }
 
-  function selectAllVisible() {
+  function toggleGroup(values: string[]) {
+    const active = isSelected(values);
     const next = new Set(selected);
-    filtered.forEach((option) => next.add(option.name));
+
+    for (const value of values) {
+      if (active) next.delete(value);
+      else next.add(value);
+    }
+
     onChange(Array.from(next));
   }
 
+  function selectAll() {
+    onChange(options.map((option) => option.name));
+  }
+
   return (
-    <div className="league-picker" ref={rootRef}>
-      <button
-        type="button"
-        className={`league-picker-trigger ${open ? "open" : ""}`}
-        onClick={() => setOpen((value) => !value)}
-        aria-expanded={open}
-      >
+    <div className="league-grid-picker">
+      <div className="league-grid-toolbar">
         <div>
-          <span className="league-picker-kicker">LIGAS PERMITIDAS</span>
+          <span className="league-grid-kicker">LIGAS PERMITIDAS</span>
           <strong>
-            {selected.length === 0
-              ? "Todas as ligas"
-              : selected.length === 1
-                ? selected[0]
-                : `${selected.length} ligas selecionadas`}
+            {selectedGroups.length === 0
+              ? "Todas as ligas estão liberadas"
+              : `${selectedGroups.length} liga${selectedGroups.length === 1 ? "" : "s"} selecionada${selectedGroups.length === 1 ? "" : "s"}`}
           </strong>
         </div>
 
-        <span className="league-picker-chevron">{open ? "▲" : "▼"}</span>
-      </button>
+        <div className="league-grid-actions">
+          <button type="button" onClick={selectAll}>Todas</button>
+          <button type="button" onClick={() => onChange([])}>Limpar</button>
+        </div>
+      </div>
 
-      {selected.length > 0 && (
-        <div className="league-chip-list">
-          {selected.map((league) => (
+      <div className="league-logo-grid">
+        {groups.map((group) => {
+          const active = isSelected(group.values);
+
+          return (
             <button
               type="button"
-              key={league}
-              className="league-chip"
-              onClick={() => toggle(league)}
-              title={`Remover ${league}`}
+              key={group.canonical}
+              className={`league-logo-card ${active ? "selected" : ""}`}
+              onClick={() => toggleGroup(group.values)}
+              aria-pressed={active}
             >
-              <LeagueMark name={league} compact />
-              <span>{league}</span>
-              <b aria-hidden="true">×</b>
+              <span className={`league-select-check ${active ? "checked" : ""}`}>
+                {active ? "✓" : ""}
+              </span>
+
+              <LeagueLogo name={group.canonical} />
+
+              <span className="league-logo-copy">
+                <strong>{group.visual.label}</strong>
+                <small>{group.count} jogador{group.count === 1 ? "" : "es"}</small>
+              </span>
             </button>
-          ))}
-        </div>
-      )}
+          );
+        })}
+      </div>
 
-      {open && (
-        <div className="league-picker-popover">
-          <div className="league-picker-toolbar">
-            <div className="league-search-wrap">
-              <span aria-hidden="true">⌕</span>
-              <input
-                autoFocus
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Buscar liga..."
-                aria-label="Buscar liga"
-              />
-            </div>
-
-            <div className="league-picker-actions">
-              <button type="button" onClick={selectAllVisible}>
-                Selecionar todas
-              </button>
-              <button type="button" onClick={() => onChange([])}>
-                Limpar
-              </button>
-            </div>
-          </div>
-
-          <div className="league-option-list">
-            {filtered.length === 0 && (
-              <div className="league-empty">Nenhuma liga encontrada.</div>
-            )}
-
-            {filtered.map((option) => {
-              const checked = selectedSet.has(option.name);
-
-              return (
-                <button
-                  type="button"
-                  key={option.name}
-                  className={`league-option ${checked ? "selected" : ""}`}
-                  onClick={() => toggle(option.name)}
-                >
-                  <LeagueMark name={option.name} />
-
-                  <span className="league-option-copy">
-                    <strong>{option.name}</strong>
-                    {typeof option.count === "number" && (
-                      <small>{option.count} jogador{option.count === 1 ? "" : "es"} no catálogo</small>
-                    )}
-                  </span>
-
-                  <span className={`league-check ${checked ? "checked" : ""}`}>
-                    {checked ? "✓" : ""}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="league-picker-footer">
-            <span>
-              {selected.length === 0
-                ? "Nenhuma selecionada = todas entram no sorteio"
-                : `${selected.length} selecionada${selected.length === 1 ? "" : "s"}`}
-            </span>
-            <button type="button" className="btn btn-primary" onClick={() => setOpen(false)}>
-              Concluir
-            </button>
-          </div>
-        </div>
-      )}
+      <div className="league-grid-hint">
+        <span>✓</span>
+        <p>
+          Você pode marcar quantas quiser. Se nenhuma ficar marcada, o sorteio usa todas as ligas.
+        </p>
+      </div>
     </div>
   );
 }
