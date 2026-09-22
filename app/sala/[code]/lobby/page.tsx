@@ -14,6 +14,8 @@ type Room = {
   budget: number;
   reserve_count: number;
   allow_icons: boolean;
+  allow_base: boolean;
+  allow_specials: boolean;
   min_overall: number;
   max_overall: number;
   active_only: boolean;
@@ -42,7 +44,12 @@ export default function Lobby() {
   const [room, setRoom] = useState<Room | null>(null);
   const [members, setMembers] = useState<Member[]>([]);
   const [userId, setUserId] = useState("");
-  const [catalogCount, setCatalogCount] = useState(0);
+  const [catalogSummary, setCatalogSummary] = useState({
+    total: 0,
+    base: 0,
+    icons: 0,
+    specials: 0,
+  });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState(false);
@@ -56,7 +63,7 @@ export default function Lobby() {
 
     const { data: roomData, error: roomError } = await supabase
       .from("fa_rooms")
-      .select("id,code,host_user_id,mode,budget,reserve_count,allow_icons,min_overall,max_overall,active_only,allowed_leagues,disconnect_mode,spectators_allowed,status")
+      .select("id,code,host_user_id,mode,budget,reserve_count,allow_icons,allow_base,allow_specials,min_overall,max_overall,active_only,allowed_leagues,disconnect_mode,spectators_allowed,status")
       .eq("code", code)
       .single();
 
@@ -71,17 +78,29 @@ export default function Lobby() {
         .select("id,user_id,display_name,balance,is_host,ready,is_spectator,last_seen_at")
         .eq("room_id", typedRoom.id)
         .order("joined_at"),
-      supabase
-        .from("fa_catalog_players")
-        .select("id", { count: "exact", head: true })
-        .eq("enabled", true),
+      supabase.rpc("fa_room_catalog_summary", {
+        p_room_id: typedRoom.id,
+      }),
     ]);
 
     if (membersResult.error) throw membersResult.error;
     if (catalogResult.error) throw catalogResult.error;
 
     setMembers((membersResult.data || []) as Member[]);
-    setCatalogCount(catalogResult.count || 0);
+
+    const summary = (catalogResult.data || {}) as Partial<{
+      total: number;
+      base: number;
+      icons: number;
+      specials: number;
+    }>;
+
+    setCatalogSummary({
+      total: Number(summary.total || 0),
+      base: Number(summary.base || 0),
+      icons: Number(summary.icons || 0),
+      specials: Number(summary.specials || 0),
+    });
   }, [code]);
 
   useEffect(() => {
@@ -339,7 +358,9 @@ export default function Lobby() {
             <span className="badge">{room?.budget} créditos</span>
             <span className="badge">{room?.reserve_count} reservas</span>
             <span className="badge">GER {room?.min_overall}–{room?.max_overall}</span>
+            <span className="badge">{room?.allow_base ? "BASE ligado" : "Sem BASE"}</span>
             <span className="badge">{room?.allow_icons ? "ICONS ligados" : "Sem ICONS"}</span>
+            <span className="badge">{room?.allow_specials ? "SPECIALS ligados" : "Sem SPECIALS"}</span>
             {room?.active_only && <span className="badge">Somente ativos</span>}
             <span className="badge">
               Desconexão: {room?.disconnect_mode === "bot" ? "BOT conservador" : "continuar sem ele"}
@@ -361,7 +382,12 @@ export default function Lobby() {
               O sorteio respeita as posições faltantes e os filtros desta sala.
             </p>
           </div>
-          <span className="badge">{catalogCount} cadastrados</span>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
+            <span className="badge">{catalogSummary.total} elegíveis</span>
+            {room?.allow_base && <span className="badge">{catalogSummary.base} BASE</span>}
+            {room?.allow_icons && <span className="badge">{catalogSummary.icons} ICONS</span>}
+            {room?.allow_specials && <span className="badge">{catalogSummary.specials} SPECIALS</span>}
+          </div>
         </div>
       </section>
 
@@ -373,7 +399,7 @@ export default function Lobby() {
             className="btn btn-primary"
             style={{ marginTop: 16, width: "100%" }}
             onClick={() => void startAuction()}
-            disabled={!allReady || catalogCount === 0 || starting}
+            disabled={!allReady || catalogSummary.total === 0 || starting}
           >
             {starting
               ? "Iniciando..."
