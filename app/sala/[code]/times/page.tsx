@@ -25,6 +25,7 @@ type Room = {
   host_user_id: string;
   mode: GameMode;
   reserve_count: number;
+  room_kind: "auction" | "tournament";
   status: string;
 };
 
@@ -82,7 +83,7 @@ export default function TeamsPage() {
 
     const { data: roomData, error: roomError } = await supabase
       .from("fa_rooms")
-      .select("id,code,host_user_id,mode,reserve_count,status")
+      .select("id,code,host_user_id,mode,reserve_count,room_kind,status")
       .eq("code", code)
       .single();
 
@@ -188,8 +189,10 @@ export default function TeamsPage() {
   useEffect(() => {
     if (room?.status === "lobby") {
       router.replace(`/sala/${code}/lobby`);
+    } else if (room?.room_kind === "tournament" && (room.status === "squads" || room.status === "finished")) {
+      router.replace(`/sala/${code}/torneio`);
     }
-  }, [room?.status, code, router]);
+  }, [room?.status, room?.room_kind, code, router]);
 
   const playerById = useMemo(() => new Map(players.map((player) => [player.id, player])), [players]);
   const memberById = useMemo(() => new Map(members.map((member) => [member.id, member])), [members]);
