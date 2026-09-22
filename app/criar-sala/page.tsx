@@ -63,6 +63,16 @@ export default function CreateRoom() {
     };
   }, []);
 
+  const selectedLeagueCount = useMemo(() => {
+    const aliases: Record<string, string> = {
+      "LALIGA EA SPORTS": "La Liga",
+      "Ligue 1 McDonald's": "Ligue 1",
+      "Serie A Enilive": "Serie A",
+    };
+
+    return new Set(selectedLeagues.map((league) => aliases[league] || league)).size;
+  }, [selectedLeagues]);
+
   const selectedPlayerCount = useMemo(() => {
     if (selectedLeagues.length === 0) {
       return leagues.reduce((total, league) => total + (league.count || 0), 0);
@@ -346,7 +356,7 @@ export default function CreateRoom() {
               </div>
               <div>
                 <span>Ligas</span>
-                <strong>{selectedLeagues.length || "Todas"}</strong>
+                <strong>{selectedLeagueCount || "Todas"}</strong>
               </div>
               <div>
                 <span>Jogadores elegíveis</span>
