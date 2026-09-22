@@ -12,6 +12,7 @@ type LeagueVisual = {
   short: string;
   country: string;
   variant: string;
+  image?: string;
 };
 
 const leagueAliases: Record<string, string> = {
@@ -21,16 +22,16 @@ const leagueAliases: Record<string, string> = {
 };
 
 const leagueVisuals: Record<string, LeagueVisual> = {
-  "Brasileirão": { label: "Brasileirão", short: "BR", country: "BR", variant: "brasileirao" },
-  "Bundesliga": { label: "Bundesliga", short: "B", country: "DE", variant: "bundesliga" },
-  "La Liga": { label: "La Liga", short: "LL", country: "ES", variant: "laliga" },
-  "LEGENDS": { label: "Lendas", short: "★", country: "ICON", variant: "legends" },
-  "Liga Portugal": { label: "Liga Portugal", short: "LP", country: "PT", variant: "portugal" },
-  "Ligue 1": { label: "Ligue 1", short: "L1", country: "FR", variant: "ligue1" },
-  "MLS": { label: "MLS", short: "MLS", country: "US", variant: "mls" },
-  "Premier League": { label: "Premier League", short: "PL", country: "EN", variant: "premier" },
-  "Serie A": { label: "Serie A", short: "A", country: "IT", variant: "seriea" },
-  "Trendyol Süper Lig": { label: "Süper Lig", short: "SL", country: "TR", variant: "superlig" },
+  "Brasileirão": { label: "Brasileirão", short: "BR", country: "BR", variant: "brasileirao", image: "/leagues/brasileirao.webp" },
+  "Bundesliga": { label: "Bundesliga", short: "B", country: "DE", variant: "bundesliga", image: "/leagues/bundesliga.webp" },
+  "La Liga": { label: "La Liga", short: "LL", country: "ES", variant: "laliga", image: "/leagues/la-liga.webp" },
+  "LEGENDS": { label: "Lendas", short: "★", country: "ICON", variant: "legends", image: "/leagues/legends.webp" },
+  "Liga Portugal": { label: "Liga Portugal", short: "LP", country: "PT", variant: "portugal", image: "/leagues/liga-portugal.webp" },
+  "Ligue 1": { label: "Ligue 1", short: "L1", country: "FR", variant: "ligue1", image: "/leagues/ligue-1.webp" },
+  "MLS": { label: "MLS", short: "MLS", country: "US", variant: "mls", image: "/leagues/mls.webp" },
+  "Premier League": { label: "Premier League", short: "PL", country: "EN", variant: "premier", image: "/leagues/premier-league.webp" },
+  "Serie A": { label: "Serie A", short: "A", country: "IT", variant: "seriea", image: "/leagues/serie-a.webp" },
+  "Trendyol Süper Lig": { label: "Süper Lig", short: "SL", country: "TR", variant: "superlig", image: "/leagues/superliga.webp" },
 };
 
 function canonicalLeague(name: string) {
@@ -56,6 +57,14 @@ function visualForLeague(name: string): LeagueVisual {
 
 function LeagueLogo({ name }: { name: string }) {
   const visual = visualForLeague(name);
+
+  if (visual.image) {
+    return (
+      <span className="league-logo league-logo-real" aria-hidden="true">
+        <img className="league-logo-image" src={visual.image} alt="" />
+      </span>
+    );
+  }
 
   return (
     <span className={`league-logo league-logo-${visual.variant}`} aria-hidden="true">
