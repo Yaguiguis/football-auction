@@ -17,6 +17,7 @@ import PlayerFace from "../../../../components/PlayerFace";
 import CardBadge, { cardClass } from "../../../../components/CardBadge";
 import ConnectionBanner from "../../../../components/ConnectionBanner";
 import RoomChat from "../../../../components/RoomChat";
+import TradeCenter from "../../../../components/TradeCenter";
 
 type Room = { id: string; code: string; mode: GameMode; reserve_count: number; room_kind: "auction" | "tournament"; status: string };
 type Member = { id: string; user_id: string; display_name: string; squad_finalized: boolean };
@@ -44,6 +45,7 @@ export default function SquadEditorPage() {
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [tradeOpen, setTradeOpen] = useState(false);
   const [error, setError] = useState("");
 
   const load = useCallback(async () => {
@@ -205,6 +207,12 @@ export default function SquadEditorPage() {
     }
   }
 
+  const handleTradeChanged = useCallback(async () => {
+    setTradeOpen(false);
+    setSelectedPlayerId(null);
+    await safeLoad();
+  }, [safeLoad]);
+
   function selectOrMove(slotKey: string, playerId?: string) {
     if (selectedPlayerId) {
       if (playerId === selectedPlayerId) {
@@ -255,6 +263,18 @@ export default function SquadEditorPage() {
       )}
 
       {room && <RoomChat roomId={room.id} />}
+
+      {room && me && (
+        <TradeCenter
+          roomId={room.id}
+          meId={me.id}
+          meFinalized={me.squad_finalized}
+          open={tradeOpen}
+          offeredPlayer={selectedPlayer}
+          onClose={() => setTradeOpen(false)}
+          onChanged={handleTradeChanged}
+        />
+      )}
 
       <div className="grid grid-2">
         <section>
@@ -450,6 +470,16 @@ export default function SquadEditorPage() {
                 {squad.length}/{totalRosterSize} jogadores • Titulares {starterFilled}/{board.length} • Banco {benchFilled}/{benchSlots.length}
               </p>
             </div>
+
+            {selectedPlayer && full && !me?.squad_finalized && (
+              <button
+                className="btn btn-primary"
+                disabled={saving}
+                onClick={() => setTradeOpen(true)}
+              >
+                Trocar {selectedPlayer.name}
+              </button>
+            )}
           </div>
 
           <div className="grid">
