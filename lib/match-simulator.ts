@@ -7,8 +7,27 @@ export type MatchPlayer = { id: string; name: string; slot: string; overall: num
 export type TeamSnapshot = { id: string; name: string; players: MatchPlayer[] };
 export type TeamStrength = { overall: number; attack: number; defense: number; keeper: number; bench: number; fit: number };
 export type MatchEvent = { minute: number; team: 'a' | 'b'; kind: 'goal' | 'save'; player: string };
-export type ShootoutKick = { index: number; team: 'a' | 'b'; shot: string; keeper: string; goal: boolean };
-export type ShootoutState = { score: { a: number; b: number }; kicks: ShootoutKick[]; next?: { index: number; team: 'a' | 'b'; suddenDeath: boolean }; status: 'pending' | 'completed' };
+export type ShootoutKick = {
+  index: number;
+  team: 'a' | 'b';
+  shot: string;
+  keeper: string;
+  goal: boolean;
+  player_id?: string | null;
+  player?: string | null;
+};
+export type ShootoutSetup = {
+  status: 'selecting' | 'started';
+  order_a?: string[];
+  order_b?: string[];
+};
+export type ShootoutState = {
+  score: { a: number; b: number };
+  kicks: ShootoutKick[];
+  next?: { index: number; team: 'a' | 'b'; suddenDeath: boolean };
+  status: 'setup' | 'pending' | 'completed';
+  setup?: ShootoutSetup;
+};
 export type MatchResult = {
   version: string;
   seed: number;
