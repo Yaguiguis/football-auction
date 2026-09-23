@@ -124,6 +124,7 @@ export default function AuctionGame() {
   const [actionError, setActionError] = useState("");
   const [syncError, setSyncError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [actionBusy, setActionBusy] = useState(false);
 
   const lastAuctionId = useRef<string | null>(null);
   const feedbackAuctionId = useRef<string | null>(null);
@@ -300,7 +301,7 @@ export default function AuctionGame() {
 
   useEffect(() => {
     void safeRefresh();
-    const retry = window.setInterval(() => void safeRefresh(), 4000);
+    const retry = window.setInterval(() => void safeRefresh(), 12000);
     return () => window.clearInterval(retry);
   }, [safeRefresh]);
 
@@ -330,17 +331,36 @@ export default function AuctionGame() {
     if (!room?.id) return;
 
     const supabase = getSupabase();
+    let refreshTimer: number | null = null;
+    const queueRefresh = () => {
+      if (refreshTimer !== null) window.clearTimeout(refreshTimer);
+      refreshTimer = window.setTimeout(() => {
+        refreshTimer = null;
+        void safeRefresh();
+      }, 120);
+    };
+
     const channel = supabase
       .channel(`football-auction:auction:${room.id}`)
-      .on("postgres_changes", { event: "*", schema: "public", table: "fa_auctions", filter: `room_id=eq.${room.id}` }, () => void safeRefresh())
-      .on("postgres_changes", { event: "*", schema: "public", table: "fa_bids" }, () => void safeRefresh())
-      .on("postgres_changes", { event: "*", schema: "public", table: "fa_player_interest" }, () => void safeRefresh())
-      .on("postgres_changes", { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` }, () => void safeRefresh())
-      .on("postgres_changes", { event: "*", schema: "public", table: "fa_squad_players" }, () => void safeRefresh())
-      .on("postgres_changes", { event: "UPDATE", schema: "public", table: "fa_rooms", filter: `id=eq.${room.id}` }, () => void safeRefresh())
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "fa_auctions", filter: `room_id=eq.${room.id}` },
+        queueRefresh,
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` },
+        queueRefresh,
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "fa_rooms", filter: `id=eq.${room.id}` },
+        queueRefresh,
+      )
       .subscribe();
 
     return () => {
+      if (refreshTimer !== null) window.clearTimeout(refreshTimer);
       void supabase.removeChannel(channel);
     };
   }, [room?.id, safeRefresh]);
@@ -420,56 +440,105 @@ export default function AuctionGame() {
     return true;
   }, [isSpectator, player, room, mySquad.length, rosterSize, benchSlots, filledSlots]);
 
+  function applyAuctionResponse(data: unknown) {
+    if (!data || typeof data !== "object" || !("id" in data) || !("status" in data)) return;
+    const nextAuction = data as Auction;
+    setAuction(nextAuction);
+    setBid(Math.max(1, nextAuction.current_bid + 1));
+  }
+
   async function chooseInterest(wants: boolean) {
-    if (!auction || isSpectator) return;
+    if (!auction || isSpectator || actionBusy || answered) return;
+
     setActionError("");
-
-    const { error } = await getSupabase().rpc("fa_set_interest", {
-      p_auction_id: auction.id,
-      p_wants: wants,
-    });
-
-    if (error) return setActionError(error.message);
-
     setAnswered(true);
-    await safeRefresh();
+    setActionBusy(true);
+
+    try {
+      const { data, error } = await getSupabase().rpc("fa_set_interest", {
+        p_auction_id: auction.id,
+        p_wants: wants,
+      });
+
+      if (error) throw error;
+
+      applyAuctionResponse(data);
+      window.setTimeout(() => void safeRefresh(), 80);
+    } catch (error) {
+      setAnswered(false);
+      setActionError(errorMessage(error));
+    } finally {
+      setActionBusy(false);
+    }
   }
 
   async function placeBid() {
-    if (!auction || !isMyTurn || isSpectator) return;
+    if (!auction || !isMyTurn || isSpectator || actionBusy) return;
+
+    const amount = Math.max(minimumBid, Math.trunc(Number(bid) || minimumBid));
+    if (!me || amount > me.balance) {
+      setActionError("Seu lance não pode ser maior que o seu saldo.");
+      return;
+    }
+
     setActionError("");
+    setActionBusy(true);
 
-    const amount = Math.max(minimumBid, bid);
-    const { error } = await getSupabase().rpc("fa_place_bid", {
-      p_auction_id: auction.id,
-      p_amount: amount,
-    });
+    try {
+      const { data, error } = await getSupabase().rpc("fa_place_bid", {
+        p_auction_id: auction.id,
+        p_amount: amount,
+      });
 
-    if (error) return setActionError(error.message);
-    await safeRefresh();
+      if (error) throw error;
+
+      applyAuctionResponse(data);
+      window.setTimeout(() => void safeRefresh(), 80);
+    } catch (error) {
+      setActionError(errorMessage(error));
+    } finally {
+      setActionBusy(false);
+    }
   }
 
   async function withdrawBid() {
-    if (!auction || !isMyTurn || isSpectator) return;
+    if (!auction || !isMyTurn || isSpectator || actionBusy) return;
+
     setActionError("");
+    setActionBusy(true);
 
-    const { error } = await getSupabase().rpc("fa_withdraw_bid", {
-      p_auction_id: auction.id,
-    });
+    try {
+      const { data, error } = await getSupabase().rpc("fa_withdraw_bid", {
+        p_auction_id: auction.id,
+      });
 
-    if (error) return setActionError(error.message);
-    await safeRefresh();
+      if (error) throw error;
+
+      applyAuctionResponse(data);
+      window.setTimeout(() => void safeRefresh(), 80);
+    } catch (error) {
+      setActionError(errorMessage(error));
+    } finally {
+      setActionBusy(false);
+    }
   }
 
   async function nextPlayer() {
-    if (!room || !isHost) return;
+    if (!room || !isHost || actionBusy) return;
+
     setActionError("");
+    setActionBusy(true);
 
     const { data, error } = await getSupabase().rpc("fa_start_next_auction", {
       p_room_id: room.id,
     });
 
-    if (error) return setActionError(error.message);
+    if (error) {
+      setActionBusy(false);
+      return setActionError(error.message);
+    }
+
+    applyAuctionResponse(data);
 
     const result = data as {
       auto_completed_last?: boolean;
@@ -488,7 +557,8 @@ export default function AuctionGame() {
     }
 
     setAnswered(false);
-    await safeRefresh();
+    setActionBusy(false);
+    window.setTimeout(() => void safeRefresh(), 80);
   }
 
   if (loading) {
@@ -695,8 +765,20 @@ export default function AuctionGame() {
                 <p className="muted">Resposta enviada. Aguardando os outros jogadores...</p>
               ) : (
                 <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
-                  <button className="btn btn-primary" onClick={() => void chooseInterest(true)}>QUERO</button>
-                  <button className="btn btn-secondary" onClick={() => void chooseInterest(false)}>PASSAR</button>
+                  <button
+                    className="btn btn-primary"
+                    disabled={actionBusy}
+                    onClick={() => void chooseInterest(true)}
+                  >
+                    {actionBusy ? "ENVIANDO..." : "QUERO"}
+                  </button>
+                  <button
+                    className="btn btn-secondary"
+                    disabled={actionBusy}
+                    onClick={() => void chooseInterest(false)}
+                  >
+                    {actionBusy ? "ENVIANDO..." : "PASSAR"}
+                  </button>
                 </div>
               )}
             </div>
@@ -725,22 +807,62 @@ export default function AuctionGame() {
                   <p className="muted">Aumente o maior lance ou desista.</p>
 
                   <div className="bid-controls">
-                    <button className="btn btn-secondary" onClick={() => setBid((value) => Math.max(minimumBid, value - 1))}>−</button>
-                    <span className="badge">Seu lance: {Math.max(minimumBid, bid)}</span>
-                    <button
-                      className="btn btn-secondary"
-                      onClick={() => setBid((value) => Math.min(me?.balance ?? value, Math.max(minimumBid, value + 1)))}
-                    >
-                      +
-                    </button>
+                    <label className="bid-input-wrap">
+                      <span>Digite seu lance</span>
+                      <input
+                        className="input bid-amount-input"
+                        type="number"
+                        inputMode="numeric"
+                        min={minimumBid}
+                        max={me?.balance ?? undefined}
+                        step={1}
+                        value={bid}
+                        disabled={actionBusy}
+                        onFocus={(event) => event.currentTarget.select()}
+                        onChange={(event) => {
+                          const value = Number(event.target.value);
+                          setBid(Number.isFinite(value) ? Math.max(0, Math.trunc(value)) : minimumBid);
+                        }}
+                        onBlur={() => {
+                          setBid((value) =>
+                            Math.min(
+                              me?.balance ?? Math.max(minimumBid, value),
+                              Math.max(minimumBid, value),
+                            ),
+                          );
+                        }}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            event.preventDefault();
+                            void placeBid();
+                          }
+                        }}
+                        aria-label="Valor do lance"
+                      />
+                      <small className="muted">
+                        Mínimo {minimumBid} • Saldo {me?.balance ?? 0}
+                      </small>
+                    </label>
+
                     <button
                       className="btn btn-primary"
                       onClick={() => void placeBid()}
-                      disabled={!me || Math.max(minimumBid, bid) > me.balance}
+                      disabled={
+                        actionBusy ||
+                        !me ||
+                        Math.max(minimumBid, Math.trunc(Number(bid) || minimumBid)) > me.balance
+                      }
                     >
-                      AUMENTAR LANCE
+                      {actionBusy ? "ENVIANDO..." : "DAR LANCE"}
                     </button>
-                    <button className="btn btn-secondary" onClick={() => void withdrawBid()}>DESISTIR</button>
+
+                    <button
+                      className="btn btn-secondary"
+                      disabled={actionBusy}
+                      onClick={() => void withdrawBid()}
+                    >
+                      DESISTIR
+                    </button>
                   </div>
                 </div>
               ) : (
@@ -756,7 +878,7 @@ export default function AuctionGame() {
               <h2 className="red">LEILOADO PARA {winnerName.toUpperCase()}</h2>
               <p>{auction.final_price === 0 ? "Levou de graça." : `${auction.final_price} créditos`}</p>
 
-              {isHost && <button className="btn btn-primary" onClick={() => void nextPlayer()}>Próximo jogador</button>}
+              {isHost && <button className="btn btn-primary" disabled={actionBusy} onClick={() => void nextPlayer()}>{actionBusy ? "CARREGANDO..." : "Próximo jogador"}</button>}
               {!isHost && <p className="muted">Aguardando o administrador chamar o próximo jogador.</p>}
             </div>
           ) : (
