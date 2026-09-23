@@ -242,12 +242,23 @@ export default function TradeCenter({
     }
   }, [open]);
 
-  const availableMembers = members.filter(
-    (member) =>
-      member.id !== meId &&
-      !member.is_spectator &&
-      !member.squad_finalized,
-  );
+  const myRosterCount = squadRows.filter((row) => row.member_id === meId).length;
+
+  const availableMembers = members.filter((member) => {
+    if (
+      member.id === meId ||
+      member.is_spectator ||
+      member.squad_finalized
+    ) {
+      return false;
+    }
+
+    const targetRosterCount = squadRows.filter(
+      (row) => row.member_id === member.id,
+    ).length;
+
+    return myRosterCount > 0 && targetRosterCount === myRosterCount;
+  });
 
   const targetRows = targetMemberId
     ? squadRows.filter((row) => row.member_id === targetMemberId)
