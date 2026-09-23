@@ -816,7 +816,7 @@ export default function AuctionGame() {
                         min={minimumBid}
                         max={me?.balance ?? undefined}
                         step={1}
-                        value={bid}
+                        value={bid || ""}
                         disabled={actionBusy}
                         onFocus={(event) => event.currentTarget.select()}
                         onChange={(event) => {
