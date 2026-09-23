@@ -51,15 +51,75 @@ function MatchPlayback({ match }: {match:Match}) {
   </div>;
 }
 
-function ShootoutPanel({ match, me, busy, onChoose }: {match: Match; me: Member | null; busy: boolean; onChoose: (matchId:string,direction:string)=>void}) {
+function ShootoutPanel({
+  match,
+  me,
+  busy,
+  onChoose,
+  onSaveOrder,
+  onStart,
+}: {
+  match: Match;
+  me: Member | null;
+  busy: boolean;
+  onChoose: (matchId:string,direction:string)=>void;
+  onSaveOrder: (matchId:string,playerIds:string[])=>void;
+  onStart: (matchId:string)=>void;
+}) {
   const shootout = match.result?.penalty_shootout;
-  const next = shootout?.next;
-  if (!shootout || !next) return null;
+  const [order,setOrder]=useState<string[]>([]);
+  const myTeam = me?.id === match.challenger_id ? "a" : me?.id === match.opponent_id ? "b" : null;
+  const myPlayers = (myTeam === "a" ? match.team_a?.players : myTeam === "b" ? match.team_b?.players : [])?.filter(player=>!player.slot.startsWith("BENCH")) || [];
+  const savedOrder = myTeam ? shootout?.orders?.[myTeam] || [] : [];
+  const savedIds = savedOrder.map(player=>player.id);
+  const orderReady = myTeam ? Boolean(shootout?.ready?.[myTeam]) : false;
+  useEffect(()=>{
+    if (!myTeam) return;
+    setOrder(savedIds.length ? savedIds : myPlayers.map(player=>player.id));
+  },[myTeam, savedIds.join("|"), myPlayers.map(player=>player.id).join("|")]);
+  if (!shootout) return null;
+  const next = shootout.next;
+  const move=(index:number,delta:number)=>{
+    const target=index+delta;
+    if(target<0||target>=order.length) return;
+    setOrder(current=>{
+      const copy=[...current];
+      [copy[index],copy[target]]=[copy[target],copy[index]];
+      return copy;
+    });
+  };
+  if (shootout.status === "setup") {
+    return <div className="x1-shootout">
+      <div className="x1-score"><span>{match.team_a?.name}</span><strong>0 : 0</strong><span>{match.team_b?.name}</span></div>
+      <p className="muted">Antes das cobranças, cada time escolhe a ordem dos batedores.</p>
+      {myTeam ? <>
+        <strong>Sua ordem de cobrança</strong>
+        <ol className="x1-penalty-order">
+          {order.map((playerId,index)=>{
+            const player=myPlayers.find(item=>item.id===playerId);
+            return <li key={playerId}>
+              <span>{index+1}. {player?.name || "Jogador"}</span>
+              <div>
+                <button className="btn btn-secondary" disabled={busy||index===0||orderReady} onClick={()=>move(index,-1)}>Subir</button>
+                <button className="btn btn-secondary" disabled={busy||index===order.length-1||orderReady} onClick={()=>move(index,1)}>Descer</button>
+              </div>
+            </li>;
+          })}
+        </ol>
+        <div className="x1-opponents">
+          <button className="btn btn-primary" disabled={busy||order.length<5} onClick={()=>onSaveOrder(match.id,order)}>{orderReady ? "Ordem confirmada" : "Confirmar ordem"}</button>
+          <button className="btn btn-secondary" disabled={busy||!orderReady} onClick={()=>onStart(match.id)}>Iniciar cobranças</button>
+        </div>
+      </> : <p className="muted">Aguardando os jogadores confirmarem a ordem.</p>}
+      <p className="muted">Prontos: {shootout.ready?.a ? match.team_a?.name : "Time A pendente"} • {shootout.ready?.b ? match.team_b?.name : "Time B pendente"}</p>
+    </div>;
+  }
+  if (!next) return null;
   const shooterId = next.team === "a" ? match.challenger_id : match.opponent_id;
   const keeperId = next.team === "a" ? match.opponent_id : match.challenger_id;
   const isShooter = me?.id === shooterId;
   const isKeeper = me?.id === keeperId;
-  const actorLabel = next.team === "a" ? match.team_a?.name : match.team_b?.name;
+  const actorLabel = next.player || (next.team === "a" ? match.team_a?.name : match.team_b?.name);
   return <div className="x1-shootout">
     <div className="x1-score"><span>{match.team_a?.name}</span><strong>{shootout.score.a} : {shootout.score.b}</strong><span>{match.team_b?.name}</span></div>
     <p className="muted">Pênaltis {next.suddenDeath ? "• morte súbita" : "• 5 cobranças"}</p>
@@ -70,7 +130,7 @@ function ShootoutPanel({ match, me, busy, onChoose }: {match: Match; me: Member 
         {directions.map(direction=><button key={direction.key} className="btn btn-secondary" disabled={busy} onClick={()=>onChoose(match.id,direction.key)}>{direction.label}</button>)}
       </div>
     </> : <p className="muted">Aguardando atacante e goleiro escolherem as direções.</p>}
-    {shootout.kicks.length>0&&<ol className="x1-events">{shootout.kicks.map(kick=><li key={kick.index}><b>{kick.index}ª</b> {kick.team==='a'?match.team_a?.name:match.team_b?.name}: {kick.goal?'Gol':'Defesa'}</li>)}</ol>}
+    {shootout.kicks.length>0&&<ol className="x1-events">{shootout.kicks.map(kick=><li key={kick.index}><b>{kick.index}ª</b> {kick.player || (kick.team==='a'?match.team_a?.name:match.team_b?.name)}: {kick.goal?'Gol':'Defesa'}</li>)}</ol>}
   </div>;
 }
 
@@ -83,6 +143,8 @@ export default function X1Arena({roomId,members,me}:{roomId:string;members:Membe
   useEffect(()=>{let live=true;const refresh=()=>void load().catch(e=>{if(live)setError(e.message||'Não foi possível atualizar os desafios');});refresh();const timer=window.setInterval(refresh,3000);return()=>{live=false;window.clearInterval(timer);};},[load]);
   async function action(rpc:string,args:Record<string,unknown>){setBusy(true);setError('');try{const {error}=await getSupabase().rpc(rpc,args);if(error)throw error;await load();}catch(e){setError(e&&typeof e==='object'&&'message'in e?String(e.message):'Falha ao enviar desafio');}finally{setBusy(false);}}
   const choosePenalty=(matchId:string,direction:string)=>void action('fa_choose_x1_penalty',{p_match_id:matchId,p_direction:direction});
+  const savePenaltyOrder=(matchId:string,playerIds:string[])=>void action('fa_set_x1_penalty_order',{p_match_id:matchId,p_player_ids:playerIds});
+  const startPenalties=(matchId:string)=>void action('fa_start_x1_penalties',{p_match_id:matchId});
   const name=(id:string)=>members.find(m=>m.id===id)?.display_name||'Participante';
   return <section className="card x1-arena">
     <div className="topbar"><div><span className="special-badge card-type-badge">DUELO DOS CRIAS</span><h2>X1 entre elencos</h2></div><span className="muted">90 minutos, prorrogação e pênaltis se precisar.</span></div>
@@ -93,7 +155,7 @@ export default function X1Arena({roomId,members,me}:{roomId:string;members:Membe
       {match.status==='completed'&&match.result?<MatchPlayback match={match}/>:match.status==='shootout'&&match.result?<>
         <strong>{name(match.challenger_id)} × {name(match.opponent_id)}</strong>
         <p className="muted">Empate após a prorrogação. Disputa de pênaltis em andamento.</p>
-        <ShootoutPanel match={match} me={me} busy={busy} onChoose={choosePenalty}/>
+        <ShootoutPanel match={match} me={me} busy={busy} onChoose={choosePenalty} onSaveOrder={savePenaltyOrder} onStart={startPenalties}/>
       </>:<>
         <strong>{name(match.challenger_id)} × {name(match.opponent_id)}</strong>
         <p className="muted">{({pending:'Desafio aguardando resposta',declined:'Desafio recusado',cancelled:'Cancelado pela revanche'} as Record<string,string>)[match.status]}</p>
