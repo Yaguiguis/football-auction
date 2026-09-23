@@ -54,22 +54,28 @@ function PlayerTradeCard({
   selected?: boolean;
   onClick?: () => void;
 }) {
-  const Tag = onClick ? "button" : "div";
-
-  return (
-    <Tag
-      type={onClick ? "button" : undefined}
-      onClick={onClick}
-      className={`trade-player-card ${cardClass(player)} ${selected ? "selected" : ""}`}
-    >
+  const content = (
+    <>
       <PlayerFace name={player.name} imageUrl={player.image_url} size={62} />
       <div className="trade-player-copy">
         <CardBadge player={player} />
         <strong>{player.name}</strong>
         <span>{player.primary_position} • {player.overall} GER</span>
       </div>
-    </Tag>
+    </>
   );
+
+  const className = `trade-player-card ${cardClass(player)} ${selected ? "selected" : ""}`;
+
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={className}>
+        {content}
+      </button>
+    );
+  }
+
+  return <div className={className}>{content}</div>;
 }
 
 export default function TradeCenter({
