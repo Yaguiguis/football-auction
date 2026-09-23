@@ -30,7 +30,8 @@ type Member = {
 type MatchResult = {
   score?: { a?: number; b?: number };
   penalties?: { a?: number; b?: number };
-  decided_by?: "normal_time" | "penalties";
+  extra_time?: { score?: { a?: number; b?: number } };
+  decided_by?: "normal_time" | "extra_time" | "penalties";
 };
 
 type TournamentMatch = {
@@ -395,7 +396,11 @@ export default function TournamentPage() {
                             <p className="tournament-match-note">Aguardando simulação.</p>
                           ) : match.result?.decided_by === "penalties" ? (
                             <p className="tournament-match-note">
-                              Empate • Pênaltis {penA ?? "—"} × {penB ?? "—"}
+                              Empate na prorrogação • Pênaltis {penA ?? "—"} × {penB ?? "—"}
+                            </p>
+                          ) : match.result?.decided_by === "extra_time" ? (
+                            <p className="tournament-match-note">
+                              Decidido na prorrogação
                             </p>
                           ) : (
                             <p className="tournament-match-note">Fim de jogo.</p>
