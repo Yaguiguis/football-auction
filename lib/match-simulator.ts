@@ -7,8 +7,16 @@ export type MatchPlayer = { id: string; name: string; slot: string; overall: num
 export type TeamSnapshot = { id: string; name: string; players: MatchPlayer[] };
 export type TeamStrength = { overall: number; attack: number; defense: number; keeper: number; bench: number; fit: number };
 export type MatchEvent = { minute: number; team: 'a' | 'b'; kind: 'goal' | 'save'; player: string };
-export type ShootoutKick = { index: number; team: 'a' | 'b'; shot: string; keeper: string; goal: boolean };
-export type ShootoutState = { score: { a: number; b: number }; kicks: ShootoutKick[]; next?: { index: number; team: 'a' | 'b'; suddenDeath: boolean }; status: 'pending' | 'completed' };
+export type ShootoutKick = { index: number; team: 'a' | 'b'; shot: string; keeper: string; goal: boolean; player?: string };
+export type ShootoutOrder = { id: string; name: string }[];
+export type ShootoutState = {
+  score: { a: number; b: number };
+  kicks: ShootoutKick[];
+  next?: { index: number; team: 'a' | 'b'; suddenDeath: boolean; player?: string };
+  status: 'setup' | 'pending' | 'completed';
+  orders?: { a?: ShootoutOrder; b?: ShootoutOrder };
+  ready?: { a?: boolean; b?: boolean };
+};
 export type MatchResult = {
   version: string;
   seed: number;
@@ -92,7 +100,7 @@ export function simulateKnockoutMatch(a:TeamSnapshot,b:TeamSnapshot,seed:number,
   }
 
   result.decided_by='penalties';
-  result.penalty_shootout={score:{a:0,b:0},kicks:[],next:{index:1,team:'a',suddenDeath:false},status:'pending'};
+  result.penalty_shootout={score:{a:0,b:0},kicks:[],next:{index:1,team:'a',suddenDeath:false},status:'pending',orders:{a:[],b:[]},ready:{a:true,b:true}};
   if(withAutoShootout) {
     const directions=['left','center','right'];
     while(result.penalty_shootout.status==='pending') {
@@ -109,7 +117,7 @@ export function applyShootoutKick(result:MatchResult,team:'a'|'b',shot:string,ke
   const shootout=result.penalty_shootout;
   if(!shootout?.next||shootout.status==='completed') return result;
   const goal=shot!==keeper;
-  shootout.kicks.push({index:shootout.next.index,team,shot,keeper,goal});
+  shootout.kicks.push({index:shootout.next.index,team,shot,keeper,goal,player:shootout.next.player});
   if(goal) shootout.score[team]++;
   const aTaken=shootout.kicks.filter(k=>k.team==='a').length;
   const bTaken=shootout.kicks.filter(k=>k.team==='b').length;
