@@ -11,6 +11,7 @@ export type RatedPlayer = {
   id: string;
   name: string;
   primary_position: string;
+  secondary_positions?: string[] | null;
   overall: number;
   image_url?: string | null;
   player_type?: "ACTIVE" | "ICON" | "SPECIAL";
@@ -119,8 +120,16 @@ export function positionPenalty(position: string, slot: string, mode: GameMode) 
   return mode === "futsal" ? futsalPenalty(position, slot) : fieldPenalty(position, slot);
 }
 
+export function playerPositionPenalty(player: RatedPlayer, slot: string, mode: GameMode) {
+  const positions = [player.primary_position, ...(player.secondary_positions || [])]
+    .filter((position): position is string => typeof position === "string" && position.trim().length > 0);
+
+  if (!positions.length) return 4;
+  return Math.min(...positions.map((position) => positionPenalty(position, slot, mode)));
+}
+
 export function effectiveGer(player: RatedPlayer, slot: string, mode: GameMode) {
-  return Math.max(1, player.overall - positionPenalty(player.primary_position, slot, mode));
+  return Math.max(1, player.overall - playerPositionPenalty(player, slot, mode));
 }
 
 export function squadGer(

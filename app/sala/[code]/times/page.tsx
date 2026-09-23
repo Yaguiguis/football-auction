@@ -144,7 +144,7 @@ export default function TeamsPage() {
 
     const { data: playerData, error: playerError } = await supabase
       .from("fa_players")
-      .select("id,name,primary_position,overall,image_url,player_type,metadata")
+      .select("id,name,primary_position,secondary_positions,overall,image_url,player_type,metadata")
       .in("id", playerIds);
 
     if (playerError) throw playerError;

@@ -88,7 +88,7 @@ export default function SquadEditorPage() {
 
     const { data: playerData, error: playerError } = await supabase
       .from("fa_players")
-      .select("id,name,primary_position,overall,league,image_url,player_type,metadata")
+      .select("id,name,primary_position,secondary_positions,overall,league,image_url,player_type,metadata")
       .in("id", ids);
     if (playerError) throw playerError;
     setPlayers((playerData || []) as Player[]);
