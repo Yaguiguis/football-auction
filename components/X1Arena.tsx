@@ -474,17 +474,30 @@ function ShootoutPanel({
 
   if (!shootout || shootout.status === "setup") return null;
 
-  const shooterId = next.team === "a" ? match.challenger_id : match.opponent_id;
-  const keeperId = next.team === "a" ? match.opponent_id : match.challenger_id;
-  const isShooter = me?.id === shooterId;
-  const isKeeper = me?.id === keeperId;
+  const shooterId = next
+    ? next.team === "a"
+      ? match.challenger_id
+      : match.opponent_id
+    : null;
+  const keeperId = next
+    ? next.team === "a"
+      ? match.opponent_id
+      : match.challenger_id
+    : null;
+  const isShooter = !!shooterId && me?.id === shooterId;
+  const isKeeper = !!keeperId && me?.id === keeperId;
 
-  const team = next.team === "a" ? match.team_a : match.team_b;
-  const order = next.team === "a" ? shootout.setup?.order_a : shootout.setup?.order_b;
-  const sideKick =
-    next.team === "a"
+  const team = next ? (next.team === "a" ? match.team_a : match.team_b) : null;
+  const order = next
+    ? next.team === "a"
+      ? shootout.setup?.order_a
+      : shootout.setup?.order_b
+    : undefined;
+  const sideKick = next
+    ? next.team === "a"
       ? Math.floor((next.index + 1) / 2)
-      : Math.floor(next.index / 2);
+      : Math.floor(next.index / 2)
+    : 0;
   const kickerId = order?.[(Math.max(1, sideKick) - 1) % 5];
   const kickerName = team?.players.find((player) => player.id === kickerId)?.name;
   const actorLabel = team?.name;
