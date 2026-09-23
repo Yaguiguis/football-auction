@@ -1452,3 +1452,219 @@ radial-gradient(circle at center,rgba(229,9,20,.16),transparent 45%),#101010}
   .tournament-size-grid{grid-template-columns:1fr}
   .grafite-btn-tournament{grid-column:auto}
 }
+
+
+/* Penalty kick animation */
+.penalty-animation{
+  display:grid;
+  gap:10px;
+  margin:4px 0 2px;
+}
+.penalty-animation-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.penalty-animation-heading strong{font-size:14px}
+.penalty-animation-heading span{
+  color:#8decff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.7px;
+  text-transform:uppercase;
+}
+.penalty-goal-scene{
+  position:relative;
+  width:100%;
+  max-width:420px;
+  height:220px;
+  margin:0 auto;
+  overflow:hidden;
+  border:1px solid #1d5662;
+  border-radius:16px;
+  background:
+    linear-gradient(180deg,rgba(22,64,78,.22),rgba(5,18,23,.08)),
+    radial-gradient(circle at 50% 100%,#16351f 0 42%,#0a2013 43% 100%);
+}
+.penalty-goal-scene:after{
+  content:"";
+  position:absolute;
+  left:8%;
+  right:8%;
+  bottom:18px;
+  height:2px;
+  background:rgba(255,255,255,.25);
+}
+.penalty-net{
+  position:absolute;
+  left:18%;
+  right:18%;
+  top:22px;
+  height:112px;
+}
+.penalty-post,
+.penalty-crossbar{
+  position:absolute;
+  background:#f1f1f1;
+  z-index:3;
+}
+.penalty-post{
+  top:0;
+  bottom:0;
+  width:5px;
+}
+.penalty-post-left{left:0}
+.penalty-post-right{right:0}
+.penalty-crossbar{
+  top:0;
+  left:0;
+  right:0;
+  height:5px;
+}
+.penalty-net-lines{
+  position:absolute;
+  inset:4px;
+  opacity:.22;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 18px,rgba(255,255,255,.45) 19px 20px),
+    repeating-linear-gradient(0deg,transparent 0 18px,rgba(255,255,255,.45) 19px 20px);
+}
+.penalty-ball{
+  position:absolute;
+  left:50%;
+  bottom:26px;
+  z-index:8;
+  transform:translateX(-50%);
+  font-size:28px;
+  line-height:1;
+  transition:
+    transform .68s cubic-bezier(.18,.8,.2,1),
+    bottom .68s cubic-bezier(.18,.8,.2,1);
+  filter:drop-shadow(0 5px 7px rgba(0,0,0,.45));
+}
+.penalty-keeper{
+  position:absolute;
+  left:50%;
+  top:72px;
+  width:38px;
+  height:70px;
+  z-index:6;
+  transform:translateX(-50%);
+  transform-origin:50% 70%;
+  transition:transform .62s cubic-bezier(.2,.7,.25,1);
+}
+.penalty-keeper-head{
+  position:absolute;
+  left:11px;
+  top:0;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:#f1c6a4;
+}
+.penalty-keeper-body{
+  position:absolute;
+  left:9px;
+  top:15px;
+  width:20px;
+  height:34px;
+  border-radius:7px;
+  background:#23b6d4;
+  box-shadow:inset 0 -7px 0 rgba(0,0,0,.14);
+}
+.penalty-keeper-arm{
+  position:absolute;
+  top:21px;
+  width:26px;
+  height:7px;
+  border-radius:999px;
+  background:#23b6d4;
+}
+.penalty-keeper-arm-left{
+  left:-12px;
+  transform:rotate(-24deg);
+}
+.penalty-keeper-arm-right{
+  right:-12px;
+  transform:rotate(24deg);
+}
+.penalty-goal-scene[data-phase="moving"][data-shot="left"] .penalty-ball,
+.penalty-goal-scene[data-phase="result"][data-shot="left"] .penalty-ball{
+  transform:translateX(-128px) scale(.72);
+  bottom:118px;
+}
+.penalty-goal-scene[data-phase="moving"][data-shot="center"] .penalty-ball,
+.penalty-goal-scene[data-phase="result"][data-shot="center"] .penalty-ball{
+  transform:translateX(-50%) scale(.72);
+  bottom:124px;
+}
+.penalty-goal-scene[data-phase="moving"][data-shot="right"] .penalty-ball,
+.penalty-goal-scene[data-phase="result"][data-shot="right"] .penalty-ball{
+  transform:translateX(100px) scale(.72);
+  bottom:118px;
+}
+.penalty-goal-scene[data-phase="moving"][data-keeper="left"] .penalty-keeper,
+.penalty-goal-scene[data-phase="result"][data-keeper="left"] .penalty-keeper{
+  transform:translateX(-125px) rotate(-28deg);
+}
+.penalty-goal-scene[data-phase="moving"][data-keeper="center"] .penalty-keeper,
+.penalty-goal-scene[data-phase="result"][data-keeper="center"] .penalty-keeper{
+  transform:translateX(-50%) translateY(-8px) scaleY(1.08);
+}
+.penalty-goal-scene[data-phase="moving"][data-keeper="right"] .penalty-keeper,
+.penalty-goal-scene[data-phase="result"][data-keeper="right"] .penalty-keeper{
+  transform:translateX(87px) rotate(28deg);
+}
+.penalty-result{
+  position:absolute;
+  inset:auto 0 12px;
+  z-index:12;
+  text-align:center;
+  font-size:clamp(28px,8vw,52px);
+  font-weight:1000;
+  letter-spacing:2px;
+  text-shadow:0 4px 18px rgba(0,0,0,.7);
+  animation:penalty-result-pop .22s ease-out both;
+}
+.penalty-result.goal{color:#8ef0ae}
+.penalty-result.save{color:#8decff}
+@keyframes penalty-result-pop{
+  from{opacity:0;transform:scale(.72)}
+  to{opacity:1;transform:scale(1)}
+}
+@media(max-width:520px){
+  .penalty-goal-scene{height:190px}
+  .penalty-net{left:13%;right:13%;height:96px}
+  .penalty-keeper{top:62px}
+  .penalty-goal-scene[data-phase="moving"][data-shot="left"] .penalty-ball,
+  .penalty-goal-scene[data-phase="result"][data-shot="left"] .penalty-ball{
+    transform:translateX(-104px) scale(.72);
+    bottom:100px;
+  }
+  .penalty-goal-scene[data-phase="moving"][data-shot="right"] .penalty-ball,
+  .penalty-goal-scene[data-phase="result"][data-shot="right"] .penalty-ball{
+    transform:translateX(76px) scale(.72);
+    bottom:100px;
+  }
+  .penalty-goal-scene[data-phase="moving"][data-shot="center"] .penalty-ball,
+  .penalty-goal-scene[data-phase="result"][data-shot="center"] .penalty-ball{
+    bottom:106px;
+  }
+  .penalty-goal-scene[data-phase="moving"][data-keeper="left"] .penalty-keeper,
+  .penalty-goal-scene[data-phase="result"][data-keeper="left"] .penalty-keeper{
+    transform:translateX(-104px) rotate(-28deg);
+  }
+  .penalty-goal-scene[data-phase="moving"][data-keeper="right"] .penalty-keeper,
+  .penalty-goal-scene[data-phase="result"][data-keeper="right"] .penalty-keeper{
+    transform:translateX(66px) rotate(28deg);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .penalty-ball,
+  .penalty-keeper,
+  .penalty-result{
+    transition:none!important;
+    animation:none!important;
+  }
+}
