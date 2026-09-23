@@ -544,6 +544,7 @@ export default function AuctionGame() {
       auto_completed_last?: boolean;
       waiting_for_lineups?: boolean;
       players_added?: number;
+      message?: string;
     } | null;
 
     if (result?.auto_completed_last) {
@@ -553,7 +554,12 @@ export default function AuctionGame() {
           : "O último elenco já está completo. Falta organizar e finalizar.",
       );
     } else if (result?.waiting_for_lineups) {
-      setActionError("Os elencos restantes já estão completos. Falta organizar a prancheta e finalizar.");
+      const noEligibleCards = result.message?.toLowerCase().includes("no eligible players");
+      setActionError(
+        noEligibleCards
+          ? "Ainda faltam posições no elenco, mas não há cartas elegíveis com os filtros atuais da sala para completar essa vaga."
+          : "Os elencos ativos estão completos. Falta organizar a prancheta e finalizar.",
+      );
     }
 
     setAnswered(false);
