@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getSupabase } from "../lib/supabase";
 import type { MatchResult, TeamSnapshot } from "../lib/match-simulator";
 
@@ -324,6 +324,81 @@ function PenaltySetupPanel({
   );
 }
 
+function PenaltyKickAnimation({
+  shot,
+  keeper,
+  goal,
+  player,
+  onDone,
+}: {
+  shot: string;
+  keeper: string;
+  goal: boolean;
+  player?: string | null;
+  onDone: () => void;
+}) {
+  const [phase, setPhase] = useState<"ready" | "moving" | "result">("ready");
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const startTimer = window.setTimeout(() => setPhase("moving"), reducedMotion ? 20 : 90);
+    const resultTimer = window.setTimeout(
+      () => setPhase("result"),
+      reducedMotion ? 80 : 760,
+    );
+    const doneTimer = window.setTimeout(
+      onDone,
+      reducedMotion ? 220 : 1350,
+    );
+
+    return () => {
+      window.clearTimeout(startTimer);
+      window.clearTimeout(resultTimer);
+      window.clearTimeout(doneTimer);
+    };
+  }, [onDone, shot, keeper]);
+
+  return (
+    <div className="penalty-animation" aria-live="polite">
+      <div className="penalty-animation-heading">
+        <strong>{player || "Cobrador"}</strong>
+        <span>{phase === "result" ? (goal ? "GOL!" : "DEFESA!") : "Bola rolando..."}</span>
+      </div>
+
+      <div
+        className="penalty-goal-scene"
+        data-phase={phase}
+        data-shot={shot}
+        data-keeper={keeper}
+      >
+        <div className="penalty-net">
+          <span className="penalty-post penalty-post-left" />
+          <span className="penalty-post penalty-post-right" />
+          <span className="penalty-crossbar" />
+          <span className="penalty-net-lines" />
+        </div>
+
+        <div className="penalty-keeper" aria-label={`Goleiro foi para ${keeper}`}>
+          <span className="penalty-keeper-head" />
+          <span className="penalty-keeper-body" />
+          <span className="penalty-keeper-arm penalty-keeper-arm-left" />
+          <span className="penalty-keeper-arm penalty-keeper-arm-right" />
+        </div>
+
+        <div className="penalty-ball" aria-label={`Bola foi para ${shot}`}>
+          ⚽
+        </div>
+
+        {phase === "result" && (
+          <div className={`penalty-result ${goal ? "goal" : "save"}`}>
+            {goal ? "GOL!" : "DEFESA!"}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function ShootoutPanel({
   match,
   me,
@@ -337,8 +412,28 @@ function ShootoutPanel({
 }) {
   const shootout = match.result?.penalty_shootout;
   const next = shootout?.next;
+  const kickCount = shootout?.kicks.length || 0;
+  const previousKickCount = useRef(kickCount);
+  const [animatedKick, setAnimatedKick] = useState<
+    NonNullable<typeof shootout>["kicks"][number] | null
+  >(null);
 
-  if (!shootout || shootout.status === "setup" || !next) return null;
+  useEffect(() => {
+    if (!shootout) return;
+
+    if (shootout.kicks.length > previousKickCount.current) {
+      const newestKick = shootout.kicks[shootout.kicks.length - 1];
+      setAnimatedKick(newestKick || null);
+    }
+
+    previousKickCount.current = shootout.kicks.length;
+  }, [shootout, kickCount]);
+
+  const finishAnimation = useCallback(() => {
+    setAnimatedKick(null);
+  }, []);
+
+  if (!shootout || shootout.status === "setup") return null;
 
   const shooterId = next.team === "a" ? match.challenger_id : match.opponent_id;
   const keeperId = next.team === "a" ? match.opponent_id : match.challenger_id;
@@ -359,19 +454,36 @@ function ShootoutPanel({
     <div className="x1-shootout">
       <div className="x1-score">
         <span>{match.team_a?.name}</span>
-        <strong>{shootout.score.a} : {shootout.score.b}</strong>
+        <strong>
+          {shootout.score.a - (animatedKick?.team === "a" && animatedKick.goal ? 1 : 0)}
+          {" : "}
+          {shootout.score.b - (animatedKick?.team === "b" && animatedKick.goal ? 1 : 0)}
+        </strong>
         <span>{match.team_b?.name}</span>
       </div>
 
-      <p className="muted">
-        Pênaltis {next.suddenDeath ? "• morte súbita" : "• 5 cobranças"}
-      </p>
+      {animatedKick ? (
+        <PenaltyKickAnimation
+          key={animatedKick.index}
+          shot={animatedKick.shot}
+          keeper={animatedKick.keeper}
+          goal={animatedKick.goal}
+          player={animatedKick.player}
+          onDone={finishAnimation}
+        />
+      ) : next ? (
+        <>
+          <p className="muted">
+            Pênaltis {next.suddenDeath ? "• morte súbita" : "• 5 cobranças"}
+          </p>
 
-      <strong>
-        {kickerName ? `${kickerName} vai bater agora.` : `${actorLabel} vai bater agora.`}
-      </strong>
+          <strong>
+            {kickerName ? `${kickerName} vai bater agora.` : `${actorLabel} vai bater agora.`}
+          </strong>
+        </>
+      ) : null}
 
-      {isShooter || isKeeper ? (
+      {!animatedKick && next && (isShooter || isKeeper) ? (
         <>
           <p className="muted">
             {isShooter ? "Escolha onde bater." : "Escolha para onde o goleiro vai pular."}
@@ -390,13 +502,15 @@ function ShootoutPanel({
             ))}
           </div>
         </>
-      ) : (
+      ) : !animatedKick && next ? (
         <p className="muted">Aguardando atacante e goleiro escolherem as direções.</p>
-      )}
+      ) : null}
 
       {shootout.kicks.length > 0 && (
         <ol className="x1-events">
-          {shootout.kicks.map((kick) => (
+          {shootout.kicks
+            .filter((kick) => !animatedKick || kick.index !== animatedKick.index)
+            .map((kick) => (
             <li key={kick.index}>
               <b>{kick.index}ª</b>{" "}
               {kick.player ? `${kick.player} — ` : ""}
