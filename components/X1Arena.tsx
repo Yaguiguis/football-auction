@@ -23,6 +23,7 @@ type Match = {
   team_b: TeamSnapshot | null;
   created_at: string;
   responded_at: string | null;
+  completed_at: string | null;
 };
 
 type PenaltySetup = {
@@ -139,6 +140,44 @@ function MatchPlayback({ match }: { match: Match }) {
       </details>
     </div>
   );
+}
+
+function CompletedMatch({ match }: { match: Match }) {
+  const finalKick = match.result?.penalty_shootout?.kicks.at(-1) || null;
+  const completedRecently =
+    !!match.completed_at &&
+    Date.now() - new Date(match.completed_at).getTime() < 6000;
+  const [showFinalKick, setShowFinalKick] = useState(
+    completedRecently && !!finalKick && match.result?.decided_by === "penalties",
+  );
+
+  if (showFinalKick && finalKick && match.result?.penalty_shootout) {
+    const shootout = match.result.penalty_shootout;
+
+    return (
+      <div className="x1-shootout">
+        <div className="x1-score">
+          <span>{match.team_a?.name}</span>
+          <strong>
+            {shootout.score.a - (finalKick.team === "a" && finalKick.goal ? 1 : 0)}
+            {" : "}
+            {shootout.score.b - (finalKick.team === "b" && finalKick.goal ? 1 : 0)}
+          </strong>
+          <span>{match.team_b?.name}</span>
+        </div>
+
+        <PenaltyKickAnimation
+          shot={finalKick.shot}
+          keeper={finalKick.keeper}
+          goal={finalKick.goal}
+          player={finalKick.player}
+          onDone={() => setShowFinalKick(false)}
+        />
+      </div>
+    );
+  }
+
+  return <MatchPlayback match={match} />;
 }
 
 function PenaltySetupPanel({
@@ -688,7 +727,7 @@ export default function X1Arena({
       {matches.map((match) => (
         <article className="x1-match" key={match.id}>
           {match.status === "completed" && match.result ? (
-            <MatchPlayback match={match} />
+            <CompletedMatch match={match} />
           ) : match.status === "shootout" && match.result ? (
             <>
               <strong>
