@@ -10,6 +10,7 @@ import RoomChat from "./RoomChat";
 import PlayerFace from "./PlayerFace";
 import CardBadge, { cardClass } from "./CardBadge";
 import GavelWinAnimation from "./GavelWinAnimation";
+import TradeCenter from "./TradeCenter";
 
 type Room = {
   id: string;
@@ -677,6 +678,15 @@ export default function AuctionGame() {
       )}
 
       {room && <RoomChat roomId={room.id} />}
+
+      {room && me && !isSpectator && (
+        <TradeCenter
+          roomId={room.id}
+          meId={me.id}
+          meFinalized={me.squad_finalized}
+          onChanged={safeRefresh}
+        />
+      )}
 
       {view === "history" ? (
         <section className="card history-panel">
