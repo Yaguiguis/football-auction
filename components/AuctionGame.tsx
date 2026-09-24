@@ -19,7 +19,7 @@ type Room = {
   budget: number;
   mode: "football" | "futsal";
   reserve_count: number;
-  room_kind: "auction" | "tournament";
+  room_kind: "auction" | "tournament" | "cases";
   status: string;
 };
 
@@ -346,11 +346,6 @@ export default function AuctionGame() {
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "fa_auctions", filter: `room_id=eq.${room.id}` },
-        queueRefresh,
-      )
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` },
         queueRefresh,
       )
       .on(
