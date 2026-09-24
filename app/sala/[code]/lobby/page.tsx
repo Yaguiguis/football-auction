@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../../../../lib/supabase";
 import ConnectionBanner from "../../../../components/ConnectionBanner";
 import RoomChat from "../../../../components/RoomChat";
+import RoomSettingsPanel from "../../../../components/RoomSettingsPanel";
 
 type Room = {
   id: string;
@@ -57,7 +58,6 @@ export default function Lobby() {
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState(false);
   const [busyMember, setBusyMember] = useState<string | null>(null);
-  const [changingMode, setChangingMode] = useState(false);
 
   const refresh = useCallback(async () => {
     const supabase = getSupabase();
@@ -80,6 +80,7 @@ export default function Lobby() {
         .from("fa_room_members")
         .select("id,user_id,display_name,balance,is_host,ready,is_spectator,last_seen_at")
         .eq("room_id", typedRoom.id)
+        .is("kicked_at", null)
         .order("joined_at"),
       supabase.rpc("fa_room_catalog_summary", {
         p_room_id: typedRoom.id,
@@ -113,6 +114,7 @@ export default function Lobby() {
       .from("fa_room_members")
       .select("id,user_id,display_name,balance,is_host,ready,is_spectator,last_seen_at")
       .eq("room_id", room.id)
+      .is("kicked_at", null)
       .order("joined_at");
 
     if (membersError) throw membersError;
@@ -204,27 +206,6 @@ export default function Lobby() {
     }
   }
 
-  async function changeMode(nextMode: "football" | "futsal") {
-    if (!room || !isHost || room.status !== "lobby" || changingMode) return;
-
-    setChangingMode(true);
-    setError("");
-
-    try {
-      const { error: rpcError } = await getSupabase().rpc("fa_set_room_mode", {
-        p_room_id: room.id,
-        p_mode: nextMode,
-      });
-
-      if (rpcError) throw rpcError;
-      await refresh();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Não foi possível alterar a modalidade.");
-    } finally {
-      setChangingMode(false);
-    }
-  }
-
   async function startGame() {
     if (!room || starting) return;
 
@@ -267,9 +248,19 @@ export default function Lobby() {
       <ConnectionBanner />
 
       <div className="topbar">
-        <div>
-          <p className="muted" style={{ margin: 0 }}>CÓDIGO DA SALA</p>
-          <h1 style={{ margin: 0 }}>{code}</h1>
+        <div style={{ display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap" }}>
+          <button
+            className="btn btn-secondary"
+            type="button"
+            onClick={() => router.push("/")}
+          >
+            ← Início
+          </button>
+
+          <div>
+            <p className="muted" style={{ margin: 0 }}>CÓDIGO DA SALA</p>
+            <h1 style={{ margin: 0 }}>{code}</h1>
+          </div>
         </div>
 
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
@@ -384,54 +375,14 @@ export default function Lobby() {
           </p>
         </section>
 
-        <section className="card">
-          <h2>Configuração</h2>
-
-          <div className="settings-summary">
-            {isHost && room?.status === "lobby" ? (
-              <label style={{ display: "grid", gap: 6, minWidth: 220 }}>
-                <span className="muted" style={{ fontSize: 12, fontWeight: 800 }}>MODALIDADE</span>
-                <select
-                  className="input"
-                  value={room.mode}
-                  disabled={changingMode}
-                  onChange={(e) => void changeMode(e.target.value as "football" | "futsal")}
-                >
-                  <option value="football">Futebol de campo</option>
-                  <option value="futsal">Futsal</option>
-                </select>
-                <small className="muted">
-                  Ao trocar, as reservas viram {room.mode === "futsal" ? "5 no campo" : "2 no futsal"} e todos precisam marcar “Pronto” novamente.
-                </small>
-              </label>
-            ) : (
-              <span className="badge">{room?.mode === "futsal" ? "Futsal" : "Futebol de campo"}</span>
-            )}
-            {room?.room_kind === "tournament" && (
-              <span className="badge">🏆 Chave até {room.tournament_size} jogadores</span>
-            )}
-            {room?.room_kind !== "cases" && (
-              <span className="badge">{room?.budget} créditos</span>
-            )}
-            {room?.room_kind === "cases" && (
-              <span className="badge">▣ {activePlayers.length + 2} maletas por rodada</span>
-            )}
-            <span className="badge">{room?.reserve_count} reservas</span>
-            <span className="badge">GER {room?.min_overall}–{room?.max_overall}</span>
-            <span className="badge">{room?.allow_base ? "BASE ligado" : "Sem BASE"}</span>
-            <span className="badge">{room?.allow_icons ? "ICONS ligados" : "Sem ICONS"}</span>
-            <span className="badge">{room?.allow_specials ? "SPECIALS ligados" : "Sem SPECIALS"}</span>
-            {room?.active_only && <span className="badge">Somente ativos</span>}
-            <span className="badge">
-              Desconexão: {room?.disconnect_mode === "bot" ? "BOT conservador" : "continuar sem ele"}
-            </span>
-            <span className="badge">{room?.spectators_allowed ? "Espectadores permitidos" : "Sem espectadores"}</span>
-          </div>
-
-          <p className="muted" style={{ marginBottom: 0 }}>
-            Ligas: {room?.allowed_leagues?.length ? room.allowed_leagues.join(" • ") : "todas"}
-          </p>
-        </section>
+        {room && (
+          <RoomSettingsPanel
+            room={room}
+            isHost={isHost}
+            participantCount={members.filter((member) => !member.is_spectator).length}
+            onSaved={refresh}
+          />
+        )}
       </div>
 
       <section className="card" style={{ marginTop: 16 }}>
