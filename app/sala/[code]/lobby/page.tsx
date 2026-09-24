@@ -22,7 +22,7 @@ type Room = {
   allowed_leagues: string[] | null;
   disconnect_mode: "skip" | "bot";
   spectators_allowed: boolean;
-  room_kind: "auction" | "tournament";
+  room_kind: "auction" | "tournament" | "cases";
   tournament_size: 4 | 8 | 16 | null;
   tournament_champion_member_id: string | null;
   status: string;
@@ -212,21 +212,37 @@ export default function Lobby() {
     }
   }
 
-  async function startAuction() {
+  async function startGame() {
     if (!room || starting) return;
 
     setError("");
     setStarting(true);
 
     try {
-      const { error: rpcError } = await getSupabase().rpc("fa_begin_auction", {
+      const rpc =
+        room.room_kind === "cases"
+          ? "fa_begin_case_mode"
+          : "fa_begin_auction";
+
+      const { error: rpcError } = await getSupabase().rpc(rpc, {
         p_room_id: room.id,
       });
 
       if (rpcError) throw rpcError;
-      router.push(`/sala/${room.code}/leilao`);
+
+      router.push(
+        room.room_kind === "cases"
+          ? `/sala/${room.code}/maletas`
+          : `/sala/${room.code}/leilao`,
+      );
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Não foi possível iniciar o leilão.");
+      setError(
+        e instanceof Error
+          ? e.message
+          : room.room_kind === "cases"
+            ? "Não foi possível iniciar o Modo Maletas."
+            : "Não foi possível iniciar o leilão.",
+      );
       setStarting(false);
     }
   }
@@ -245,6 +261,7 @@ export default function Lobby() {
 
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
           {room?.room_kind === "tournament" && <span className="badge">🏆 Torneio</span>}
+          {room?.room_kind === "cases" && <span className="badge">▣ Maletas</span>}
           <span className="badge">
             {activePlayers.length}{room?.room_kind === "tournament" && room.tournament_size ? `/${room.tournament_size}` : ""} jogando online
           </span>
@@ -263,7 +280,11 @@ export default function Lobby() {
           <div className="topbar" style={{ marginBottom: 0 }}>
             <div>
               <strong>
-                {room?.status === "auction" ? "Partida em andamento" : "Partida finalizada"}
+                {room?.status === "auction"
+                  ? room.room_kind === "cases"
+                    ? "Modo Maletas em andamento"
+                    : "Partida em andamento"
+                  : "Partida finalizada"}
               </strong>
               <p className="muted" style={{ margin: "5px 0 0" }}>
                 O lobby continua disponível para ver participantes, configurações e usar o chat.
@@ -274,7 +295,9 @@ export default function Lobby() {
               onClick={() =>
                 router.push(
                   room?.status === "auction"
-                    ? `/sala/${code}/leilao`
+                    ? room.room_kind === "cases"
+                      ? `/sala/${code}/maletas`
+                      : `/sala/${code}/leilao`
                     : room?.room_kind === "tournament"
                       ? `/sala/${code}/torneio`
                       : `/sala/${code}/times`
@@ -282,7 +305,9 @@ export default function Lobby() {
               }
             >
               {room?.status === "auction"
-                ? "Voltar ao leilão"
+                ? room.room_kind === "cases"
+                  ? "Voltar às maletas"
+                  : "Voltar ao leilão"
                 : room?.room_kind === "tournament"
                   ? "Ver chave do torneio"
                   : "Ver resultados"}
@@ -321,7 +346,9 @@ export default function Lobby() {
 
                     <small className="muted">
                       {isOnline ? "online" : "offline"}
-                      {!member.is_spectator ? ` • ${member.balance} créditos` : ""}
+                      {!member.is_spectator && room?.room_kind !== "cases"
+                        ? ` • ${member.balance} créditos`
+                        : ""}
                     </small>
                   </div>
 
@@ -370,7 +397,12 @@ export default function Lobby() {
             {room?.room_kind === "tournament" && (
               <span className="badge">🏆 Chave até {room.tournament_size} jogadores</span>
             )}
-            <span className="badge">{room?.budget} créditos</span>
+            {room?.room_kind !== "cases" && (
+              <span className="badge">{room?.budget} créditos</span>
+            )}
+            {room?.room_kind === "cases" && (
+              <span className="badge">▣ {activePlayers.length + 2} maletas por rodada</span>
+            )}
             <span className="badge">{room?.reserve_count} reservas</span>
             <span className="badge">GER {room?.min_overall}–{room?.max_overall}</span>
             <span className="badge">{room?.allow_base ? "BASE ligado" : "Sem BASE"}</span>
@@ -394,7 +426,9 @@ export default function Lobby() {
           <div>
             <h2 style={{ margin: 0 }}>Catálogo automático</h2>
             <p className="muted" style={{ margin: "4px 0 0" }}>
-              O sorteio respeita as posições faltantes e os filtros desta sala.
+              {room?.room_kind === "cases"
+                ? "As maletas usam este catálogo e escondem as cartas até a escolha."
+                : "O sorteio respeita as posições faltantes e os filtros desta sala."}
             </p>
           </div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
@@ -413,7 +447,7 @@ export default function Lobby() {
           <button
             className="btn btn-primary"
             style={{ marginTop: 16, width: "100%" }}
-            onClick={() => void startAuction()}
+            onClick={() => void startGame()}
             disabled={!allReady || catalogSummary.total === 0 || starting}
           >
             {starting
@@ -422,7 +456,11 @@ export default function Lobby() {
                 ? "Aguardando mais 1 jogador online"
                 : !allReady
                   ? "Aguardando todos ficarem prontos"
-                  : room?.room_kind === "tournament" ? "Iniciar leilão do torneio" : "Iniciar leilão"}
+                  : room?.room_kind === "cases"
+                    ? "Iniciar Modo Maletas"
+                    : room?.room_kind === "tournament"
+                      ? "Iniciar leilão do torneio"
+                      : "Iniciar leilão"}
           </button>
         ) : me?.is_spectator ? (
           <p className="muted" style={{ marginTop: 16, textAlign: "center" }}>
