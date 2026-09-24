@@ -209,7 +209,7 @@ export default function TradeCenter({
 
   useEffect(() => {
     void safeLoad();
-    const timer = window.setInterval(() => void safeLoad(), 3500);
+    const timer = window.setInterval(() => void safeLoad(), 15000);
     return () => window.clearInterval(timer);
   }, [safeLoad]);
 
