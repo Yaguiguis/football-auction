@@ -35,6 +35,32 @@ type PenaltySetup = {
   my_order: string[];
 };
 
+type PenaltyTurnState = {
+  active: boolean;
+  kick_no?: number;
+  team?: "a" | "b";
+  role: "shot" | "keeper" | "spectator" | "none";
+  my_chosen: boolean;
+  other_chosen: boolean;
+  shooter_id?: string;
+  keeper_id?: string;
+  sudden_death?: boolean;
+};
+
+type X1LeaderboardRow = {
+  member_id: string;
+  name: string;
+  played: number;
+  wins: number;
+  losses: number;
+  goals_for: number;
+  goals_against: number;
+  goal_difference: number;
+  penalty_wins: number;
+  win_rate: number;
+  rank: number;
+};
+
 const directions = [
   { key: "left", label: "Esquerda" },
   { key: "center", label: "Meio" },
@@ -450,11 +476,13 @@ function ShootoutPanel({
   match,
   me,
   busy,
+  turnState,
   onChoose,
 }: {
   match: Match;
   me: Member | null;
   busy: boolean;
+  turnState: PenaltyTurnState | null;
   onChoose: (matchId: string, direction: string) => void;
 }) {
   const shootout = match.result?.penalty_shootout;
@@ -509,6 +537,27 @@ function ShootoutPanel({
   const kickerId = order?.[(Math.max(1, sideKick) - 1) % 5];
   const kickerName = team?.players.find((player) => player.id === kickerId)?.name;
   const actorLabel = team?.name;
+  const myChosen = !!turnState?.my_chosen;
+
+  const turnTitle = isShooter
+    ? myChosen
+      ? "CHUTE ESCOLHIDO"
+      : "SUA VEZ DE BATER"
+    : isKeeper
+      ? myChosen
+        ? "DEFESA ESCOLHIDA"
+        : "SUA VEZ DE DEFENDER"
+      : "COBRANÇA EM ANDAMENTO";
+
+  const turnSubtitle = isShooter
+    ? myChosen
+      ? "Sua direção foi enviada. Aguardando o goleiro escolher."
+      : "Escolha para onde você quer chutar."
+    : isKeeper
+      ? myChosen
+        ? "Seu lado foi enviado. Aguardando o cobrador escolher."
+        : "Escolha para onde o goleiro vai pular."
+      : "Aguardando cobrador e goleiro escolherem em segredo.";
 
   return (
     <div className="x1-shootout">
@@ -521,6 +570,33 @@ function ShootoutPanel({
         </strong>
         <span>{match.team_b?.name}</span>
       </div>
+
+      {!animatedKick && next && (
+        <div
+          className={`x1-turn-banner ${
+            isShooter
+              ? myChosen
+                ? "waiting"
+                : "shoot"
+              : isKeeper
+                ? myChosen
+                  ? "waiting"
+                  : "defend"
+                : "spectating"
+          }`}
+          role="status"
+          aria-live="polite"
+        >
+          <span className="x1-turn-icon">{isShooter ? "⚽" : isKeeper ? "🧤" : "👀"}</span>
+          <div>
+            <small>
+              {next.suddenDeath ? "MORTE SÚBITA" : `COBRANÇA ${next.index}`}
+            </small>
+            <strong>{turnTitle}</strong>
+            <p>{turnSubtitle}</p>
+          </div>
+        </div>
+      )}
 
       {animatedKick ? (
         <PenaltyKickAnimation
@@ -544,26 +620,33 @@ function ShootoutPanel({
       ) : null}
 
       {!animatedKick && next && (isShooter || isKeeper) ? (
-        <>
-          <p className="muted">
-            {isShooter ? "Escolha onde bater." : "Escolha para onde o goleiro vai pular."}
-          </p>
-
+        myChosen ? (
+          <div className="x1-choice-waiting">
+            <span className="x1-choice-pulse" />
+            <strong>Aguardando o adversário...</strong>
+            <small>Sua escolha está salva e escondida.</small>
+          </div>
+        ) : (
           <div className="x1-directions">
             {directions.map((direction) => (
               <button
                 key={direction.key}
-                className="btn btn-secondary"
-                disabled={busy}
+                className={`btn x1-direction-button ${isShooter ? "shoot" : "defend"}`}
+                disabled={busy || myChosen}
                 onClick={() => onChoose(match.id, direction.key)}
               >
+                <span>
+                  {direction.key === "left" ? "←" : direction.key === "right" ? "→" : "↑"}
+                </span>
                 {direction.label}
               </button>
             ))}
           </div>
-        </>
+        )
       ) : !animatedKick && next ? (
-        <p className="muted">Aguardando atacante e goleiro escolherem as direções.</p>
+        <p className="muted" style={{ textAlign: "center" }}>
+          Aguardando atacante e goleiro escolherem as direções.
+        </p>
       ) : null}
 
       {shootout.kicks.length > 0 && (
@@ -595,23 +678,30 @@ export default function X1Arena({
 }) {
   const [matches, setMatches] = useState<Match[]>([]);
   const [setups, setSetups] = useState<Record<string, PenaltySetup>>({});
+  const [turnStates, setTurnStates] = useState<Record<string, PenaltyTurnState>>({});
+  const [leaderboard, setLeaderboard] = useState<X1LeaderboardRow[]>([]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
   const load = useCallback(async () => {
     const supabase = getSupabase();
 
-    const { data, error: matchesError } = await supabase
-      .from("fa_x1_matches")
-      .select("*")
-      .eq("room_id", roomId)
-      .order("created_at", { ascending: false })
-      .limit(100);
+    const [matchesResult, leaderboardResult] = await Promise.all([
+      supabase
+        .from("fa_x1_matches")
+        .select("*")
+        .eq("room_id", roomId)
+        .order("created_at", { ascending: false })
+        .limit(100),
+      supabase.rpc("fa_x1_leaderboard", { p_room_id: roomId }),
+    ]);
 
-    if (matchesError) throw matchesError;
+    if (matchesResult.error) throw matchesResult.error;
+    if (leaderboardResult.error) throw leaderboardResult.error;
 
-    const typedMatches = (data || []) as Match[];
+    const typedMatches = (matchesResult.data || []) as Match[];
     setMatches(typedMatches);
+    setLeaderboard((leaderboardResult.data || []) as X1LeaderboardRow[]);
 
     const shootouts = typedMatches.filter((match) => match.status === "shootout");
 
@@ -627,7 +717,20 @@ export default function X1Arena({
       }),
     );
 
+    const turnPairs = await Promise.all(
+      shootouts.map(async (match) => {
+        const { data: turnData, error: turnError } = await supabase.rpc(
+          "fa_get_x1_penalty_turn_state",
+          { p_match_id: match.id },
+        );
+
+        if (turnError) throw turnError;
+        return [match.id, turnData as PenaltyTurnState] as const;
+      }),
+    );
+
     setSetups(Object.fromEntries(setupPairs));
+    setTurnStates(Object.fromEntries(turnPairs));
   }, [roomId]);
 
   useEffect(() => {
@@ -741,6 +844,62 @@ export default function X1Arena({
         </div>
       )}
 
+      <div className="x1-leaderboard">
+        <div className="x1-leaderboard-header">
+          <div>
+            <span className="special-badge card-type-badge">RANKING X1</span>
+            <h3>Classificação dos crias</h3>
+          </div>
+          <small>Vitórias → aproveitamento → saldo de gols</small>
+        </div>
+
+        {leaderboard.length > 0 ? (
+          <div className="x1-ranking-table">
+            <div className="x1-ranking-row x1-ranking-labels">
+              <span>#</span>
+              <span>Jogador</span>
+              <span>J</span>
+              <span>V</span>
+              <span>D</span>
+              <span>APR</span>
+              <span>SG</span>
+            </div>
+
+            {leaderboard.map((row) => (
+              <div
+                className={`x1-ranking-row ${row.rank === 1 && row.played > 0 ? "leader" : ""} ${row.member_id === me?.id ? "me" : ""}`}
+                key={row.member_id}
+              >
+                <span className="x1-rank-position">
+                  {row.rank === 1 && row.played > 0
+                    ? "👑"
+                    : row.rank === 2 && row.played > 0
+                      ? "🥈"
+                      : row.rank === 3 && row.played > 0
+                        ? "🥉"
+                        : row.rank}
+                </span>
+                <span className="x1-ranking-name">
+                  <strong>{row.name}</strong>
+                  {row.penalty_wins > 0 && (
+                    <small>{row.penalty_wins} vitória{row.penalty_wins === 1 ? "" : "s"} nos pênaltis</small>
+                  )}
+                </span>
+                <span>{row.played}</span>
+                <span className="x1-wins">{row.wins}</span>
+                <span>{row.losses}</span>
+                <span>{row.win_rate}%</span>
+                <span className={row.goal_difference > 0 ? "positive" : row.goal_difference < 0 ? "negative" : ""}>
+                  {row.goal_difference > 0 ? "+" : ""}{row.goal_difference}
+                </span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="muted">A classificação aparece depois do primeiro X1 concluído.</p>
+        )}
+      </div>
+
       {matches.length === 0 && (
         <p className="muted">Os desafios e resultados desta sala aparecem aqui.</p>
       )}
@@ -771,6 +930,7 @@ export default function X1Arena({
                 match={match}
                 me={me}
                 busy={busy}
+                turnState={turnStates[match.id] || null}
                 onChoose={choosePenalty}
               />
             </>
