@@ -77,8 +77,10 @@ function MatchPlayback({ match }: { match: Match }) {
 
   const result = match.result!;
   const events = result.events.filter((event) => event.minute <= minute);
+  const eventType = (event: (typeof events)[number]) =>
+    ("type" in event && typeof event.type === "string" ? event.type : event.kind);
   const score = (side: "a" | "b") =>
-    events.filter((event) => event.kind === "goal" && event.team === side).length;
+    events.filter((event) => eventType(event) === "goal" && event.team === side).length;
   const maxMinute = result.extra_time ? 120 : 90;
 
   const finalText =
@@ -111,7 +113,13 @@ function MatchPlayback({ match }: { match: Match }) {
       <ol className="x1-events">
         {events.map((event, index) => (
           <li key={index}>
-            <b>{event.minute}′</b> {event.kind === "goal" ? "Gol" : "Defesa"} — {event.player}{" "}
+            <b>{event.minute}′</b>{" "}
+            {eventType(event) === "goal"
+              ? "Gol"
+              : eventType(event) === "save"
+                ? "Defesa"
+                : "Chance"}{" "}
+            — {event.player}{" "}
             <small>({event.team === "a" ? match.team_a?.name : match.team_b?.name})</small>
           </li>
         ))}
@@ -123,7 +131,7 @@ function MatchPlayback({ match }: { match: Match }) {
         </p>
       )}
 
-      {minute === maxMinute && (
+      {minute === maxMinute && result.winner && (
         <p>
           <strong>Vitória de {winnerName(match, result.winner)}</strong>
         </p>
