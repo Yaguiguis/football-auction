@@ -25,7 +25,7 @@ type Room = {
   host_user_id: string;
   mode: GameMode;
   reserve_count: number;
-  room_kind: "auction" | "tournament";
+  room_kind: "auction" | "tournament" | "cases";
   status: string;
 };
 
@@ -300,6 +300,11 @@ export default function TeamsPage() {
   const mostExpensivePlayer = stats.mostExpensive ? playerById.get(stats.mostExpensive.player_id) : null;
   const biggestSpenderMember = stats.biggestSpender ? memberById.get(stats.biggestSpender.memberId) : null;
   const bestValuePlayer = stats.bestValue ? playerById.get(stats.bestValue.auction.player_id) : null;
+  const highestCard = players.reduce<Player | null>(
+    (best, player) => (!best || player.overall > best.overall ? player : best),
+    null,
+  );
+  const specialCount = players.filter((player) => player.player_type === "SPECIAL").length;
 
   return (
     <main className="container">
@@ -336,42 +341,69 @@ export default function TeamsPage() {
           <strong>{stats.highestGer ? `${stats.highestGer.member.display_name} • ${stats.highestGer.ger}` : "—"}</strong>
         </div>
 
-        <div className="stat-card">
-          <span>Jogador mais caro</span>
-          <strong>
-            {mostExpensivePlayer && stats.mostExpensive
-              ? `${mostExpensivePlayer.name} • ${stats.mostExpensive.final_price} cr`
-              : "—"}
-          </strong>
-        </div>
+        {room?.room_kind === "cases" ? (
+          <>
+            <div className="stat-card">
+              <span>Maior carta revelada</span>
+              <strong>{highestCard ? `${highestCard.name} • ${highestCard.overall}` : "—"}</strong>
+            </div>
+            <div className="stat-card">
+              <span>ICONS revelados</span>
+              <strong>{stats.iconCount}</strong>
+            </div>
+            <div className="stat-card">
+              <span>SPECIALS revelados</span>
+              <strong>{specialCount}</strong>
+            </div>
+            <div className="stat-card">
+              <span>Cartas escolhidas</span>
+              <strong>{players.length}</strong>
+            </div>
+            <div className="stat-card">
+              <span>Participantes</span>
+              <strong>{participants.length}</strong>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="stat-card">
+              <span>Jogador mais caro</span>
+              <strong>
+                {mostExpensivePlayer && stats.mostExpensive
+                  ? `${mostExpensivePlayer.name} • ${stats.mostExpensive.final_price} cr`
+                  : "—"}
+              </strong>
+            </div>
 
-        <div className="stat-card">
-          <span>Maior gasto</span>
-          <strong>
-            {biggestSpenderMember && stats.biggestSpender
-              ? `${biggestSpenderMember.display_name} • ${stats.biggestSpender.total} cr`
-              : "—"}
-          </strong>
-        </div>
+            <div className="stat-card">
+              <span>Maior gasto</span>
+              <strong>
+                {biggestSpenderMember && stats.biggestSpender
+                  ? `${biggestSpenderMember.display_name} • ${stats.biggestSpender.total} cr`
+                  : "—"}
+              </strong>
+            </div>
 
-        <div className="stat-card">
-          <span>Melhor GER por crédito</span>
-          <strong>
-            {bestValuePlayer && stats.bestValue
-              ? `${bestValuePlayer.name} • ${stats.bestValue.auction.final_price} cr`
-              : "—"}
-          </strong>
-        </div>
+            <div className="stat-card">
+              <span>Melhor GER por crédito</span>
+              <strong>
+                {bestValuePlayer && stats.bestValue
+                  ? `${bestValuePlayer.name} • ${stats.bestValue.auction.final_price} cr`
+                  : "—"}
+              </strong>
+            </div>
 
-        <div className="stat-card">
-          <span>ICONS conquistados</span>
-          <strong>{stats.iconCount}</strong>
-        </div>
+            <div className="stat-card">
+              <span>ICONS conquistados</span>
+              <strong>{stats.iconCount}</strong>
+            </div>
 
-        <div className="stat-card">
-          <span>Jogadores grátis</span>
-          <strong>{stats.freeCount}</strong>
-        </div>
+            <div className="stat-card">
+              <span>Jogadores grátis</span>
+              <strong>{stats.freeCount}</strong>
+            </div>
+          </>
+        )}
       </section>
 
       <div className="grid final-team-grid">
