@@ -19,7 +19,7 @@ import ConnectionBanner from "../../../../components/ConnectionBanner";
 import RoomChat from "../../../../components/RoomChat";
 import TradeCenter from "../../../../components/TradeCenter";
 
-type Room = { id: string; code: string; mode: GameMode; reserve_count: number; room_kind: "auction" | "tournament"; status: string };
+type Room = { id: string; code: string; mode: GameMode; reserve_count: number; room_kind: "auction" | "tournament" | "cases"; status: string };
 type Member = { id: string; user_id: string; display_name: string; squad_finalized: boolean };
 type SquadRow = { member_id: string; player_id: string; slot_key: string; is_bench: boolean };
 type Player = RatedPlayer & { league: string | null };
@@ -249,9 +249,15 @@ export default function SquadEditorPage() {
           </button>
           <button
             className="btn btn-secondary"
-            onClick={() => router.push(`/sala/${code}/leilao`)}
+            onClick={() =>
+              router.push(
+                room?.room_kind === "cases"
+                  ? `/sala/${code}/maletas`
+                  : `/sala/${code}/leilao`,
+              )
+            }
           >
-            Voltar ao leilão
+            {room?.room_kind === "cases" ? "Voltar às maletas" : "Voltar ao leilão"}
           </button>
         </div>
       </div>
