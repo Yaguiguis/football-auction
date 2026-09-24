@@ -6,7 +6,13 @@ export const ENGINE_VERSION = 'x1-v2';
 export type MatchPlayer = { id: string; name: string; slot: string; overall: number; penalty: number };
 export type TeamSnapshot = { id: string; name: string; players: MatchPlayer[] };
 export type TeamStrength = { overall: number; attack: number; defense: number; keeper: number; bench: number; fit: number };
-export type MatchEvent = { minute: number; team: 'a' | 'b'; kind: 'goal' | 'save'; player: string };
+export type MatchEvent = {
+  minute: number;
+  team: 'a' | 'b';
+  player: string;
+  kind?: 'goal' | 'save';
+  type?: 'goal' | 'chance';
+};
 export type ShootoutKick = {
   index: number;
   team: 'a' | 'b';
