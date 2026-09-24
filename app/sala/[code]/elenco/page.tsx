@@ -117,7 +117,6 @@ export default function SquadEditorPage() {
     const channel = supabase
       .channel(`football-auction:squad-editor:${room.id}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "fa_squad_players" }, () => void safeLoad())
-      .on("postgres_changes", { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` }, () => void safeLoad())
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "fa_rooms", filter: `id=eq.${room.id}` }, () => void safeLoad())
       .subscribe();
 
