@@ -106,6 +106,19 @@ export default function Lobby() {
     });
   }, [code]);
 
+  const refreshMembers = useCallback(async () => {
+    if (!room?.id) return;
+
+    const { data, error: membersError } = await getSupabase()
+      .from("fa_room_members")
+      .select("id,user_id,display_name,balance,is_host,ready,is_spectator,last_seen_at")
+      .eq("room_id", room.id)
+      .order("joined_at");
+
+    if (membersError) throw membersError;
+    setMembers((data || []) as Member[]);
+  }, [room?.id]);
+
   useEffect(() => {
     let mounted = true;
 
@@ -124,14 +137,14 @@ export default function Lobby() {
     const supabase = getSupabase();
     const channel = supabase
       .channel(`football-auction:lobby:${room.id}`)
-      .on("postgres_changes", { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` }, () => void refresh())
+      .on("postgres_changes", { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` }, () => void refreshMembers())
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "fa_rooms", filter: `id=eq.${room.id}` }, () => void refresh())
       .subscribe();
 
     return () => {
       void supabase.removeChannel(channel);
     };
-  }, [room?.id, refresh]);
+  }, [room?.id, refresh, refreshMembers]);
 
   useEffect(() => {
     if (!room?.id) return;
