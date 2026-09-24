@@ -242,11 +242,6 @@ export default function CasesModePage() {
       )
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "fa_room_members", filter: `room_id=eq.${room.id}` },
-        refreshSoon,
-      )
-      .on(
-        "postgres_changes",
         { event: "UPDATE", schema: "public", table: "fa_rooms", filter: `id=eq.${room.id}` },
         refreshSoon,
       )
