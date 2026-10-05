@@ -316,9 +316,11 @@ export default function Lobby() {
                       : room.room_kind === "impostor"
                         ? `/sala/${code}/impostor`
                         : `/sala/${code}/leilao`
-                    : room?.room_kind === "tournament"
-                      ? `/sala/${code}/torneio`
-                      : `/sala/${code}/times`
+                    : room?.room_kind === "impostor"
+                      ? `/sala/${code}/impostor`
+                      : room?.room_kind === "tournament"
+                        ? `/sala/${code}/torneio`
+                        : `/sala/${code}/times`
                 )
               }
             >
@@ -328,9 +330,11 @@ export default function Lobby() {
                   : room.room_kind === "impostor"
                     ? "Voltar ao Impostor FC"
                     : "Voltar ao leilão"
-                : room?.room_kind === "tournament"
-                  ? "Ver chave do torneio"
-                  : "Ver resultados"}
+                : room?.room_kind === "impostor"
+                  ? "Ver resultado do Impostor FC"
+                  : room?.room_kind === "tournament"
+                    ? "Ver chave do torneio"
+                    : "Ver resultados"}
             </button>
           </div>
         </div>
