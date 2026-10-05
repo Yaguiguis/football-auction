@@ -18,13 +18,13 @@ export type RoomSettingsRoom = {
   allowed_leagues: string[] | null;
   disconnect_mode: "skip" | "bot";
   spectators_allowed: boolean;
-  room_kind: "auction" | "tournament" | "cases" | "impostor";
+  room_kind: "auction" | "tournament" | "cases" | "impostor" | "time_impostor";
   tournament_size: 4 | 8 | 16 | null;
   status: string;
 };
 
 type Draft = {
-  roomKind: "auction" | "tournament" | "cases" | "impostor";
+  roomKind: "auction" | "tournament" | "cases" | "impostor" | "time_impostor";
   mode: "football" | "futsal";
   budget: number;
   reserveCount: number;
@@ -67,6 +67,7 @@ function modeName(kind: Draft["roomKind"]) {
   if (kind === "cases") return "Maletas";
   if (kind === "tournament") return "Torneio";
   if (kind === "impostor") return "Impostor FC";
+  if (kind === "time_impostor") return "Impostor do Tempo";
   return "Leilão";
 }
 
@@ -173,7 +174,12 @@ export default function RoomSettingsPanel({
   function requestSave() {
     setError("");
 
-    if (!draft.allowBase && !draft.allowIcons && !draft.allowSpecials) {
+    if (
+      draft.roomKind !== "time_impostor" &&
+      !draft.allowBase &&
+      !draft.allowIcons &&
+      !draft.allowSpecials
+    ) {
       setError("Ative pelo menos um tipo de carta.");
       return;
     }
@@ -295,7 +301,7 @@ export default function RoomSettingsPanel({
             <small>MODO</small>
             <strong>{modeName(room.room_kind)}</strong>
           </div>
-          {room.room_kind !== "impostor" && (
+          {room.room_kind !== "impostor" && room.room_kind !== "time_impostor" && (
             <>
               <div className="room-config-summary-item">
                 <small>MODALIDADE</small>
@@ -307,11 +313,15 @@ export default function RoomSettingsPanel({
               </div>
             </>
           )}
-          <div className="room-config-summary-item">
-            <small>GER</small>
-            <strong>{room.min_overall}–{room.max_overall}</strong>
-          </div>
-          {room.room_kind !== "cases" && room.room_kind !== "impostor" && (
+          {room.room_kind !== "time_impostor" && (
+            <div className="room-config-summary-item">
+              <small>GER</small>
+              <strong>{room.min_overall}–{room.max_overall}</strong>
+            </div>
+          )}
+          {room.room_kind !== "cases" &&
+          room.room_kind !== "impostor" &&
+          room.room_kind !== "time_impostor" && (
             <div className="room-config-summary-item">
               <small>ORÇAMENTO</small>
               <strong>{room.budget} cr</strong>
@@ -326,24 +336,37 @@ export default function RoomSettingsPanel({
         </div>
 
         <div className="room-config-pills">
-          <span className={room.allow_base ? "on" : "off"}>BASE</span>
-          <span className={room.allow_icons ? "on" : "off"}>ICONS</span>
-          <span className={room.allow_specials ? "on" : "off"}>SPECIALS</span>
-          {room.active_only && <span className="on">SÓ ATIVOS</span>}
-          <span className="neutral">
-            {room.disconnect_mode === "bot" ? "BOT na desconexão" : "Continuar sem offline"}
-          </span>
+          {room.room_kind !== "time_impostor" && (
+            <>
+              <span className={room.allow_base ? "on" : "off"}>BASE</span>
+              <span className={room.allow_icons ? "on" : "off"}>ICONS</span>
+              <span className={room.allow_specials ? "on" : "off"}>SPECIALS</span>
+              {room.active_only && <span className="on">SÓ ATIVOS</span>}
+              <span className="neutral">
+                {room.disconnect_mode === "bot" ? "BOT na desconexão" : "Continuar sem offline"}
+              </span>
+            </>
+          )}
+          {room.room_kind === "time_impostor" && (
+            <>
+              <span className="on">⏱ Tempo secreto</span>
+              <span className="neutral">Administrador não joga</span>
+              <span className="neutral">Mínimo 4 jogadores</span>
+            </>
+          )}
           <span className="neutral">
             {room.spectators_allowed ? "Espectadores permitidos" : "Sem espectadores"}
           </span>
         </div>
 
-        <div className="room-config-leagues">
-          <small>LIGAS PERMITIDAS</small>
-          <strong>
-            {room.allowed_leagues?.length ? room.allowed_leagues.join(" • ") : "Todas as ligas"}
-          </strong>
-        </div>
+        {room.room_kind !== "time_impostor" && (
+          <div className="room-config-leagues">
+            <small>LIGAS PERMITIDAS</small>
+            <strong>
+              {room.allowed_leagues?.length ? room.allowed_leagues.join(" • ") : "Todas as ligas"}
+            </strong>
+          </div>
+        )}
 
         {!canEdit && isHost && room.status === "auction" && (
           <p className="muted room-config-lock">
@@ -392,6 +415,7 @@ export default function RoomSettingsPanel({
               ["cases", "▣", "Maletas", "Escolha às cegas"],
               ["tournament", "🏆", "Torneio", "Leilão + mata-mata"],
               ["impostor", "🕵️", "Impostor FC", "Perguntas, suspeitas e votação"],
+              ["time_impostor", "⏱", "Impostor do Tempo", "Cronômetro secreto e blefe"],
             ] as const).map(([kind, icon, title, description]) => (
               <button
                 key={kind}
@@ -425,7 +449,7 @@ export default function RoomSettingsPanel({
           )}
         </div>
 
-        {draft.roomKind !== "impostor" && (
+        {draft.roomKind !== "impostor" && draft.roomKind !== "time_impostor" && (
           <>
           <div className="room-settings-section">
             <div className="room-settings-title">
@@ -524,44 +548,48 @@ export default function RoomSettingsPanel({
           </div>
 
           <div className="room-config-toggle-grid">
-            <label>
-              <input
-                type="checkbox"
-                checked={draft.allowBase}
-                disabled={draft.activeOnly}
-                onChange={(event) => update("allowBase", event.target.checked)}
-              />
-              <span><strong>BASE</strong><small>Cartas normais</small></span>
-            </label>
+            {draft.roomKind !== "time_impostor" && (
+              <>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={draft.allowBase}
+                    disabled={draft.activeOnly}
+                    onChange={(event) => update("allowBase", event.target.checked)}
+                  />
+                  <span><strong>BASE</strong><small>Cartas normais</small></span>
+                </label>
 
-            <label>
-              <input
-                type="checkbox"
-                checked={draft.allowIcons}
-                disabled={draft.activeOnly}
-                onChange={(event) => update("allowIcons", event.target.checked)}
-              />
-              <span><strong>ICONS</strong><small>Lendas</small></span>
-            </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={draft.allowIcons}
+                    disabled={draft.activeOnly}
+                    onChange={(event) => update("allowIcons", event.target.checked)}
+                  />
+                  <span><strong>ICONS</strong><small>Lendas</small></span>
+                </label>
 
-            <label>
-              <input
-                type="checkbox"
-                checked={draft.allowSpecials}
-                disabled={draft.activeOnly}
-                onChange={(event) => update("allowSpecials", event.target.checked)}
-              />
-              <span><strong>SPECIALS</strong><small>Versões históricas</small></span>
-            </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={draft.allowSpecials}
+                    disabled={draft.activeOnly}
+                    onChange={(event) => update("allowSpecials", event.target.checked)}
+                  />
+                  <span><strong>SPECIALS</strong><small>Versões históricas</small></span>
+                </label>
 
-            <label>
-              <input
-                type="checkbox"
-                checked={draft.activeOnly}
-                onChange={(event) => chooseActiveOnly(event.target.checked)}
-              />
-              <span><strong>Somente ativos</strong><small>Sem ICON/SPECIAL</small></span>
-            </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={draft.activeOnly}
+                    onChange={(event) => chooseActiveOnly(event.target.checked)}
+                  />
+                  <span><strong>Somente ativos</strong><small>Sem ICON/SPECIAL</small></span>
+                </label>
+              </>
+            )}
 
             <label>
               <input
@@ -574,19 +602,21 @@ export default function RoomSettingsPanel({
           </div>
 
           <div className="room-config-form-grid">
-            <label className="room-config-field">
-              <span>Quando alguém desconectar</span>
-              <select
-                className="input"
-                value={draft.disconnectMode}
-                onChange={(event) =>
-                  update("disconnectMode", event.target.value as "skip" | "bot")
-                }
-              >
-                <option value="skip">Continuar sem ele</option>
-                <option value="bot">BOT conservador assume</option>
-              </select>
-            </label>
+            {draft.roomKind !== "time_impostor" && (
+              <label className="room-config-field">
+                <span>Quando alguém desconectar</span>
+                <select
+                  className="input"
+                  value={draft.disconnectMode}
+                  onChange={(event) =>
+                    update("disconnectMode", event.target.value as "skip" | "bot")
+                  }
+                >
+                  <option value="skip">Continuar sem ele</option>
+                  <option value="bot">BOT conservador assume</option>
+                </select>
+              </label>
+            )}
 
             <label className="room-config-field">
               <span>Senha da sala</span>
@@ -622,21 +652,38 @@ export default function RoomSettingsPanel({
           </div>
         </div>
 
-        <div className="room-settings-section">
-          <div className="room-settings-title">
-            <span>04</span>
-            <div>
-              <strong>Ligas permitidas</strong>
-              <small>Deixe tudo desmarcado para liberar o catálogo inteiro.</small>
+        {draft.roomKind !== "time_impostor" && (
+          <div className="room-settings-section">
+            <div className="room-settings-title">
+              <span>04</span>
+              <div>
+                <strong>Ligas permitidas</strong>
+                <small>Deixe tudo desmarcado para liberar o catálogo inteiro.</small>
+              </div>
+            </div>
+
+            <LeagueMultiSelect
+              options={leagueOptions}
+              selected={draft.allowedLeagues}
+              onChange={(next) => update("allowedLeagues", next)}
+            />
+          </div>
+        )}
+
+        {draft.roomKind === "time_impostor" && (
+          <div className="room-settings-section">
+            <div className="time-room-config-note">
+              <span>⏱</span>
+              <div>
+                <strong>O criador vira administrador</strong>
+                <small>
+                  Ele não joga nem entra no sorteio. O tempo-alvo é escolhido por ele
+                  dentro de cada rodada.
+                </small>
+              </div>
             </div>
           </div>
-
-          <LeagueMultiSelect
-            options={leagueOptions}
-            selected={draft.allowedLeagues}
-            onChange={(next) => update("allowedLeagues", next)}
-          />
-        </div>
+        )}
 
         {error && <div className="setup-error"><strong>Não foi possível salvar</strong><span>{error}</span></div>}
 
@@ -644,7 +691,9 @@ export default function RoomSettingsPanel({
           <div>
             <strong>
               {modeName(draft.roomKind)}
-              {draft.roomKind !== "impostor" ? ` • ${gameName(draft.mode)}` : ""}
+              {draft.roomKind !== "impostor" && draft.roomKind !== "time_impostor"
+                ? ` • ${gameName(draft.mode)}`
+                : ""}
             </strong>
             <small>
               {structuralChange
