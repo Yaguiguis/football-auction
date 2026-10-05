@@ -18,13 +18,13 @@ export type RoomSettingsRoom = {
   allowed_leagues: string[] | null;
   disconnect_mode: "skip" | "bot";
   spectators_allowed: boolean;
-  room_kind: "auction" | "tournament" | "cases";
+  room_kind: "auction" | "tournament" | "cases" | "impostor";
   tournament_size: 4 | 8 | 16 | null;
   status: string;
 };
 
 type Draft = {
-  roomKind: "auction" | "tournament" | "cases";
+  roomKind: "auction" | "tournament" | "cases" | "impostor";
   mode: "football" | "futsal";
   budget: number;
   reserveCount: number;
@@ -66,6 +66,7 @@ function draftFromRoom(room: RoomSettingsRoom): Draft {
 function modeName(kind: Draft["roomKind"]) {
   if (kind === "cases") return "Maletas";
   if (kind === "tournament") return "Torneio";
+  if (kind === "impostor") return "Impostor FC";
   return "Leilão";
 }
 
@@ -294,19 +295,23 @@ export default function RoomSettingsPanel({
             <small>MODO</small>
             <strong>{modeName(room.room_kind)}</strong>
           </div>
-          <div className="room-config-summary-item">
-            <small>MODALIDADE</small>
-            <strong>{gameName(room.mode)}</strong>
-          </div>
-          <div className="room-config-summary-item">
-            <small>RESERVAS</small>
-            <strong>{room.reserve_count}</strong>
-          </div>
+          {room.room_kind !== "impostor" && (
+            <>
+              <div className="room-config-summary-item">
+                <small>MODALIDADE</small>
+                <strong>{gameName(room.mode)}</strong>
+              </div>
+              <div className="room-config-summary-item">
+                <small>RESERVAS</small>
+                <strong>{room.reserve_count}</strong>
+              </div>
+            </>
+          )}
           <div className="room-config-summary-item">
             <small>GER</small>
             <strong>{room.min_overall}–{room.max_overall}</strong>
           </div>
-          {room.room_kind !== "cases" && (
+          {room.room_kind !== "cases" && room.room_kind !== "impostor" && (
             <div className="room-config-summary-item">
               <small>ORÇAMENTO</small>
               <strong>{room.budget} cr</strong>
@@ -386,6 +391,7 @@ export default function RoomSettingsPanel({
               ["auction", "🔨", "Leilão", "Disputa por lances"],
               ["cases", "▣", "Maletas", "Escolha às cegas"],
               ["tournament", "🏆", "Torneio", "Leilão + mata-mata"],
+              ["impostor", "🕵️", "Impostor FC", "Perguntas, suspeitas e votação"],
             ] as const).map(([kind, icon, title, description]) => (
               <button
                 key={kind}
@@ -419,88 +425,94 @@ export default function RoomSettingsPanel({
           )}
         </div>
 
-        <div className="room-settings-section">
-          <div className="room-settings-title">
-            <span>02</span>
-            <div>
-              <strong>Formato do elenco</strong>
-              <small>Modalidade, banco e orçamento.</small>
+        {draft.roomKind !== "impostor" && (
+          <>
+          <div className="room-settings-section">
+            <div className="room-settings-title">
+              <span>02</span>
+              <div>
+                <strong>Formato do elenco</strong>
+                <small>Modalidade, banco e orçamento.</small>
+              </div>
+            </div>
+  
+            <div className="room-mode-selector">
+              <button
+                type="button"
+                className={draft.mode === "football" ? "active" : ""}
+                onClick={() => update("mode", "football")}
+              >
+                ⚽ <strong>Campo</strong>
+                <small>11 titulares</small>
+              </button>
+              <button
+                type="button"
+                className={draft.mode === "futsal" ? "active" : ""}
+                onClick={() => update("mode", "futsal")}
+              >
+                ◉ <strong>Futsal</strong>
+                <small>5 titulares</small>
+              </button>
+            </div>
+  
+            <div className="room-config-form-grid">
+              <label className="room-config-field">
+                <span>Reservas</span>
+                <select
+                  className="input"
+                  value={draft.reserveCount}
+                  onChange={(event) => update("reserveCount", Number(event.target.value))}
+                >
+                  {[0, 1, 2, 3, 4, 5].map((value) => (
+                    <option key={value} value={value}>{value}</option>
+                  ))}
+                </select>
+              </label>
+  
+              <label className="room-config-field">
+                <span>Orçamento por pessoa</span>
+                <input
+                  className="input"
+                  type="number"
+                  min={1}
+                  max={100000}
+                  value={draft.budget}
+                  onChange={(event) => update("budget", Number(event.target.value))}
+                />
+                {draft.roomKind === "cases" && (
+                  <small>Fica salvo caso você volte para Leilão/Torneio.</small>
+                )}
+              </label>
+  
+              <label className="room-config-field">
+                <span>GER mínimo</span>
+                <input
+                  className="input"
+                  type="number"
+                  min={1}
+                  max={100}
+                  value={draft.minOverall}
+                  onChange={(event) => update("minOverall", Number(event.target.value))}
+                />
+              </label>
+  
+              <label className="room-config-field">
+                <span>GER máximo</span>
+                <input
+                  className="input"
+                  type="number"
+                  min={1}
+                  max={100}
+                  value={draft.maxOverall}
+                  onChange={(event) => update("maxOverall", Number(event.target.value))}
+                />
+              </label>
             </div>
           </div>
-
-          <div className="room-mode-selector">
-            <button
-              type="button"
-              className={draft.mode === "football" ? "active" : ""}
-              onClick={() => update("mode", "football")}
-            >
-              ⚽ <strong>Campo</strong>
-              <small>11 titulares</small>
-            </button>
-            <button
-              type="button"
-              className={draft.mode === "futsal" ? "active" : ""}
-              onClick={() => update("mode", "futsal")}
-            >
-              ◉ <strong>Futsal</strong>
-              <small>5 titulares</small>
-            </button>
-          </div>
-
-          <div className="room-config-form-grid">
-            <label className="room-config-field">
-              <span>Reservas</span>
-              <select
-                className="input"
-                value={draft.reserveCount}
-                onChange={(event) => update("reserveCount", Number(event.target.value))}
-              >
-                {[0, 1, 2, 3, 4, 5].map((value) => (
-                  <option key={value} value={value}>{value}</option>
-                ))}
-              </select>
-            </label>
-
-            <label className="room-config-field">
-              <span>Orçamento por pessoa</span>
-              <input
-                className="input"
-                type="number"
-                min={1}
-                max={100000}
-                value={draft.budget}
-                onChange={(event) => update("budget", Number(event.target.value))}
-              />
-              {draft.roomKind === "cases" && (
-                <small>Fica salvo caso você volte para Leilão/Torneio.</small>
-              )}
-            </label>
-
-            <label className="room-config-field">
-              <span>GER mínimo</span>
-              <input
-                className="input"
-                type="number"
-                min={1}
-                max={100}
-                value={draft.minOverall}
-                onChange={(event) => update("minOverall", Number(event.target.value))}
-              />
-            </label>
-
-            <label className="room-config-field">
-              <span>GER máximo</span>
-              <input
-                className="input"
-                type="number"
-                min={1}
-                max={100}
-                value={draft.maxOverall}
-                onChange={(event) => update("maxOverall", Number(event.target.value))}
-              />
-            </label>
-          </div>
-        </div>
+  
+  
+          </>
+        )}
 
         <div className="room-settings-section">
           <div className="room-settings-title">
@@ -630,7 +642,10 @@ export default function RoomSettingsPanel({
 
         <div className="room-config-savebar">
           <div>
-            <strong>{modeName(draft.roomKind)} • {gameName(draft.mode)}</strong>
+            <strong>
+              {modeName(draft.roomKind)}
+              {draft.roomKind !== "impostor" ? ` • ${gameName(draft.mode)}` : ""}
+            </strong>
             <small>
               {structuralChange
                 ? "Existem alterações prontas para salvar."
