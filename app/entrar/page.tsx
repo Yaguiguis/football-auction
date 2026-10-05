@@ -132,7 +132,7 @@ export default function JoinRoom() {
               <span className="join-choice-icon">🎮</span>
               <span className="join-choice-copy">
                 <strong>{loadingMode === "player" ? "Entrando..." : "Entrar para jogar"}</strong>
-                <small>Participa do leilão e monta seu próprio time.</small>
+                <small>Entra como participante no modo escolhido pela sala.</small>
               </span>
               <span className="join-choice-arrow">→</span>
             </button>
