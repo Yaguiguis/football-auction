@@ -23,7 +23,7 @@ type Room = {
   allowed_leagues: string[] | null;
   disconnect_mode: "skip" | "bot";
   spectators_allowed: boolean;
-  room_kind: "auction" | "tournament" | "cases" | "impostor";
+  room_kind: "auction" | "tournament" | "cases" | "impostor" | "time_impostor";
   tournament_size: 4 | 8 | 16 | null;
   tournament_champion_member_id: string | null;
   status: string;
@@ -173,7 +173,8 @@ export default function Lobby() {
     [members, online],
   );
 
-  const minimumPlayers = room?.room_kind === "impostor" ? 4 : 2;
+  const minimumPlayers =
+    room?.room_kind === "impostor" || room?.room_kind === "time_impostor" ? 4 : 2;
   const allReady =
     activePlayers.length >= minimumPlayers &&
     activePlayers.every((member) => member.ready);
@@ -221,7 +222,9 @@ export default function Lobby() {
           ? "fa_begin_case_mode"
           : room.room_kind === "impostor"
             ? "fa_begin_impostor_mode"
-            : "fa_begin_auction";
+            : room.room_kind === "time_impostor"
+              ? "fa_begin_time_impostor_mode"
+              : "fa_begin_auction";
 
       const { error: rpcError } = await getSupabase().rpc(rpc, {
         p_room_id: room.id,
@@ -234,7 +237,9 @@ export default function Lobby() {
           ? `/sala/${room.code}/maletas`
           : room.room_kind === "impostor"
             ? `/sala/${room.code}/impostor`
-            : `/sala/${room.code}/leilao`,
+            : room.room_kind === "time_impostor"
+              ? `/sala/${room.code}/tempo`
+              : `/sala/${room.code}/leilao`,
       );
     } catch (e) {
       setError(
@@ -244,7 +249,9 @@ export default function Lobby() {
             ? "Não foi possível iniciar o Modo Maletas."
             : room.room_kind === "impostor"
               ? "Não foi possível iniciar o Impostor FC."
-              : "Não foi possível iniciar o leilão.",
+              : room.room_kind === "time_impostor"
+                ? "Não foi possível iniciar o Impostor do Tempo."
+                : "Não foi possível iniciar o leilão.",
       );
       setStarting(false);
     }
@@ -276,6 +283,7 @@ export default function Lobby() {
           {room?.room_kind === "tournament" && <span className="badge">🏆 Torneio</span>}
           {room?.room_kind === "cases" && <span className="badge">▣ Maletas</span>}
           {room?.room_kind === "impostor" && <span className="badge">🕵️ Impostor FC</span>}
+          {room?.room_kind === "time_impostor" && <span className="badge">⏱ Impostor do Tempo</span>}
           <span className="badge">
             {activePlayers.length}{room?.room_kind === "tournament" && room.tournament_size ? `/${room.tournament_size}` : ""} jogando online
           </span>
@@ -283,7 +291,10 @@ export default function Lobby() {
             {members.filter(
               (member) =>
                 member.is_spectator &&
-                !(room?.room_kind === "impostor" && member.user_id === room.host_user_id),
+                !(
+                  (room?.room_kind === "impostor" || room?.room_kind === "time_impostor") &&
+                  member.user_id === room.host_user_id
+                ),
             ).length} espectadores
           </span>
         </div>
@@ -305,7 +316,9 @@ export default function Lobby() {
                     ? "Modo Maletas em andamento"
                     : room.room_kind === "impostor"
                       ? "Impostor FC em andamento"
-                      : "Partida em andamento"
+                      : room.room_kind === "time_impostor"
+                        ? "Impostor do Tempo em andamento"
+                        : "Partida em andamento"
                   : "Partida finalizada"}
               </strong>
               <p className="muted" style={{ margin: "5px 0 0" }}>
@@ -321,10 +334,14 @@ export default function Lobby() {
                       ? `/sala/${code}/maletas`
                       : room.room_kind === "impostor"
                         ? `/sala/${code}/impostor`
-                        : `/sala/${code}/leilao`
+                        : room.room_kind === "time_impostor"
+                          ? `/sala/${code}/tempo`
+                          : `/sala/${code}/leilao`
                     : room?.room_kind === "impostor"
                       ? `/sala/${code}/impostor`
-                      : room?.room_kind === "tournament"
+                      : room?.room_kind === "time_impostor"
+                        ? `/sala/${code}/tempo`
+                        : room?.room_kind === "tournament"
                         ? `/sala/${code}/torneio`
                         : `/sala/${code}/times`
                 )
@@ -335,10 +352,14 @@ export default function Lobby() {
                   ? "Voltar às maletas"
                   : room.room_kind === "impostor"
                     ? "Voltar ao Impostor FC"
-                    : "Voltar ao leilão"
+                    : room.room_kind === "time_impostor"
+                      ? "Voltar ao Impostor do Tempo"
+                      : "Voltar ao leilão"
                 : room?.room_kind === "impostor"
                   ? "Ver resultado do Impostor FC"
-                  : room?.room_kind === "tournament"
+                  : room?.room_kind === "time_impostor"
+                    ? "Ver resultado do Impostor do Tempo"
+                    : room?.room_kind === "tournament"
                     ? "Ver chave do torneio"
                     : "Ver resultados"}
             </button>
@@ -370,7 +391,8 @@ export default function Lobby() {
                     <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
                       <span className={`presence-dot ${isOnline ? "online" : "offline"}`} />
                       <strong>{member.is_host ? "👑 " : ""}{member.display_name}</strong>
-                      {room?.room_kind === "impostor" && member.user_id === room.host_user_id ? (
+                      {(room?.room_kind === "impostor" || room?.room_kind === "time_impostor") &&
+                      member.user_id === room.host_user_id ? (
                         <span className="badge ready-badge">Administrador</span>
                       ) : member.is_spectator ? (
                         <span className="badge">Espectador</span>
@@ -382,7 +404,8 @@ export default function Lobby() {
                       {isOnline ? "online" : "offline"}
                       {!member.is_spectator &&
                       room?.room_kind !== "cases" &&
-                      room?.room_kind !== "impostor"
+                      room?.room_kind !== "impostor" &&
+                      room?.room_kind !== "time_impostor"
                         ? ` • ${member.balance} créditos`
                         : ""}
                     </small>
@@ -417,6 +440,25 @@ export default function Lobby() {
         )}
       </div>
 
+      {room?.room_kind === "time_impostor" ? (
+        <section className="card time-lobby-info-card" style={{ marginTop: 16 }}>
+          <div>
+            <span className="time-section-kicker">COMO FUNCIONA</span>
+            <h2>O administrador não joga.</h2>
+            <p className="muted">
+              O sistema sorteia 1 impostor entre os jogadores. A cada rodada o administrador
+              escolhe um novo tempo-alvo, como 20,22 segundos. Os inocentes veem o alvo e o
+              impostor tenta descobrir observando o comportamento do grupo.
+            </p>
+          </div>
+          <div className="time-lobby-rule-grid">
+            <span>⏱ Cronômetro sem números</span>
+            <span>🕵️ 1 impostor aleatório</span>
+            <span>🗳 Votar ou continuar</span>
+            <span>⚖️ Empate = nova rodada</span>
+          </div>
+        </section>
+      ) : (
       <section className="card" style={{ marginTop: 16 }}>
         <div className="topbar" style={{ marginBottom: 12 }}>
           <div>
@@ -437,6 +479,7 @@ export default function Lobby() {
           </div>
         </div>
       </section>
+      )}
 
       {room && <RoomChat roomId={room.id} />}
 
@@ -446,7 +489,11 @@ export default function Lobby() {
             className="btn btn-primary"
             style={{ marginTop: 16, width: "100%" }}
             onClick={() => void startGame()}
-            disabled={!allReady || catalogSummary.total === 0 || starting}
+            disabled={
+              !allReady ||
+              (room?.room_kind !== "time_impostor" && catalogSummary.total === 0) ||
+              starting
+            }
           >
             {starting
               ? "Iniciando..."
@@ -458,7 +505,9 @@ export default function Lobby() {
                     ? "Iniciar Modo Maletas"
                     : room?.room_kind === "impostor"
                       ? "Configurar Impostor FC"
-                      : room?.room_kind === "tournament"
+                      : room?.room_kind === "time_impostor"
+                        ? "Iniciar Impostor do Tempo"
+                        : room?.room_kind === "tournament"
                       ? "Iniciar leilão do torneio"
                       : "Iniciar leilão"}
           </button>
