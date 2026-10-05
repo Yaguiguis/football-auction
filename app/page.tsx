@@ -59,7 +59,7 @@ export default function HomePage() {
             <div className="game-modes-heading">
               <div>
                 <span>MODOS DE JOGO</span>
-                <h2>Como os crias vão montar o time?</h2>
+                <h2>Como os crias vão jogar?</h2>
               </div>
               <button
                 type="button"
