@@ -279,7 +279,13 @@ export default function Lobby() {
           <span className="badge">
             {activePlayers.length}{room?.room_kind === "tournament" && room.tournament_size ? `/${room.tournament_size}` : ""} jogando online
           </span>
-          <span className="badge">{members.filter((m) => m.is_spectator).length} espectadores</span>
+          <span className="badge">
+            {members.filter(
+              (member) =>
+                member.is_spectator &&
+                !(room?.room_kind === "impostor" && member.user_id === room.host_user_id),
+            ).length} espectadores
+          </span>
         </div>
       </div>
 
@@ -364,7 +370,11 @@ export default function Lobby() {
                     <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
                       <span className={`presence-dot ${isOnline ? "online" : "offline"}`} />
                       <strong>{member.is_host ? "👑 " : ""}{member.display_name}</strong>
-                      {member.is_spectator && <span className="badge">Espectador</span>}
+                      {room?.room_kind === "impostor" && member.user_id === room.host_user_id ? (
+                        <span className="badge ready-badge">Administrador</span>
+                      ) : member.is_spectator ? (
+                        <span className="badge">Espectador</span>
+                      ) : null}
                       {!member.is_spectator && member.ready && <span className="badge ready-badge">Pronto</span>}
                     </div>
 
