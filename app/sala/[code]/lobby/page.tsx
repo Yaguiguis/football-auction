@@ -23,7 +23,7 @@ type Room = {
   allowed_leagues: string[] | null;
   disconnect_mode: "skip" | "bot";
   spectators_allowed: boolean;
-  room_kind: "auction" | "tournament" | "cases";
+  room_kind: "auction" | "tournament" | "cases" | "impostor";
   tournament_size: 4 | 8 | 16 | null;
   tournament_champion_member_id: string | null;
   status: string;
@@ -173,7 +173,10 @@ export default function Lobby() {
     [members, online],
   );
 
-  const allReady = activePlayers.length >= 2 && activePlayers.every((member) => member.ready);
+  const minimumPlayers = room?.room_kind === "impostor" ? 4 : 2;
+  const allReady =
+    activePlayers.length >= minimumPlayers &&
+    activePlayers.every((member) => member.ready);
 
   async function toggleReady() {
     if (!room || !me || me.is_spectator) return;
@@ -216,7 +219,9 @@ export default function Lobby() {
       const rpc =
         room.room_kind === "cases"
           ? "fa_begin_case_mode"
-          : "fa_begin_auction";
+          : room.room_kind === "impostor"
+            ? "fa_begin_impostor_mode"
+            : "fa_begin_auction";
 
       const { error: rpcError } = await getSupabase().rpc(rpc, {
         p_room_id: room.id,
@@ -227,7 +232,9 @@ export default function Lobby() {
       router.push(
         room.room_kind === "cases"
           ? `/sala/${room.code}/maletas`
-          : `/sala/${room.code}/leilao`,
+          : room.room_kind === "impostor"
+            ? `/sala/${room.code}/impostor`
+            : `/sala/${room.code}/leilao`,
       );
     } catch (e) {
       setError(
@@ -235,7 +242,9 @@ export default function Lobby() {
           ? e.message
           : room.room_kind === "cases"
             ? "Não foi possível iniciar o Modo Maletas."
-            : "Não foi possível iniciar o leilão.",
+            : room.room_kind === "impostor"
+              ? "Não foi possível iniciar o Impostor FC."
+              : "Não foi possível iniciar o leilão.",
       );
       setStarting(false);
     }
@@ -266,6 +275,7 @@ export default function Lobby() {
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
           {room?.room_kind === "tournament" && <span className="badge">🏆 Torneio</span>}
           {room?.room_kind === "cases" && <span className="badge">▣ Maletas</span>}
+          {room?.room_kind === "impostor" && <span className="badge">🕵️ Impostor FC</span>}
           <span className="badge">
             {activePlayers.length}{room?.room_kind === "tournament" && room.tournament_size ? `/${room.tournament_size}` : ""} jogando online
           </span>
@@ -287,7 +297,9 @@ export default function Lobby() {
                 {room?.status === "auction"
                   ? room.room_kind === "cases"
                     ? "Modo Maletas em andamento"
-                    : "Partida em andamento"
+                    : room.room_kind === "impostor"
+                      ? "Impostor FC em andamento"
+                      : "Partida em andamento"
                   : "Partida finalizada"}
               </strong>
               <p className="muted" style={{ margin: "5px 0 0" }}>
@@ -301,7 +313,9 @@ export default function Lobby() {
                   room?.status === "auction"
                     ? room.room_kind === "cases"
                       ? `/sala/${code}/maletas`
-                      : `/sala/${code}/leilao`
+                      : room.room_kind === "impostor"
+                        ? `/sala/${code}/impostor`
+                        : `/sala/${code}/leilao`
                     : room?.room_kind === "tournament"
                       ? `/sala/${code}/torneio`
                       : `/sala/${code}/times`
@@ -311,7 +325,9 @@ export default function Lobby() {
               {room?.status === "auction"
                 ? room.room_kind === "cases"
                   ? "Voltar às maletas"
-                  : "Voltar ao leilão"
+                  : room.room_kind === "impostor"
+                    ? "Voltar ao Impostor FC"
+                    : "Voltar ao leilão"
                 : room?.room_kind === "tournament"
                   ? "Ver chave do torneio"
                   : "Ver resultados"}
@@ -350,7 +366,9 @@ export default function Lobby() {
 
                     <small className="muted">
                       {isOnline ? "online" : "offline"}
-                      {!member.is_spectator && room?.room_kind !== "cases"
+                      {!member.is_spectator &&
+                      room?.room_kind !== "cases" &&
+                      room?.room_kind !== "impostor"
                         ? ` • ${member.balance} créditos`
                         : ""}
                     </small>
@@ -392,7 +410,9 @@ export default function Lobby() {
             <p className="muted" style={{ margin: "4px 0 0" }}>
               {room?.room_kind === "cases"
                 ? "As maletas usam este catálogo e escondem as cartas até a escolha."
-                : "O sorteio respeita as posições faltantes e os filtros desta sala."}
+                : room?.room_kind === "impostor"
+                  ? "O administrador escolhe o jogador secreto usando este catálogo."
+                  : "O sorteio respeita as posições faltantes e os filtros desta sala."}
             </p>
           </div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
@@ -416,13 +436,15 @@ export default function Lobby() {
           >
             {starting
               ? "Iniciando..."
-              : activePlayers.length < 2
-                ? "Aguardando mais 1 jogador online"
+              : activePlayers.length < minimumPlayers
+                ? `Aguardando ${minimumPlayers - activePlayers.length} jogador${minimumPlayers - activePlayers.length === 1 ? "" : "es"} online`
                 : !allReady
                   ? "Aguardando todos ficarem prontos"
                   : room?.room_kind === "cases"
                     ? "Iniciar Modo Maletas"
-                    : room?.room_kind === "tournament"
+                    : room?.room_kind === "impostor"
+                      ? "Configurar Impostor FC"
+                      : room?.room_kind === "tournament"
                       ? "Iniciar leilão do torneio"
                       : "Iniciar leilão"}
           </button>
