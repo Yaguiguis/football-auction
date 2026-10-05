@@ -92,6 +92,13 @@ export default function HomePage() {
                 <small>Monte o elenco e dispute a chave até sair o campeão.</small>
               </Link>
 
+              <Link href="/criar-impostor-tempo" className="game-mode-card time-impostor">
+                <span className="game-mode-icon">⏱</span>
+                <span className="game-mode-tag">DEDUÇÃO</span>
+                <strong>Impostor do Tempo</strong>
+                <small>Descubra quem não sabe qual é o tempo-alvo da rodada.</small>
+              </Link>
+
               <Link href="/criar-impostor" className="game-mode-card impostor">
                 <span className="game-mode-icon">🕵️</span>
                 <span className="game-mode-tag">DEDUÇÃO</span>
