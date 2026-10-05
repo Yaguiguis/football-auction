@@ -1940,7 +1940,7 @@ button.trade-player-card:hover,
 }
 .game-modes-grid{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(4,minmax(0,1fr));
   gap:14px;
 }
 .game-mode-card{
@@ -2343,7 +2343,7 @@ button.trade-player-card:hover,
 }
 .room-kind-selector{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(4,minmax(0,1fr));
   gap:10px;
 }
 .room-kind-selector button{
@@ -2833,4 +2833,747 @@ button.trade-player-card:hover,
 }
 @media(prefers-reduced-motion:reduce){
   .x1-choice-pulse{animation:none}
+}
+
+
+.game-mode-card.impostor{
+  background:
+    radial-gradient(circle at 50% 0%,rgba(147,83,255,.20),transparent 48%),
+    linear-gradient(160deg,#150b20,#08070b 70%);
+  border-color:#55356d;
+}
+.game-mode-card.impostor .game-mode-tag{
+  color:#b98cff;
+}
+
+/* Impostor FC */
+.impostor-create-page{
+  background:
+    radial-gradient(circle at 50% -5%,rgba(122,59,180,.13),transparent 36%),
+    #070707;
+}
+.impostor-create-card{
+  border-color:#392545;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(142,77,207,.09),transparent 42%),
+    #0e0c11;
+}
+.impostor-create-rules{
+  display:grid;
+  gap:9px;
+  margin:18px 0;
+}
+.impostor-create-rules>div{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border:1px solid #29232f;
+  border-radius:12px;
+  background:#0a090c;
+}
+.impostor-create-rules strong{
+  width:26px;
+  height:26px;
+  display:grid;
+  place-items:center;
+  flex:0 0 auto;
+  border:1px solid #684882;
+  border-radius:8px;
+  color:#c399ec;
+  font-size:11px;
+}
+.impostor-create-rules span{
+  color:#a9a0af;
+  font-size:12px;
+}
+.impostor-game-page{
+  min-height:100vh;
+  padding-bottom:40px;
+  background:
+    radial-gradient(circle at 50% -8%,rgba(129,63,177,.11),transparent 35%),
+    linear-gradient(180deg,#070608,#050505 34%,#050505);
+}
+.impostor-game-topbar{
+  padding-top:18px;
+}
+.impostor-game-hero{
+  margin:14px 0 20px;
+  text-align:center;
+}
+.impostor-game-hero>span,
+.impostor-role-kicker,
+.impostor-section-heading>div>span{
+  color:#a978d6;
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:1.6px;
+}
+.impostor-game-hero h1{
+  margin:5px 0 4px;
+  font-size:clamp(34px,7vw,66px);
+}
+.impostor-game-hero p{
+  margin:0;
+  color:#858585;
+}
+.impostor-error-card{
+  display:grid;
+  gap:3px;
+  margin-bottom:14px;
+  border-color:#65262b;
+  background:#160809;
+  color:#f1a0a5;
+}
+.impostor-setup-panel{
+  max-width:980px;
+  margin:0 auto 18px;
+  border-color:#382742;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(139,79,190,.08),transparent 40%),
+    #0d0b0f;
+}
+.impostor-section-heading{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:14px;
+}
+.impostor-section-heading h2,
+.impostor-section-heading h3{
+  margin:5px 0 0;
+}
+.impostor-section-heading>small{
+  color:#6f6a73;
+  text-align:right;
+}
+.impostor-section-heading.compact{
+  margin-bottom:9px;
+}
+.impostor-catalog-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:8px;
+  max-height:330px;
+  margin:12px 0;
+  overflow:auto;
+  padding-right:3px;
+}
+.impostor-catalog-player{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+  padding:10px;
+  border:1px solid #29272b;
+  border-radius:13px;
+  background:#0a0a0a;
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
+}
+.impostor-catalog-player:hover,
+.impostor-catalog-player.selected{
+  border-color:#8f5abb;
+  background:#120d17;
+}
+.impostor-catalog-player>span{
+  min-width:0;
+  display:grid;
+  gap:2px;
+}
+.impostor-catalog-player strong,
+.impostor-catalog-player small{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.impostor-catalog-player small{
+  color:#777;
+  font-size:10px;
+}
+.impostor-selected-secret{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:14px 0;
+  padding:13px;
+  border:1px solid #4e3560;
+  border-radius:14px;
+  background:#100c14;
+}
+.impostor-selected-secret>div{
+  display:grid;
+  gap:3px;
+}
+.impostor-selected-secret small{
+  color:#8664a0;
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:1px;
+}
+.impostor-selected-secret strong{
+  font-size:20px;
+}
+.impostor-selected-secret span{
+  color:#9b9b9b;
+  font-size:11px;
+}
+.impostor-textarea{
+  min-height:92px;
+  resize:vertical;
+}
+.impostor-waiting-card{
+  max-width:660px;
+  margin:0 auto;
+  text-align:center;
+}
+.impostor-waiting-icon{
+  display:block;
+  font-size:44px;
+}
+.impostor-role-card{
+  max-width:920px;
+  margin:0 auto 16px;
+  text-align:center;
+  border-color:#302d32;
+  background:#0d0d0e;
+}
+.impostor-role-card.impostor{
+  border-color:#5f3678;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(141,78,201,.17),transparent 46%),
+    #110a16;
+}
+.impostor-role-card.innocent{
+  border-color:#285a3a;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(70,176,104,.10),transparent 46%),
+    #0b110d;
+}
+.impostor-role-card.admin{
+  border-color:#4b4050;
+}
+.impostor-role-card.reveal{
+  border-color:#745623;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(217,170,53,.11),transparent 48%),
+    #100d07;
+}
+.impostor-role-card.eliminated{
+  filter:saturate(.72);
+}
+.impostor-role-card h2{
+  margin:6px 0 5px;
+}
+.impostor-role-card>p{
+  margin:0 auto 14px;
+  max-width:620px;
+  color:#8f8f8f;
+}
+.impostor-hint-box{
+  max-width:620px;
+  display:grid;
+  gap:4px;
+  margin:14px auto 0;
+  padding:16px;
+  border:1px solid #714890;
+  border-radius:15px;
+  background:#0d0911;
+}
+.impostor-hint-box small{
+  color:#936db0;
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:1.3px;
+}
+.impostor-hint-box strong{
+  font-size:clamp(18px,4vw,28px);
+}
+.impostor-secret-player{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:13px;
+  max-width:620px;
+  margin:14px auto 0;
+  padding:13px;
+  border:1px solid #315d3d;
+  border-radius:15px;
+  background:#0a0e0b;
+  text-align:left;
+}
+.impostor-secret-player>div{
+  display:grid;
+  gap:3px;
+}
+.impostor-secret-player>div>small{
+  color:#6aa77d;
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:1.2px;
+}
+.impostor-secret-player strong{
+  font-size:22px;
+}
+.impostor-secret-player span{
+  color:#8d8d8d;
+  font-size:11px;
+}
+.impostor-role-details{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin-top:13px;
+}
+.impostor-role-details>div{
+  display:grid;
+  gap:4px;
+  padding:12px;
+  border:1px solid #2a272c;
+  border-radius:12px;
+  background:#09090a;
+}
+.impostor-role-details small{
+  color:#6f6972;
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:1px;
+}
+.impostor-final-reveal{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
+  gap:10px;
+  align-items:stretch;
+  margin-top:14px;
+}
+.impostor-final-reveal .impostor-secret-player{
+  margin:0;
+}
+.impostor-reveal-person{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:13px;
+  border:1px solid #5e3b73;
+  border-radius:15px;
+  background:#100a14;
+}
+.impostor-reveal-person>span{
+  font-size:36px;
+}
+.impostor-reveal-person>div{
+  display:grid;
+  gap:3px;
+  text-align:left;
+}
+.impostor-reveal-person small{
+  color:#9d71bd;
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:1.1px;
+}
+.impostor-reveal-person strong{
+  font-size:22px;
+}
+.impostor-game-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1.65fr) minmax(260px,.7fr);
+  gap:14px;
+  align-items:start;
+}
+.impostor-main-panel{
+  border-color:#2f2933;
+}
+.impostor-side-column{
+  display:grid;
+  gap:12px;
+}
+.impostor-turn-banner{
+  display:grid;
+  gap:4px;
+  padding:15px;
+  border:1px solid #4c345b;
+  border-radius:14px;
+  background:#100c14;
+  text-align:center;
+}
+.impostor-turn-banner small{
+  color:#8b679f;
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:1.2px;
+}
+.impostor-turn-banner strong{
+  font-size:26px;
+}
+.impostor-action-box{
+  display:grid;
+  gap:10px;
+  margin-top:12px;
+}
+.impostor-question-card{
+  display:grid;
+  gap:7px;
+  padding:16px;
+  border:1px solid #3f3147;
+  border-radius:14px;
+  background:#0d0a0f;
+}
+.impostor-question-card small{
+  color:#8b679f;
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:1.1px;
+}
+.impostor-question-card strong{
+  font-size:clamp(18px,3vw,25px);
+}
+.impostor-submitted-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:12px;
+  padding:13px;
+  border:1px dashed #3f5f49;
+  border-radius:13px;
+  background:#0a100c;
+}
+.impostor-submitted-box>span{
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#173222;
+  color:#80d79c;
+  font-weight:950;
+}
+.impostor-submitted-box>div{
+  display:grid;
+  gap:2px;
+}
+.impostor-submitted-box small{
+  color:#78847b;
+}
+.impostor-answer-grid{
+  display:grid;
+  gap:9px;
+  margin-top:12px;
+}
+.impostor-answer-card{
+  display:grid;
+  gap:8px;
+  padding:13px;
+  border:1px solid #292929;
+  border-radius:13px;
+  background:#0a0a0a;
+}
+.impostor-answer-card.own{
+  border-color:#334538;
+  background:#0a0e0b;
+}
+.impostor-answer-card>div:first-child{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.impostor-answer-card>div:first-child>span{
+  font-size:12px;
+  font-weight:900;
+}
+.impostor-answer-card>div:first-child>small{
+  color:#6d9777;
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:1px;
+}
+.impostor-answer-card>strong{
+  font-size:17px;
+  line-height:1.4;
+}
+.impostor-rating-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+.impostor-rating-actions button{
+  padding:9px 10px;
+  border:1px solid #303030;
+  border-radius:10px;
+  background:#0d0d0d;
+  color:#aaa;
+  font:inherit;
+  font-size:11px;
+  font-weight:850;
+  cursor:pointer;
+}
+.impostor-rating-actions button.good.selected{
+  border-color:#347049;
+  background:#0d1b12;
+  color:#8ce1a5;
+}
+.impostor-rating-actions button.suspicious.selected{
+  border-color:#a26d25;
+  background:#1b1207;
+  color:#f0c06a;
+}
+.impostor-decision-copy{
+  text-align:center;
+}
+.impostor-decision-copy>span{
+  display:block;
+  font-size:38px;
+}
+.impostor-decision-copy h3{
+  margin:7px 0 4px;
+  font-size:24px;
+}
+.impostor-decision-copy p{
+  margin:0;
+  color:#858585;
+}
+.impostor-decision-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+.impostor-decision-button{
+  min-height:130px;
+  display:grid;
+  align-content:center;
+  justify-items:center;
+  gap:4px;
+  border:1px solid #323232;
+  border-radius:16px;
+  background:#0a0a0a;
+  color:#fff;
+  font:inherit;
+  cursor:pointer;
+}
+.impostor-decision-button>span{
+  font-size:30px;
+}
+.impostor-decision-button>small{
+  color:#767676;
+}
+.impostor-decision-button.vote{
+  border-color:#713039;
+  background:#140809;
+}
+.impostor-decision-button.continue{
+  border-color:#34506f;
+  background:#080d13;
+}
+.impostor-vote-copy{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-bottom:13px;
+}
+.impostor-vote-copy>span{
+  font-size:36px;
+}
+.impostor-vote-copy h3{
+  margin:0 0 4px;
+}
+.impostor-vote-copy p{
+  margin:0;
+  color:#858585;
+}
+.impostor-vote-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:9px;
+}
+.impostor-vote-grid button{
+  min-height:110px;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:3px;
+  border:1px solid #3b2b3f;
+  border-radius:14px;
+  background:#0d0a0f;
+  color:#fff;
+  font:inherit;
+  cursor:pointer;
+}
+.impostor-vote-grid button>span{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border:1px solid #60436a;
+  border-radius:50%;
+  color:#c897db;
+  font-weight:950;
+}
+.impostor-vote-grid button>small{
+  color:#766b79;
+}
+.impostor-suspicion-card{
+  border-color:#3e3424;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(220,160,52,.06),transparent 42%),
+    #0d0c0a;
+}
+.impostor-suspicion-list{
+  display:grid;
+  gap:7px;
+}
+.impostor-suspicion-list>div{
+  display:grid;
+  grid-template-columns:26px minmax(0,1fr) auto;
+  align-items:center;
+  gap:8px;
+  padding:9px;
+  border:1px solid #29261f;
+  border-radius:10px;
+  background:#090909;
+}
+.impostor-suspicion-list>div>span{
+  color:#6f6656;
+  font-size:10px;
+  font-weight:950;
+}
+.impostor-suspicion-list>div>b{
+  color:#d7a955;
+  font-size:11px;
+}
+.impostor-last-event{
+  display:grid;
+  gap:4px;
+}
+.impostor-last-event>small{
+  color:#786986;
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:1px;
+}
+.impostor-last-event>span{
+  color:#858585;
+  font-size:11px;
+}
+.impostor-last-event.danger{
+  border-color:#553035;
+}
+.impostor-public-votes{
+  display:grid;
+  gap:3px;
+  margin-top:6px;
+  padding-top:7px;
+  border-top:1px solid #292929;
+}
+.impostor-public-votes small{
+  color:#8a7c8f;
+}
+.impostor-finish-actions{
+  max-width:920px;
+  display:flex;
+  gap:9px;
+  justify-content:center;
+  margin:0 auto 16px;
+}
+.impostor-history{
+  margin-top:14px;
+}
+.impostor-history-list{
+  display:grid;
+  gap:10px;
+}
+.impostor-history-list>article{
+  border:1px solid #292929;
+  border-radius:14px;
+  overflow:hidden;
+  background:#090909;
+}
+.impostor-history-question{
+  display:grid;
+  gap:4px;
+  padding:12px;
+  border-bottom:1px solid #262626;
+  background:#0c0a0e;
+}
+.impostor-history-question small{
+  color:#846596;
+  font-size:8px;
+  font-weight:950;
+  letter-spacing:1px;
+}
+.impostor-history-answers{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:8px;
+  padding:10px;
+}
+.impostor-history-answers>div{
+  padding:10px;
+  border:1px solid #242424;
+  border-radius:10px;
+  background:#0a0a0a;
+}
+.impostor-history-answers p{
+  margin:5px 0 8px;
+  color:#b8b8b8;
+}
+.impostor-rating-history{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+}
+.impostor-rating-history span{
+  padding:4px 6px;
+  border-radius:999px;
+  font-size:8px;
+  font-weight:800;
+}
+.impostor-rating-history .good{
+  border:1px solid #315d3d;
+  color:#79c991;
+  background:#0b130d;
+}
+.impostor-rating-history .suspicious{
+  border:1px solid #6c4c20;
+  color:#d9ad61;
+  background:#151006;
+}
+@media(max-width:980px){
+  .game-modes-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .room-kind-selector{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  .impostor-game-layout{
+    grid-template-columns:1fr;
+  }
+  .impostor-side-column{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+@media(max-width:680px){
+  .impostor-role-details,
+  .impostor-final-reveal,
+  .impostor-decision-buttons,
+  .impostor-rating-actions,
+  .impostor-side-column{
+    grid-template-columns:1fr;
+  }
+  .impostor-section-heading{
+    flex-direction:column;
+  }
+  .impostor-section-heading>small{
+    text-align:left;
+  }
+  .impostor-finish-actions{
+    flex-direction:column;
+  }
+  .impostor-finish-actions .btn{
+    width:100%;
+  }
 }
