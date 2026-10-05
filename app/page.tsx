@@ -40,7 +40,7 @@ export default function HomePage() {
           >
             <span className="grafite-btn-kicker">⚽ ESCOLHA COMO JOGAR</span>
             <strong>Modos</strong>
-            <small>Leilão • Maletas • Torneio</small>
+            <small>Leilão • Maletas • Torneio • Impostor FC</small>
           </button>
         </div>
       </section>
@@ -90,6 +90,13 @@ export default function HomePage() {
                 <span className="game-mode-tag">MATA-MATA</span>
                 <strong>Torneio</strong>
                 <small>Monte o elenco e dispute a chave até sair o campeão.</small>
+              </Link>
+
+              <Link href="/criar-impostor" className="game-mode-card impostor">
+                <span className="game-mode-icon">🕵️</span>
+                <span className="game-mode-tag">DEDUÇÃO</span>
+                <strong>Impostor FC</strong>
+                <small>Um não sabe o jogador. Pergunte, desconfie e descubra quem está blefando.</small>
               </Link>
             </div>
           </section>
