@@ -706,7 +706,7 @@ export default function ImpostorGamePage() {
                       <span>RODADA {state.round_no}</span>
                       <h2>
                         {state.phase === "question" && "Hora da pergunta"}
-                        {state.phase === "answering" && "Todo mundo responde"}
+                        {state.phase === "answering" && "Hora de responder"}
                         {state.phase === "rating" && "Avalie as respostas"}
                         {state.phase === "decision" && "Votar ou continuar?"}
                         {state.phase === "elimination" && "Quem é o impostor?"}
@@ -759,7 +759,11 @@ export default function ImpostorGamePage() {
                         <strong>{activeQuestion.question}</strong>
                       </div>
 
-                      {canParticipate ? (
+                      {state.current_questioner_member_id === state.me_member_id ? (
+                        <p className="muted" style={{ textAlign: "center" }}>
+                          Você fez a pergunta. Não precisa responder. Aguarde os outros jogadores.
+                        </p>
+                      ) : canParticipate ? (
                         state.my_answer ? (
                           <div className="impostor-submitted-box">
                             <span>✓</span>
