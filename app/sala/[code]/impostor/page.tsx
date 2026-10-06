@@ -256,6 +256,8 @@ export default function ImpostorGamePage() {
   const [catalog, setCatalog] = useState<SecretPlayer[]>([]);
   const [catalogLoading, setCatalogLoading] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<SecretPlayer | null>(null);
+  const [customPlayerName, setCustomPlayerName] = useState("");
+  const [customPlayerClub, setCustomPlayerClub] = useState("");
   const [hint, setHint] = useState("");
 
   const [questionText, setQuestionText] = useState("");
@@ -389,7 +391,7 @@ export default function ImpostorGamePage() {
   const runoffSet = new Set(state?.runoff_candidates || []);
 
   async function startGame() {
-    if (!room || !selectedPlayer || !hint.trim() || busy) return;
+    if (!room || (!selectedPlayer && !customPlayerName.trim()) || !hint.trim() || busy) return;
 
     setBusy(true);
     setError("");
@@ -399,7 +401,12 @@ export default function ImpostorGamePage() {
         "fa_start_impostor_game",
         {
           p_room_id: room.id,
-          p_catalog_id: selectedPlayer.id,
+          p_catalog_id: selectedPlayer
+            ? selectedPlayer.id
+            : `__custom__${JSON.stringify({
+                name: customPlayerName.trim(),
+                club: customPlayerClub.trim(),
+              })}`,
           p_hint: hint.trim(),
         },
       );
@@ -614,14 +621,51 @@ export default function ImpostorGamePage() {
               </div>
 
               <label className="setup-field">
-                <span>Buscar jogador</span>
+                <span>Buscar jogador ou clube no banco</span>
                 <input
                   className="input"
                   value={catalogSearch}
                   onChange={(event) => setCatalogSearch(event.target.value)}
                   placeholder="Nome, clube ou seleção..."
                 />
+                <small className="field-help">
+                  Você pode escolher qualquer jogador encontrado no banco.
+                </small>
               </label>
+
+              <div className="impostor-custom-player">
+                <div className="impostor-section-heading compact">
+                  <div>
+                    <span>JOGADOR FORA DO BANCO</span>
+                    <h3>Ou escreva qualquer jogador</h3>
+                  </div>
+                  <small>Não precisa existir no catálogo.</small>
+                </div>
+
+                <div style={{ display: "grid", gap: 10, gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)" }}>
+                  <label className="setup-field">
+                    <span>Nome do jogador</span>
+                    <input
+                      className="input"
+                      value={customPlayerName}
+                      onChange={(event) => {
+                        setCustomPlayerName(event.target.value);
+                        if (event.target.value.trim()) setSelectedPlayer(null);
+                      }}
+                      placeholder="Ex.: Yago Guiguis"
+                    />
+                  </label>
+                  <label className="setup-field">
+                    <span>Clube (opcional)</span>
+                    <input
+                      className="input"
+                      value={customPlayerClub}
+                      onChange={(event) => setCustomPlayerClub(event.target.value)}
+                      placeholder="Ex.: Santos"
+                    />
+                  </label>
+                </div>
+              </div>
 
               <div className="impostor-catalog-grid">
                 {catalogLoading && <p className="muted">Buscando jogadores...</p>}
@@ -632,7 +676,11 @@ export default function ImpostorGamePage() {
                       type="button"
                       key={player.id}
                       className={`impostor-catalog-player ${selectedPlayer?.id === player.id ? "selected" : ""} ${cardClass(player)}`}
-                      onClick={() => setSelectedPlayer(player)}
+                      onClick={() => {
+                        setSelectedPlayer(player);
+                        setCustomPlayerName("");
+                        setCustomPlayerClub("");
+                      }}
                     >
                       <PlayerFace name={player.name} imageUrl={player.image_url} size={58} />
                       <span>
@@ -647,18 +695,22 @@ export default function ImpostorGamePage() {
                   ))}
               </div>
 
-              {selectedPlayer && (
+              {(selectedPlayer || customPlayerName.trim()) && (
                 <div className="impostor-selected-secret">
                   <PlayerFace
-                    name={selectedPlayer.name}
-                    imageUrl={selectedPlayer.image_url}
+                    name={selectedPlayer?.name || customPlayerName.trim()}
+                    imageUrl={selectedPlayer?.image_url || null}
                     size={72}
                   />
                   <div>
                     <small>JOGADOR ESCOLHIDO</small>
-                    <strong>{selectedPlayer.name}</strong>
+                    <strong>{selectedPlayer?.name || customPlayerName.trim()}</strong>
                     <span>
-                      {selectedPlayer.primary_position} • {selectedPlayer.overall} GER
+                      {selectedPlayer
+                        ? `${selectedPlayer.primary_position} • ${selectedPlayer.overall} GER`
+                        : customPlayerClub.trim()
+                          ? customPlayerClub.trim()
+                          : "Jogador personalizado"}
                     </span>
                   </div>
                 </div>
@@ -679,7 +731,11 @@ export default function ImpostorGamePage() {
               <button
                 className="btn btn-primary"
                 style={{ width: "100%" }}
-                disabled={busy || !selectedPlayer || hint.trim().length < 2}
+                disabled={
+                  busy ||
+                  (!selectedPlayer && !customPlayerName.trim()) ||
+                  hint.trim().length < 2
+                }
                 onClick={() => void startGame()}
               >
                 {busy ? "Sorteando..." : "Sortear impostor e começar"}
