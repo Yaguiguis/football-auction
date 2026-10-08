@@ -348,3 +348,9 @@ end;
 $function$;
 
 drop function if exists public.fa_impostor_catalog(uuid,text);
+
+
+revoke all on function public.fa_impostor_leagues(uuid) from public,anon;
+revoke all on function public.fa_start_impostor_game(uuid,text[]) from public,anon;
+grant execute on function public.fa_impostor_leagues(uuid) to authenticated;
+grant execute on function public.fa_start_impostor_game(uuid,text[]) to authenticated;
