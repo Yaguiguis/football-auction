@@ -85,6 +85,7 @@ type ImpostorState = {
     | "runoff"
     | "finished";
   round_no?: number;
+  allowed_leagues?: string[];
   role: "admin" | "player" | "spectator" | "impostor" | "innocent" | "eliminated";
   me_member_id?: string;
   secret_player?: SecretPlayer | null;
@@ -170,7 +171,8 @@ function RoleCard({ state }: { state: ImpostorState }) {
         <span className="impostor-role-kicker">MESTRE DA SALA</span>
         <h2>Você está assistindo</h2>
         <p>
-          Você escolheu o jogador e a dica. O servidor sorteou o impostor.
+          Você configurou as ligas. Depois do início, você joga normalmente e não recebe
+          nenhuma informação privilegiada.
         </p>
 
         <div className="impostor-role-details">
@@ -252,13 +254,8 @@ export default function ImpostorGamePage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
-  const [catalogSearch, setCatalogSearch] = useState("");
-  const [catalog, setCatalog] = useState<SecretPlayer[]>([]);
-  const [catalogLoading, setCatalogLoading] = useState(false);
-  const [selectedPlayer, setSelectedPlayer] = useState<SecretPlayer | null>(null);
-  const [customPlayerName, setCustomPlayerName] = useState("");
-  const [customPlayerClub, setCustomPlayerClub] = useState("");
-  const [hint, setHint] = useState("");
+  const [leagues, setLeagues] = useState<string[]>([]);
+  const [selectedLeagues, setSelectedLeagues] = useState<string[]>([]);
 
   const [questionText, setQuestionText] = useState("");
   const [answerText, setAnswerText] = useState("");
@@ -324,30 +321,27 @@ export default function ImpostorGamePage() {
   useEffect(() => {
     if (!room?.id || state?.role !== "admin" || state.has_game) return;
 
-    const timer = window.setTimeout(() => {
-      void (async () => {
-        setCatalogLoading(true);
-        try {
-          const { data, error: catalogError } = await getSupabase().rpc(
-            "fa_impostor_catalog",
-            {
-              p_room_id: room.id,
-              p_search: catalogSearch.trim() || null,
-            },
-          );
+    void (async () => {
+      try {
+        const { data, error: leagueError } = await getSupabase().rpc(
+          "fa_impostor_leagues",
+          { p_room_id: room.id },
+        );
 
-          if (catalogError) throw catalogError;
-          setCatalog((data || []) as SecretPlayer[]);
-        } catch (e) {
-          setError(errorMessage(e));
-        } finally {
-          setCatalogLoading(false);
-        }
-      })();
-    }, 250);
+        if (leagueError) throw leagueError;
 
-    return () => window.clearTimeout(timer);
-  }, [room?.id, state?.role, state?.has_game, catalogSearch]);
+        const nextLeagues = (data || []) as string[];
+        setLeagues(nextLeagues);
+        setSelectedLeagues((current) =>
+          current.length
+            ? current.filter((league) => nextLeagues.includes(league))
+            : nextLeagues,
+        );
+      } catch (e) {
+        setError(errorMessage(e));
+      }
+    })();
+  }, [room?.id, state?.role, state?.has_game]);
 
   const members = state?.members || [];
   const aliveMembers = members.filter((member) => member.alive);
@@ -391,7 +385,7 @@ export default function ImpostorGamePage() {
   const runoffSet = new Set(state?.runoff_candidates || []);
 
   async function startGame() {
-    if (!room || (!selectedPlayer && !customPlayerName.trim()) || !hint.trim() || busy) return;
+    if (!room || selectedLeagues.length === 0 || busy) return;
 
     setBusy(true);
     setError("");
@@ -401,13 +395,7 @@ export default function ImpostorGamePage() {
         "fa_start_impostor_game",
         {
           p_room_id: room.id,
-          p_catalog_id: selectedPlayer
-            ? selectedPlayer.id
-            : `__custom__${JSON.stringify({
-                name: customPlayerName.trim(),
-                club: customPlayerClub.trim(),
-              })}`,
-          p_hint: hint.trim(),
+          p_allowed_leagues: selectedLeagues,
         },
       );
 
@@ -614,131 +602,85 @@ export default function ImpostorGamePage() {
             <section className="card impostor-setup-panel">
               <div className="impostor-section-heading">
                 <div>
-                  <span>CONFIGURAÇÃO DO MESTRE</span>
-                  <h2>Escolha o jogador secreto</h2>
+                  <span>CONFIGURAÇÃO DO ADMINISTRADOR</span>
+                  <h2>Escolha as ligas permitidas</h2>
                 </div>
-                <small>O jogo escolhe o impostor — você não escolhe.</small>
-              </div>
-
-              <label className="setup-field">
-                <span>Buscar jogador ou clube no banco</span>
-                <input
-                  className="input"
-                  value={catalogSearch}
-                  onChange={(event) => setCatalogSearch(event.target.value)}
-                  placeholder="Nome, clube ou seleção..."
-                />
-                <small className="field-help">
-                  Você pode escolher qualquer jogador encontrado no banco.
+                <small>
+                  Você vai jogar também. O banco sorteia o jogador secreto e o impostor.
                 </small>
-              </label>
-
-              <div className="impostor-custom-player">
-                <div className="impostor-section-heading compact">
-                  <div>
-                    <span>JOGADOR FORA DO BANCO</span>
-                    <h3>Ou escreva qualquer jogador</h3>
-                  </div>
-                  <small>Não precisa existir no catálogo.</small>
-                </div>
-
-                <div style={{ display: "grid", gap: 10, gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)" }}>
-                  <label className="setup-field">
-                    <span>Nome do jogador</span>
-                    <input
-                      className="input"
-                      value={customPlayerName}
-                      onChange={(event) => {
-                        setCustomPlayerName(event.target.value);
-                        if (event.target.value.trim()) setSelectedPlayer(null);
-                      }}
-                      placeholder="Ex.: Yago Guiguis"
-                    />
-                  </label>
-                  <label className="setup-field">
-                    <span>Clube (opcional)</span>
-                    <input
-                      className="input"
-                      value={customPlayerClub}
-                      onChange={(event) => setCustomPlayerClub(event.target.value)}
-                      placeholder="Ex.: Santos"
-                    />
-                  </label>
-                </div>
               </div>
 
-              <div className="impostor-catalog-grid">
-                {catalogLoading && <p className="muted">Buscando jogadores...</p>}
+              <p className="muted">
+                O administrador configura apenas as ligas. Depois de iniciar, você vira
+                jogador normal e não verá o jogador secreto.
+              </p>
 
-                {!catalogLoading &&
-                  catalog.map((player) => (
+              <div className="impostor-league-toolbar">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setSelectedLeagues(leagues)}
+                  disabled={busy || leagues.length === 0}
+                >
+                  Selecionar todas
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setSelectedLeagues([])}
+                  disabled={busy || selectedLeagues.length === 0}
+                >
+                  Limpar
+                </button>
+                <span className="badge">
+                  {selectedLeagues.length} de {leagues.length} ligas
+                </span>
+              </div>
+
+              <div className="impostor-league-grid">
+                {leagues.map((league) => {
+                  const checked = selectedLeagues.includes(league);
+
+                  return (
                     <button
                       type="button"
-                      key={player.id}
-                      className={`impostor-catalog-player ${selectedPlayer?.id === player.id ? "selected" : ""} ${cardClass(player)}`}
-                      onClick={() => {
-                        setSelectedPlayer(player);
-                        setCustomPlayerName("");
-                        setCustomPlayerClub("");
-                      }}
+                      key={league}
+                      className={`impostor-league-chip ${checked ? "selected" : ""}`}
+                      onClick={() =>
+                        setSelectedLeagues((current) =>
+                          checked
+                            ? current.filter((item) => item !== league)
+                            : [...current, league],
+                        )
+                      }
+                      disabled={busy}
                     >
-                      <PlayerFace name={player.name} imageUrl={player.image_url} size={58} />
-                      <span>
-                        <CardBadge player={player} />
-                        <strong>{player.name}</strong>
-                        <small>
-                          {player.primary_position} • {player.overall} GER
-                          {player.club ? ` • ${player.club}` : ""}
-                        </small>
-                      </span>
+                      <span>{checked ? "✓" : "○"}</span>
+                      {league}
                     </button>
-                  ))}
+                  );
+                })}
               </div>
 
-              {(selectedPlayer || customPlayerName.trim()) && (
-                <div className="impostor-selected-secret">
-                  <PlayerFace
-                    name={selectedPlayer?.name || customPlayerName.trim()}
-                    imageUrl={selectedPlayer?.image_url || null}
-                    size={72}
-                  />
-                  <div>
-                    <small>JOGADOR ESCOLHIDO</small>
-                    <strong>{selectedPlayer?.name || customPlayerName.trim()}</strong>
-                    <span>
-                      {selectedPlayer
-                        ? `${selectedPlayer.primary_position} • ${selectedPlayer.overall} GER`
-                        : customPlayerClub.trim()
-                          ? customPlayerClub.trim()
-                          : "Jogador personalizado"}
-                    </span>
-                  </div>
-                </div>
+              {leagues.length === 0 && (
+                <p className="muted">Carregando ligas disponíveis...</p>
               )}
 
-              <label className="setup-field">
-                <span>Dica que SOMENTE o impostor vai receber</span>
-                <textarea
-                  className="input impostor-textarea"
-                  value={hint}
-                  maxLength={160}
-                  onChange={(event) => setHint(event.target.value)}
-                  placeholder='Ex.: "Seleção: Brasil" ou "Atua em um clube espanhol"'
-                />
-                <small className="field-help">{hint.length}/160</small>
-              </label>
+              <div className="impostor-setup-note">
+                <strong>🧠 Como funciona</strong>
+                <span>
+                  O servidor escolhe aleatoriamente um jogador das ligas marcadas e gera
+                  uma dica automaticamente com informações do próprio jogador.
+                </span>
+              </div>
 
               <button
                 className="btn btn-primary"
                 style={{ width: "100%" }}
-                disabled={
-                  busy ||
-                  (!selectedPlayer && !customPlayerName.trim()) ||
-                  hint.trim().length < 2
-                }
+                disabled={busy || selectedLeagues.length === 0}
                 onClick={() => void startGame()}
               >
-                {busy ? "Sorteando..." : "Sortear impostor e começar"}
+                {busy ? "Sorteando..." : "Sortear jogador + impostor e começar"}
               </button>
             </section>
           ) : (
@@ -746,12 +688,14 @@ export default function ImpostorGamePage() {
               <span className="impostor-waiting-icon">🕵️</span>
               <h2>O administrador está preparando a partida</h2>
               <p className="muted">
-                Ele está escolhendo o jogador secreto e a dica. O servidor vai sortear o impostor.
+                As ligas serão escolhidas pelo administrador. Depois o servidor sorteia
+                o jogador secreto e o impostor, e você recebe apenas o seu papel.
               </p>
             </section>
           )
         ) : (
           <>
+
             {state && <RoleCard state={state} />}
 
             {state?.status === "playing" && (
