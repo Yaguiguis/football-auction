@@ -176,8 +176,8 @@ function RoleCard({ state }: { state: ImpostorState }) {
         <span className="impostor-role-kicker">MESTRE DA SALA</span>
         <h2>Você está assistindo</h2>
         <p>
-          Você está fora das perguntas e votações. Pode acompanhar as respostas e ver o jogador secreto,
-          a dica enviada ao impostor e a identidade dele quando a partida terminar.
+          Você está fora das perguntas e votações. Pode acompanhar as respostas, conferir o jogador secreto,
+          a dica enviada ao impostor e quem foi sorteado para esse papel.
         </p>
 
         <div className="impostor-role-details">
