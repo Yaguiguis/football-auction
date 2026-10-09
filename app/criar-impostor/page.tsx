@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ensureAnonymousSession, getSupabase } from "../../lib/supabase";
 
@@ -12,9 +12,58 @@ export default function CreateImpostorRoomPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [availableLeagues, setAvailableLeagues] = useState<string[]>([]);
+  const [selectedLeagues, setSelectedLeagues] = useState<string[]>([]);
+  const [leaguesLoading, setLeaguesLoading] = useState(true);
+
+  const allLeaguesSelected =
+    availableLeagues.length > 0 &&
+    selectedLeagues.length === availableLeagues.length;
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadLeagues() {
+      try {
+        await ensureAnonymousSession();
+        const { data, error: rpcError } = await getSupabase().rpc(
+          "fa_available_impostor_leagues",
+        );
+
+        if (rpcError) throw rpcError;
+
+        const leagues = Array.isArray(data)
+          ? data.filter((value): value is string => typeof value === "string")
+          : [];
+
+        if (!active) return;
+        setAvailableLeagues(leagues);
+        setSelectedLeagues(leagues);
+        if (leagues.length === 0) {
+          setError("Não há ligas disponíveis no catálogo.");
+        }
+      } catch (e) {
+        if (active) {
+          setError(e instanceof Error ? e.message : "Não foi possível carregar as ligas.");
+        }
+      } finally {
+        if (active) setLeaguesLoading(false);
+      }
+    }
+
+    void loadLeagues();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   async function createRoom() {
     if (loading) return;
+    if (leaguesLoading) return;
+    if (selectedLeagues.length === 0) {
+      setError("Selecione pelo menos uma liga para o sorteio.");
+      return;
+    }
 
     setLoading(true);
     setError("");
@@ -29,6 +78,7 @@ export default function CreateImpostorRoomPage() {
           p_spectators_allowed: spectatorsAllowed,
           p_password: password.trim() || null,
           p_admin_plays: adminMode === "play",
+          p_allowed_leagues: selectedLeagues,
         },
       );
 
@@ -100,6 +150,77 @@ export default function CreateImpostorRoomPage() {
             </button>
           </div>
 
+          <section className="impostor-league-picker" aria-label="Ligas permitidas no sorteio">
+            <div className="impostor-league-picker-heading">
+              <div>
+                <span>FILTRO DO SORTEIO</span>
+                <h3>Ligas permitidas</h3>
+                <p>
+                  {adminMode === "play"
+                    ? "O jogador secreto será sorteado somente entre as ligas marcadas."
+                    : "A lista de jogadores disponíveis para escolher ficará limitada às ligas marcadas."}
+                </p>
+              </div>
+              <strong>{selectedLeagues.length}/{availableLeagues.length}</strong>
+            </div>
+
+            {leaguesLoading ? (
+              <p className="muted">Carregando ligas do catálogo...</p>
+            ) : (
+              <>
+                <label className={`impostor-league-option all ${allLeaguesSelected ? "selected" : ""}`}>
+                  <input
+                    type="checkbox"
+                    checked={allLeaguesSelected}
+                    onChange={(event) =>
+                      setSelectedLeagues(event.target.checked ? availableLeagues : [])
+                    }
+                  />
+                  <span>
+                    <strong>Todas as ligas</strong>
+                    <small>Permitir qualquer liga disponível no catálogo.</small>
+                  </span>
+                </label>
+
+                <div className="impostor-league-grid">
+                  {availableLeagues.map((league) => {
+                    const selected = selectedLeagues.includes(league);
+                    return (
+                      <label
+                        key={league}
+                        className={`impostor-league-option ${selected ? "selected" : ""}`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selected}
+                          onChange={() =>
+                            setSelectedLeagues((current) =>
+                              current.includes(league)
+                                ? current.filter((item) => item !== league)
+                                : [...current, league],
+                            )
+                          }
+                        />
+                        <span>{league}</span>
+                        <small>{selected ? "✓" : "+"}</small>
+                      </label>
+                    );
+                  })}
+                </div>
+
+                {selectedLeagues.length === 0 && (
+                  <p className="impostor-league-warning">
+                    Marque pelo menos uma liga para criar a sala.
+                  </p>
+                )}
+
+                <p className="impostor-league-help">
+                  Esse filtro vale para o sorteio automático e para a busca no catálogo. Se escolher um jogador manualmente, ele fica fora desse filtro.
+                </p>
+              </>
+            )}
+          </section>
+
           <div className="join-field-stack">
             <label className="setup-field">
               <span>Nome do administrador</span>
@@ -154,7 +275,7 @@ export default function CreateImpostorRoomPage() {
           <button
             className="btn btn-primary setup-create-button"
             type="button"
-            disabled={loading}
+            disabled={loading || leaguesLoading || availableLeagues.length === 0 || selectedLeagues.length === 0}
             onClick={() => void createRoom()}
           >
             {loading ? "Criando..." : "Criar sala do Impostor FC"}
