@@ -4531,3 +4531,132 @@ button.trade-player-card:hover,
     transition:none;
   }
 }
+
+
+/* Impostor FC — league filters on room setup */
+.impostor-league-picker{
+  margin:18px 0;
+  padding:16px;
+  border:1px solid #30243a;
+  border-radius:16px;
+  background:linear-gradient(145deg,rgba(130,70,170,.08),#0a090c 72%);
+}
+.impostor-league-picker-heading{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:14px;
+}
+.impostor-league-picker-heading>div{
+  display:grid;
+  gap:5px;
+  min-width:0;
+}
+.impostor-league-picker-heading>div>span{
+  color:#b78cda;
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:1.6px;
+}
+.impostor-league-picker-heading h3{
+  margin:0;
+  color:#f3eaf9;
+  font-size:18px;
+}
+.impostor-league-picker-heading p{
+  margin:0;
+  color:#9b92a3;
+  font-size:12px;
+  line-height:1.5;
+}
+.impostor-league-picker-heading>strong{
+  flex:0 0 auto;
+  padding:7px 9px;
+  border:1px solid #4c365e;
+  border-radius:999px;
+  background:#160f1c;
+  color:#d3b3ee;
+  font-size:11px;
+  font-variant-numeric:tabular-nums;
+}
+.impostor-league-option{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+  padding:10px 12px;
+  border:1px solid #29232f;
+  border-radius:11px;
+  background:#0b0a0e;
+  color:#dcd3e4;
+  cursor:pointer;
+  transition:border-color .16s ease,background .16s ease;
+}
+.impostor-league-option:hover{
+  border-color:#604773;
+}
+.impostor-league-option.selected{
+  border-color:#684887;
+  background:linear-gradient(90deg,rgba(145,83,188,.13),#0b0a0e 86%);
+}
+.impostor-league-option input{
+  width:16px;
+  height:16px;
+  flex:0 0 auto;
+  accent-color:#b67be2;
+}
+.impostor-league-option>span{
+  min-width:0;
+  flex:1;
+  font-size:12px;
+  font-weight:800;
+}
+.impostor-league-option>small{
+  color:#b88bdb;
+  font-size:13px;
+  font-weight:950;
+}
+.impostor-league-option.all{
+  margin-bottom:10px;
+  border-color:#463353;
+  background:#100c14;
+}
+.impostor-league-option.all>span{
+  display:grid;
+  gap:3px;
+}
+.impostor-league-option.all strong{
+  color:#f1e4fb;
+  font-size:12px;
+}
+.impostor-league-option.all small{
+  color:#95889f;
+  font-size:10px;
+  font-weight:600;
+}
+.impostor-league-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+.impostor-league-warning{
+  margin:10px 0 0;
+  color:#ff8c94;
+  font-size:12px;
+  font-weight:800;
+}
+.impostor-league-help{
+  margin:12px 0 0;
+  color:#847a8d;
+  font-size:10px;
+  line-height:1.5;
+}
+@media(max-width:520px){
+  .impostor-league-picker{
+    padding:12px;
+  }
+  .impostor-league-grid{
+    grid-template-columns:1fr;
+  }
+}
