@@ -132,7 +132,7 @@ export default function CreateImpostorRoomPage() {
               />
               <span className="setup-toggle-copy">
                 <strong>Permitir espectadores extras</strong>
-                <small>O administrador continua sendo espectador de qualquer forma.</small>
+                <small>{adminMode === "watch" ? "Você ficará fora das perguntas e votações." : "Você também entra no sorteio e joga como participante."}</small>
               </span>
               <span className="setup-switch" />
             </label>
