@@ -64,6 +64,7 @@ type TimeState = {
     | "finished";
   round_no?: number;
   role: "admin" | "spectator" | "player" | "innocent" | "impostor" | "eliminated";
+  is_admin?: boolean;
   me_member_id?: string;
   winner_side?: "innocents" | "impostor" | null;
   impostor?: { member_id: string; name: string } | null;
@@ -132,7 +133,8 @@ export default function TimeImpostorPage() {
     if (stateError) throw stateError;
 
     setRoom(typedRoom);
-    setState(stateData as TimeState);
+    const nextState = stateData as TimeState;
+    setState({ ...nextState, role: nextState.is_admin ? "admin" : nextState.role });
     setError("");
   }, [code]);
 
